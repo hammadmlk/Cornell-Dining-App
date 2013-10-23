@@ -1,0 +1,21 @@
+/*
+	@request:ec2-54-200-173-73.us-west-2.compute.amazonaws.com:5000/get_info.json
+	@method:GET
+	@param:"hall_id":int
+*/
+{
+    "hall_id": 0,
+    "menu": [
+        "Sandwich",
+        "Hamberger",
+        "Chicken Salad",
+        "Pepsi Beverages",
+        "Baked Goods",
+        "Contact"
+    ],
+    "Contact": {
+        "phone_number": "6072551879",
+        "location": "Kennedy Hall, Central Campus"
+    }
+}
+	

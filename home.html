@@ -1,0 +1,91 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>Home Page</title> 
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"> 
+</head> 
+<body> 
+  <div data-role="page" id="home" >
+    <div data-role="header" style="text-align:center">
+      <img src="img/iter1/header.png" />
+    </div>
+
+    <div data-role="content"> 
+      <div id="">
+        <img src="img/iter1/Search-Bar.png" alt="" id="search-bar"></div>
+        <div id="icons">
+          <div id="nearme-icon" class="active"></div>
+          <div id="listall-icon"></div>
+          <div id="connect-icon"></div>
+        </div>
+          <div id="nearme">
+            <div style="overflow:hidden">
+        <div id="nearme-title">
+          <img src="img/iter1/opennear-me.png" alt="" id="nearme-title-img"></div>
+          <div id="switch-btn">
+            <p><span id="map-btn" class="black">MAP</span> | <span id="list-btn" class="bigred">LIST</span></p>
+          </div>
+        </div>
+        
+            <div class="list-container">
+              <div ux:data="data{diner}" class="dinner" href="diner.html">
+                <h2 ux:data="data{diner.diner_name}">Diner's name</h2>
+                <p class="dinner-desc" ux:data="data{diner.diner_desc}">Diner</p>
+                <p class="dinner-time" ux:data="data{diner.diner_time}">lunch starts: 30 min</p>
+                <p class="dinner-dist"><strong ux:data="data{diner.diner_distance}">0.3</strong>miles</p>
+              </div>
+<!--
+              <div id="showmore-btn">        
+                <p class="bigred">
+                  show more
+                </p>
+              </div>
+
+              <div class="dinner" href="dinner.html">
+                <h2>Robert Purcell Marketplace Eatery</h2>
+                <p class="dinner-desc">&minus; All Your Care To Eat dining room in Robert Purcell Community Center</p>
+                <p class="dinner-time">lunch starts: 30 min</p>
+                <p class="dinner-dist"><strong>1.4</strong>miles</p>
+              </div>
+            </div>
+-->
+             <!-- end more -->
+
+          </div>
+          <!-- list container -->
+          <div id="map-container" style="display:none">
+           <div id="map-canvas"></div>
+           <div id="fullscreen-btn">
+            <p class="bigred">
+              fullscreen
+            </p></div>
+          </div>
+        </div>
+
+        <div id="all" style="display:none">
+          <div class="list-container" ux:data="data{area}">
+              <div class="campus-section-header">
+                <span class="contractor"> </span>
+                <h1 class="bigred" ux:data="data{area.campus_name}"></h1>
+              </div>
+              <div class="campus-panel">
+              <div ux:data="data{area.diners}" class="dinner" href="diner.html">
+                <h2 ux:data="data{area.diners.diner_name}">Diner name</h2>
+                <p class="dinner-desc" ux:data="data{area.diners.diner_desc}">Diner</p>
+                <p class="dinner-time" ux:data="data{area.diners.diner_time}">lunch starts: 30 min</p>
+                <p class="dinner-dist"><strong ux:data="data{area.diners.diner_distance}">0.3</strong>miles</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /content -->
+    </div><!-- /page -->
+
+
+  </body>
+  </html>

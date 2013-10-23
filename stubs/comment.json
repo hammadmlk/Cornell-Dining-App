@@ -1,0 +1,8 @@
+/*
+	@request:ec2-54-200-173-73.us-west-2.compute.amazonaws.com:5000/get_info.json
+	@method:POST
+	@param:"facility":string "netID":string "comment":string
+*/
+{
+	"status":200
+}

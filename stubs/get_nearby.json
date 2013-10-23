@@ -1,0 +1,56 @@
+/*
+	
+	@request:ec2-54-200-173-73.us-west-2.compute.amazonaws.com:5000/get_nearby.json
+	@method:GET
+	@param: longitude:float latitude:float
+*/
+[
+    {
+        "diner_id": 0,
+        "diner_name": "Bear Necessities",
+        "diner_desc": "- A convenience store & grill in Robert Purcell",
+        "close_at": "2013-10-14T14:00:00",
+        "is_open": 1,
+        "diner_location": {
+            "longitude": 42.44787,
+            "latitude": -76.47404
+        },
+        "diner_distance": 0.3
+    },
+    {
+        "diner_id": 1,
+        "diner_name": "Carol's café",
+        "diner_desc": "- A café in Balch Hall",
+        "close_at": "2013-10-14T14:00:00",
+        "is_open": 1,
+        "location": {
+            "longitude": 42.44757,
+            "latitude": -76.47204
+        },
+        "diner_distance": 0.5
+    },
+    {
+        "diner_id": 2,
+        "diner_name": "North Star Dining Room",
+        "diner_desc": "- All Your Care To Eat dining room in Appel Commons",
+        "close_at": "2013-10-14T14:00:00",
+        "is_open": 1,
+        "location": {
+            "longitude": 42.44689,
+            "latitude": -76.47524
+        },
+        "diner_distance": 0.6
+    },
+    {
+        "diner_id": 3,
+        "diner_name": "Robert Purcell Marketplace Eatery",
+        "diner_desc": "- All Your Care To Eat dining room in Robert Purcell Community Center",
+        "close_at": "2013-10-14T14:00:00",
+        "is_open": 1,
+        "location": {
+            "longitude": 42.44689,
+            "latitude": -76.47524
+        },
+        "diner_distance": 0.7
+    }
+]
