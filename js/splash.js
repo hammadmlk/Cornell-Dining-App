@@ -1,7 +1,7 @@
 $.mobile.page.prototype.options.domCache = true;
 
 var cd = {};
-cd.splashTimeSpan = 300;
+cd.splashTimeSpan = 4000;
 cd.TIME_OUT_INTERVAL = 50;
 cd.verbose = true;
 cd.home = {
@@ -460,7 +460,18 @@ $('body').on('submit', '#search-bar', function(event){
 $(document).on('pageshow', '#diner', function() {
   // if (cd.diner.init) return;
   // cd.diner.init = true;
-
+	
+  console.log("HAMMAD")		; 
+  $("#slider").owlCarousel({		 
+	  //autoPlay: 3000, //Set AutoPlay to 3 seconds
+	  pagination: false,
+	  //items : 4,
+	  //itemsDesktop : [1199,3],
+	  //itemsDesktopSmall : [979,3]
+ 
+  });
+		 
+	
   if (cd.verbose) console.log("page diner shown");
   setDinerData();
   // dinnerName = dinnerName ? dinnerName : "Dinner";
