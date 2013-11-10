@@ -9,12 +9,12 @@
   <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"> 
 </head> 
 <body> 
-	<div data-role="page" id="diner" data-add-back-btn="true" data-theme="a">
+	<div data-role="page" id="diner" data-dom-cache="false" data-add-back-btn="true" data-theme="a">
    <div data-role="header">
     <h1>Dinner</h1>
   </div>
   <div data-role="content"> 
-    <h2 style="padding: 0 25px; color: black; text-shadow: none;" class="desc">foo</h2>
+    <p style="padding: 0 25px;" ux:data="data{diner.description}" class="desc no-text-shadow ">Description</h2>
 
     <ul data-theme="d" data-role="listview" data-inset="true" data-divider-theme="d">
       <li data-role="list-divider">Hours</li>
@@ -28,15 +28,15 @@
     </ul>
 
     <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="a">
-      <li data-role="list-divider">Menu</li>
+      <li data-role="list-divider">Today's Menu</li>
       <li><a data-transition="slide" href="menu.html">Breakfast Menu</a></li>
       <li><a data-transition="slide" href="menu.html">Lunch Menu</a></li>
       <li><a data-transition="slide" href="menu.html">Dinner Menu</a></li>
     </ul>
     <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="a">
       <li data-role="list-divider">Contact</li>
-      <li><a style="text-shadow:none" href="tel:6072551879">(607) 255-1879</a></li>
-      <li><a href="#">Kennedy Hall, Central Campus</a></li>
+      <li><a style="text-shadow:none" href="tel:" ux:data="data{diner.Contact._href@href;diner.Contact._phone_number}"></a></li>
+      <li><a href="#" ux:data="data{diner.Contact.location}">Kennedy Hall, Central Campus</a></li>
     </ul>
   </div><!-- /content -->
 </div><!-- /page -->

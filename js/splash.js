@@ -1,120 +1,233 @@
+$.mobile.page.prototype.options.domCache = true;
+
 var cd = {};
-cd.splashTimeSpan = 2000;
+cd.splashTimeSpan = 300;
+cd.TIME_OUT_INTERVAL = 50;
+cd.verbose = true;
+cd.home = {
+  init: false
+};
+cd.diner = {
+  currentDinerId: null, // id of the diner that is about to be shown or showing
+  cacheMap : []
+};
+cd.nutrition = {
+  init: false
+};
+cd.connect = {
+  init: false
+};
 
-$(function(){
+$(function() {
   document.addEventListener("deviceready", onDeviceReady, false);
-})
 
-function onDeviceReady() {
-  navigator.geolocation.getCurrentPosition(onSuccess, onError);     
+  function onDeviceReady() {
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  }
+
+  function onSuccess(position) {
+    if (cd.verbose) console.log("location is ", position);
+    cd.position = position;
+    cd.latitude = cd.position.coords.latitude;
+    cd.longitude = cd.position.coords.longitude;
+  }
+
+  function onError(error) {
+    console.log(error);
+  }
+
+});
+
+//return distance between two points in miles
+function calcDistance(la1,lo1,la2,lo2){
+  return google.maps.geometry.spherical.computeDistanceBetween(
+    new google.maps.LatLng(la1,lo1), new google.maps.LatLng(la2, lo2)
+    ) * 0.000621371;
 }
 
-function onSuccess(position) {
-  // your callback here 
-  console.log("location is ", position);
-  cd.position = position;
-  cd.latitude = cd.position.coords.latitude;
-  cd.longitude = cd.position.coords.longitude;
+function calcDistanceToMe(dest_la, dest_lo){
+  return calcDistance(cd.latitude, cd.longitude, dest_la, dest_lo).toFixed(2);
 }
 
-function onError(error) { 
-  // your callback here
-  console.log(error);
+function addLoadingMask($obj){
+  console.log('addLoadingMask' , $obj);
+  $mask = $obj.children('.mask');
+  if($mask.length === 0){
+    $mask = ($(document.createElement('div'))).prependTo($obj);
+  }
+  $mask.addClass("loading mask");
+  $obj.children().not('.mask').addClass('opac');
+  styleMask($obj, $mask);
 }
 
-function getNearByLocation(){
-  if(!cd.position){
-    setTimeout(getNearByLocation, 100);
+function styleMask($obj, $mask){
+  console.log('styleMask' , $obj);
+  if($obj.width() === 0){
+    //$obj not rendered yet
+    setTimeout( function(){
+      styleMask($obj, $mask)
+    }, cd.TIME_OUT_INTERVAL);
+    return;
+  }
+  setTimeout(function(){
+    var maskHeight = 0;
+    if(($obj.height() +$obj.offset().top > window.innerHeight) || !$obj.height()){
+      // debugger;
+      maskHeight = window.innerHeight - $obj.offset().top;
+      console.log('1st', "innerheight : " + window.innerHeight, "top : "+$obj.offset().top, $obj);
+    }else{
+      maskHeight =$obj.height();
+    } 
+    console.log("mask height", maskHeight);
+    $mask.css('height', maskHeight);
+    $mask.fadeIn();
+  }, 300);
+}
+
+function removeLoadingMask($obj){
+  $obj.children('.mask').removeClass('loading');
+  $obj.children().removeClass('opac');
+  $obj.children('.mask').hide();
+}
+
+function getNearByLocation(usingCache) {
+  addLoadingMask($('#nearme .list-container'));
+
+  if (!cd.position) {
+    setTimeout(getNearByLocation, cd.TIME_OUT_INTERVAL);
+    return;
+  }
+  if (usingCache) {
+    setNearByData();
     return;
   }
   sendRequest({
-    "uri":"get_nearby.json",
-    "method" : "GET",
-    "data" : {
+    "uri": "get_nearby.json",
+    "method": "GET",
+    "data": {
       longitude: cd.longitude,
       latitude: cd.latitude
     }
-  }, function(ret){
-    cd.diners = ret;
-    console.log(cd.diners);
-    $('#nearme .list-container [ux\\:data^="data{diner"]').setData({
-      diner: cd.diners
+  }, function(ret) {
+    $.each(ret, function(index,diner){
+      diner.diner_location.latitude = parseFloat(diner.diner_location.latitude, 10);
+      diner.diner_location.longitude = parseFloat(diner.diner_location.longitude, 10);
+      diner._diner_distance = calcDistanceToMe(diner.diner_location.latitude, diner.diner_location.longitude);
+      // console.log(index,diner)}
     });
+    cd.nearbyDiners = ret;
+    setNearByData();
+    removeLoadingMask($('#nearme .list-container'));
   });
 }
 
-function getAllDiners(){
+function setNearByData() {
+  $('#nearme .list-container [ux\\:data^="data{diner"]').setData({
+    diner: cd.nearbyDiners
+  });
+}
+
+function getAllDiners(usingCache) {
+  $('#all').addClass('loading');
+  if (!cd.position) {
+    setTimeout(getAllDiners, cd.TIME_OUT_INTERVAL);
+    return;
+  }
+  if (usingCache) {
+    setAllDinersData();
+    return;
+  }
+
   sendRequest({
-    "uri":"get_all_diners.json",
-    "method" : "GET",
-  }, function(ret){
-    $('#all [ux\\:data^="data{area"]').setData({
-      area: ret
+    "uri": "get_all_diners.json",
+    "method": "GET",
+    "data": {
+      longitude: cd.longitude,
+      latitude: cd.latitude
+    }
+  }, function(ret) {
+    $.each(ret, function(index,area){
+      $.each(area.diners, function(i, diner){
+        diner._diner_distance = calcDistanceToMe(diner.diner_location.latitude, diner.diner_location.longitude);
+        diner._diner_time = calcTime(diner);
+      });
     });
+    cd.allDiners = ret;
+    setAllDinersData();
+    $('#all').removeClass('loading');
   });
 }
 
-$(document).on('pageinit','#splash',function(){ 
-  setTimeout(function(){
+//return "close in"+ hours:mins:secs or "open in" +hours:mins:secs, depending on the open status
+function calcTime(diner){
+  var currentTime = new Date();
+  if(diner.isOpen){
+    return "open at "+diner.close_at.substring(11);
+  }else{
+    return "close at "+diner.close_at.substring(11);
+  }
+}
+
+function setAllDinersData() {
+  $('#all [ux\\:data^="data{area"]').setData({
+    area: cd.allDiners
+  });
+}
+
+function searchFood(keyWord){
+  cd.keyWord = keyWord;
+  sendRequest({
+    "uri": "search.json",
+    "method": "GET",
+    "data": {
+      key_word: keyWord,
+      longitude: cd.longitude,
+      latitude: cd.latitude
+    }
+  }, function(ret, res) {
+    if(cd.keyWord === keyWord){
+      $.each(ret, function(i, diner){
+        diner._diner_distance = calcDistanceToMe(diner.diner_location.latitude, diner.diner_location.longitude);
+      });
+      cd.result = ret;
+    }
+  });
+  $.mobile.changePage("result.html", {
+    transition: "slide"
+  });
+}
+
+//bind event for page splash
+$(document).on('pageinit', '#splash', function() {
+  if (cd.verbose) console.log("page splash inited");
+  setTimeout(function() {
     $.mobile.changePage("home.html", {
-     transition:"slideup"
-   });
+      transition: "slideup"
+    });
   }, cd.splashTimeSpan);
-  $('body').on('tap', '.dinner', function(){
-    event.preventDefault();
-    dinnerName = $(this).find('h2').text();
-    dinnerDesc = $(this).find('.dinner-desc').text();
-    $.mobile.changePage("diner.html", {
-     transition: "slide"
-   });
-  });
-  $('body').on('tap', '.map-diner', function(){
-    event.preventDefault();
-    dinnerName = $(this).find('.map-dinner-name').text();
-    dinnerDesc = $(this).find('#bodyContent').text();
-    $.mobile.changePage("diner.html", {
-     transition: "slide"
-   });
-  });
+});
 
-  $('body').on('tap', '#search-bar', function(){
-    alert("Search function not implemented yet.");
-  });
+//init page home
+$(document).on('pageinit', '#home', function() {
+  var useCache = false;
+  if (cd.home.init) {
+    //use cache
+    useCache = true;
+    getNearByLocation(useCache);
+    getAllDiners(useCache);
+    return;
+  }
+  cd.home.init = true;
+  if (cd.verbose) console.log("home page inited");
 
-  $('body').on('tap', '#listall-icon', function(){
-    $(this).siblings().removeClass('active');
-    $(this).addClass('active');
-    $("#nearme").fadeOut(400, function(){
-      $("#all").fadeIn(); 
-    });
-  });
+  $.mobile.loadPage( "diner.html", { showLoadMsg: false } );
 
-  $('body').on('tap', '#nearme-icon', function(){
-    $(this).siblings().removeClass('active');
-    $(this).addClass('active');
-    $("#all").fadeOut(400, function(){
-      $("#nearme").fadeIn();
-    });
-  });
+  //load data
+  getNearByLocation(useCache);
+  getAllDiners(useCache);
 
-  $('body').on('tap', '#connect-icon', function(){
-    $.mobile.changePage("connect.html", {
-     transition: "slide"
-   });
-  });
-
-  $('body').on('tap', '#fullscreen-btn', function(){
-    alert("Full screen the map.");
-  });
-
-
-  $('body').on('tap', '#showmore-btn', function(){
-    $(this).fadeOut();
-    $('#more-dinner').slideDown();
-  });
-  
-  function initialize() {
-    setTimeout(function(){
+  function initMap() {
+    setTimeout(function() {
       console.log("map initialized");
       //TODO: Cached or hard-wired data in case network fail
       $('#map-container').show();
@@ -126,7 +239,6 @@ $(document).on('pageinit','#splash',function(){
       var map = new google.maps.Map(document.getElementById("map-canvas"),
         mapOptions);
       map.bounds = new google.maps.LatLngBounds();
-      
 
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(cd.latitude, cd.longitude),
@@ -136,138 +248,252 @@ $(document).on('pageinit','#splash',function(){
       });
       map.bounds.extend(new google.maps.LatLng(cd.latitude, cd.longitude));
 
-      var diners =[];
-      var i =0;
-      for(;i< cd.diners.length; i++){
-        var diner = cd.diners[i];
-        console.log(diner, diner.diner_location);
+      var diners = [];
+      var i = 0;
+      for (; i < cd.nearbyDiners.length; i++) {
+        var diner = cd.nearbyDiners[i];
+        // console.log(diner, diner.diner_location);
         diners.push({
-          name : diner.diner_name, 
-          longitude : diner.diner_location.longitude,
-          latitude : diner.diner_location.latitude,
-          zIndex : i,
-          desc : diner.diner_desc
+          name: diner.diner_name,
+          longitude: diner.diner_location.longitude,
+          latitude: diner.diner_location.latitude,
+          zIndex: i,
+          desc: diner.diner_desc
         });
       }
       setMarkers(map, diners);
       cd.map = map;
-    },50);
+    }, cd.TIME_OUT_INTERVAL);
 }
 var mapInited = false;
 
-/**
- * Data for the markers consisting of a name, a LatLng and a zIndex for
- * the order in which these markers should display on top of each
- * other.
- */
+  /**
+   * Data for the markers consisting of a name, a LatLng and a zIndex for
+   * the order in which these markers should display on top of each
+   * other.
+   */
 
- var infoWindows =[];
- var infoWindow;
- function setMarkers(map, locations) {
-  // Add markers to the map
-  for (var i = 0; i < locations.length; i++) {
-    var diner = locations[i];
-    var myLatLng = new google.maps.LatLng(diner.longitude, diner.latitude);
-    var marker = new google.maps.Marker({
-      position: myLatLng,
-      map: map,
-      title: diner.name,
-      zIndex: diner.zIndex
-    });
-    map.bounds.extend(myLatLng);
-    marker.infoWindow = getInfoWindow(diner);
-    infoWindows.push(marker.infoWindow);
-    google.maps.event.addListener(marker, 'click', function() {
-      for (var i = 0; i < infoWindows.length; i++) {
-        infoWindows[i].close();
-      }
-      this.infoWindow.open(map, this);
-    });
-  }
-  map.fitBounds(map.bounds);
-}
+   var infoWindows = [];
+   var infoWindow;
 
-function getInfoWindow(diner){
-  var contentString = '<div class="map-diner" id="content">'+
-  '<h1 id="firstHeading" class="firstHeading bigred map-dinner-name">'+diner.name+'</h1>'+
-  '<div id="bodyContent">'+
-  '<p>'+diner.desc+'</p>'+
-  '<p class="bigred">Open details</p>'
-  '</div>'+
-  '</div>';
-  var maxWidth = $('#map-canvas').width() -80;
-  // console.log(maxWidth);
-  var infowindow = new google.maps.InfoWindow({
-    content: contentString,
-    maxWidth: maxWidth
-  });
-  return infowindow;
-}
-
-
-
-$('body').on('tap', '#switch-btn', function(){
-  var mapBtn = $(this).find('#map-btn');
-  var listBtn = $(this).find('#list-btn');
-  if (mapBtn.hasClass("bigred")){
-        //to list
-        listBtn.removeClass("black").addClass("bigred");
-        mapBtn.removeClass("bigred").addClass("black");
-        $('#nearme .list-container').fadeIn();
-        $('#map-container').fadeOut();
-      }else{
-        //to map
-        mapBtn.removeClass("black").addClass("bigred");
-        listBtn.removeClass("bigred").addClass("black");  
-        $('#nearme .list-container').fadeOut();
-        $('#map-container').fadeIn();
-        if(!mapInited){
-          initialize();
+   function setMarkers(map, locations) {
+    // Add markers to the map
+    for (var i = 0; i < locations.length; i++) {
+      var diner = locations[i];
+      var myLatLng = new google.maps.LatLng(diner.latitude, diner.longitude);
+      var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: diner.name,
+        zIndex: diner.zIndex
+      });
+      map.bounds.extend(myLatLng);
+      marker.infoWindow = getInfoWindow(diner);
+      infoWindows.push(marker.infoWindow);
+      google.maps.event.addListener(marker, 'click', function() {
+        for (var i = 0; i < infoWindows.length; i++) {
+          infoWindows[i].close();
         }
-      }
+        this.infoWindow.open(map, this);
+      });
+      console.log(diner.latitude, diner.longitude);
+    }
+    map.fitBounds(map.bounds);
+  }
+
+  function getInfoWindow(diner) {
+    var contentString = '<div class="map-diner" id="content">' +
+    '<h1 id="firstHeading" class="firstHeading bigred map-dinner-name">' + diner.name + '</h1>' +
+    '<div id="bodyContent">' +
+    '<p>' + diner.desc + '</p>' +
+    '<p class="bigred">Open details</p>'
+    '</div>' +
+    '</div>';
+    var maxWidth = $('#map-canvas').width() - 80;
+    // console.log(maxWidth);
+    var infowindow = new google.maps.InfoWindow({
+      content: contentString,
+      maxWidth: maxWidth
+    });
+    return infowindow;
+  }
+
+  //bind events
+  $('body').on('tap', '.dinner', function() {
+    event.preventDefault();
+    //goes to a specific diner page at diner.html
+    
+    //see function setDinerData
+    
+    dinnerName = $(this).find('h2').text();
+    dinnerDesc = $(this).find('.dinner-desc').text();
+    dinnerName = dinnerName ? dinnerName : "Dinner";
+
+    $('[data-role=page]#diner .ui-title').text(dinnerName);
+    // $('[data-role=page]#diner .desc').text(dinnerDesc);
+    // 
+    addLoadingMask($('[data-role="page"]#diner div[data-role="content"]'));
+
+    var dinerId = $(this).attr("data-diner-id");
+    cd.diner.currentDinerId = dinerId;
+    if (!cd.diner.cacheMap[dinerId]){
+      sendRequest({
+        "uri": "get_info.json",
+        "method": "GET",
+        "data": {
+          diner_id : dinerId
+        }
+      }, function(ret) {
+        console.log(ret);
+        var pNumber = ret.Contact.phone_number;
+
+        ret.Contact._href="tel:"+pNumber;
+        ret.Contact._phone_number= "("+pNumber.substring(0,3)+") "+pNumber.substring(3,6) + "-" + pNumber.substring(6); 
+        cd.diner.cacheMap[dinerId] = ret;
+      });
+    }
+    
+    $.mobile.changePage("diner.html", {
+      transition: "slide"
     });
 
-$('body').on('tap', '.menu-item', function(){
+  });
+
+$('body').on('tap', '.map-diner', function() {
   event.preventDefault();
-  menuItem = $(this).text();
-  $.mobile.changePage("nutrition.html", {
-   transition: "slide"
- });
+  dinnerName = $(this).find('.map-dinner-name').text();
+  dinnerDesc = $(this).find('#bodyContent').text();
+  $.mobile.changePage("diner.html", {
+    transition: "slide"
+  });
 });
 
+$('body').on('focus', '#search-bar', function() {
+  $('#search-bar').addClass('focus');
+});
 
-$('body').on('tap', '.campus-section-header', function(){
+$('body').on('blur', '#search-bar', function() {
+  $('#search-bar').removeClass('focus');
+});
+
+$('body').on('tap', '#listall-icon', function() {
+  $(this).siblings().removeClass('active');
+  $(this).addClass('active');
+  $("#nearme").fadeOut(400, function() {
+    $("#all").fadeIn();
+  });
+});
+
+$('body').on('tap', '#nearme-icon', function() {
+  $(this).siblings().removeClass('active');
+  $(this).addClass('active');
+  $("#all").fadeOut(400, function() {
+    $("#nearme").fadeIn();
+  });
+});
+
+$('body').on('tap', '#connect-icon', function() {
+  $.mobile.changePage("connect.html", {
+    transition: "slide"
+  });
+});
+
+$('body').on('tap', '#fullscreen-btn', function() {
+  alert("Full screen the map.");
+});
+
+$('body').on('tap', '#showmore-btn', function() {
+  $(this).fadeOut();
+  $('#more-dinner').slideDown();
+});
+
+$('body').on('tap', '#switch-btn', function() {
+  var mapBtn = $(this).find('#map-btn');
+  var listBtn = $(this).find('#list-btn');
+  if (mapBtn.hasClass("bigred")) {
+      //to list
+      listBtn.removeClass("black").addClass("bigred");
+      mapBtn.removeClass("bigred").addClass("black");
+      $('#nearme .list-container').fadeIn();
+      $('#map-container').fadeOut();
+    } else {
+      //to map
+      mapBtn.removeClass("black").addClass("bigred");
+      listBtn.removeClass("bigred").addClass("black");
+      $('#nearme .list-container').fadeOut();
+      $('#map-container').fadeIn();
+      if (!mapInited) {
+        initMap();
+      }
+    }
+  });
+
+$('body').on('tap', '.menu-diner', function() {
+  event.preventDefault();
+  menudiner = $(this).text();
+  $.mobile.changePage("nutrition.html", {
+    transition: "slide"
+  });
+});
+
+$('body').on('tap', '.campus-section-header', function() {
+  if (cd.verbose) console.log('campus section header taped');
   event.preventDefault();
   var contractor = $(this).find(".contractor");
   contractor.toggleClass('contracted');
-  if(contractor.hasClass('contracted')){
+  if (contractor.hasClass('contracted')) {
     $(this).siblings('.campus-panel').slideUp();
-  }else{
+  } else {
     $(this).siblings('.campus-panel').slideDown();
   }
 });
 
+$('body').on('submit', '#search-bar', function(event){
+  searchFood($(this).find('input').val()); 
+  event.preventDefault();
+  return false;
 });
 
-$(document).on('pageinit', '#home', function(){
-  console.log("home page inited");
-  getNearByLocation();
-  getAllDiners();
 });
 
-$(document).on('pageinit', '#diner', function(){
-	dinnerName = dinnerName ? dinnerName:"Dinner";
-  $('.ui-title').text(dinnerName);
-  $('.desc').text(dinnerDesc);    
+//bind events for page diner
+$(document).on('pageshow', '#diner', function() {
+  // if (cd.diner.init) return;
+  // cd.diner.init = true;
+
+  if (cd.verbose) console.log("page diner shown");
+  setDinerData();
+  // dinnerName = dinnerName ? dinnerName : "Dinner";
+  // $('.ui-title').text(dinnerName);
+  // $('.desc').text(dinnerDesc);
+
+});
+function setDinerData(){
+  if(!cd.diner.cacheMap[cd.diner.currentDinerId]){
+    setTimeout(setDinerData, cd.TIME_OUT_INTERVAL);
+    return; 
+  }
+  console.log('set diner data', cd.diner.cacheMap[cd.diner.currentDinerId]);
+  $('#diner [ux\\:data^="data{diner"]').setData({
+    diner: cd.diner.cacheMap[cd.diner.currentDinerId]
+  });
+  removeLoadingMask($('[data-role="page"]#diner div[data-role="content"]'));
+}
+
+
+//bind events for page nutrition
+$(document).on('pageinit', '#nutrition', function() {
+  if (cd.nutrition.init) return;
+  cd.nutrition.init = true;
+  if (cd.verbose) console.log("page nutrition inited");
+  $('h2.diner').text(menudiner);
 });
 
-$(document).on('pageinit', '#nutrition', function(){
-  $('h2.item').text(menuItem);    
-});
-
-
-$(document).on('pageinit', '#connect', function(){
-  $('form').validate({
+//bind events for page connect
+$(document).on('pageinit', '#connect', function() {
+  if (cd.connect.init) return;
+  cd.connect.init = true;
+  $('form#connect').validate({
     rules: {
       netid: {
         required: true
@@ -276,12 +502,37 @@ $(document).on('pageinit', '#connect', function(){
         required: true
       }
     },
-    submitHandler : function(form) {
+    submitHandler: function(form) {
       // form.submit();
-      console.log("validate after");
-      $( "#popupDialog" ).popup();
-      $( "#popupDialog" ).popup("open");
+      if (cd.verbose) console.log("validate after");
+      $("#popupDialog").popup();
+      $("#popupDialog").popup("open");
       return false;
     }
   });
+});
+
+//search
+function setSearchResult(){
+  if(!cd.result) {
+    setTimeout(setSearchResult, cd.TIME_OUT_INTERVAL);
+    return;
+  }
+  if(cd.result.length !== 0){
+    $('#result [ux\\:data^="data{diner"]').setData({
+      diner: cd.result
+    });
+  }else{
+    $('#result h2').hide();
+    $('#result .prompt').show();
+  }
+  delete cd.result;
+  removeLoadingMask($('#result .list-container'));
+}
+
+$(document).on('pageshow', '#result', function() {
+  console.log("showing result page");
+  $('#result .keyword').text(cd.keyWord);
+  addLoadingMask($('#result .list-container'));
+  setSearchResult();
 });

@@ -1,0 +1,31 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>Home Page</title> 
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"> 
+</head> 
+<body> 
+  <div data-role="page" data-dom-cache="false" id="result" data-add-back-btn="true" data-theme="a">
+   <div data-role="header">
+    <h1>Search Result</h1>
+  </div>
+  <div data-role="content"> 
+    <h3 class="bigred no-text-shadow"> Results related to <span class="keyword"></span>:</h3>
+    <h3 style="display:none" class="no-text-shadow prompt bigred"> No results found for keyword <span class="keyword"></span></h3>
+    
+    <div class="list-container">
+      <div ux:data="data{diner;diner.diner_id@data-diner-id}" class="dinner" href="diner.html" style="display:none">
+        <h2 ux:data="data{diner.diner_name}">Diner's name</h2>
+        <p class="dinner-desc" ux:data="data{diner.diner_desc}">Diner</p>
+        <p class="dinner-time" ux:data="data{diner.diner_time}">lunch starts: 30 min</p>
+        <p class="dinner-dist"><strong ux:data="data{diner._diner_distance}">0.3</strong>miles</p>
+      </div>
+    </div>
+  </div><!-- /content -->
+</div><!-- /page -->
+
+
+</body>
+</html>

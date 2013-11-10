@@ -1,4 +1,3 @@
-console.log("set data");
 /**
  * Usage:
  * In HTML markup, add ATTRIBUTE="data{query[@attribute][;query[@attribute][;...]]}" to elements;
