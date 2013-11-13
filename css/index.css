@@ -677,10 +677,57 @@ label.error {
  #diner .desc{
   font-size: 16px;
   /*max-height: 150px;*/
-  min-height: 150px;
+  min-height: 50px;
   line-height: 20px;
   color: black;
   text-overflow: ellipsis;
   overflow: hidden;
   /*white-space: nowrap;*/
+}
+
+#diner .today-menus{
+  margin: 35px 0 ;
+  list-style: none;
+  padding: 0;
+}
+
+#diner .menu {
+  background-color: #d1d2d4;
+  width : 100%;
+  position: relative;
+  margin: 15px 0;
+  height: 45px;
+}
+
+/* grey bg color #d1d2d4 */
+
+#diner .menu .arrow-right{
+  position: absolute;
+  right: 15px;
+  width : 36px;
+  height: 88%;
+  border-left: 2px red solid;
+  top: 3px;
+  background: url("../img/iter1/arrow-right.png") no-repeat center right 0px;
+}
+
+#diner .menu a{
+  color : #ed1c24;
+  padding: 0.7em 15px;
+  text-decoration : none !important;
+  display: block;
+  position: absolute;
+  width: 100%;
+  z-index: 2;
+}
+#diner .menu .highlight{
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 0 1px 0  #ffffff;
+}
+#diner .menu .medium{
+  font-size: 16px;
+  text-shadow: 0 1px 0  #ffffff;
+  display: block;
+  padding-top: 0.45em;
 }

@@ -30,7 +30,7 @@
   
 </head> 
 <body> 
-	<div data-role="page" id="diner" data-dom-cache="false" data-add-back-btn="true" data-theme="a">
+	<div data-role="page" id="diner" data-dom-cache="true" data-add-back-btn="true" data-theme="a">
    <div data-role="header">
     <h1>Dinner</h1>
   </div>
@@ -56,15 +56,31 @@
       <li>Saturday, 12:00pm - 6:00pm</li>
     </ul>
 
-    <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="a">
-      <li data-role="list-divider">Today's Menu</li>
-      <li class="menu" ux:data="data{diner.menu}"><a data-transition="slide" href="menu.html" ux:data="data{diner.menu.meal}">Breakfast Menu</a></li>
+    <ul data-role="none" class="no-text-shadow today-menus">
+    <h2 class="bigred">Today's Menu</h2>
+      <!-- <li >Today's Menu</li> -->
+      <li class="menu" ux:data="data{diner.menu}">
+        <a data-transition="slide" href="menu.html"> <span ux:data="data{diner.menu.meal}" class="highlight">Breakfast</span>menuToday</a>
+        <div class="arrow-right"></div>
+      </li>
     </ul>
-    <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="a">
+
+    <ul data-role="none" class="no-text-shadow today-menus">
+    <h2 class="bigred">Contact Info</h2>
+      <li class="menu">
+        <a href="tel:"><span ux:data="data{diner.Contact._href@href;diner.Contact._phone_number}" class="medium"></span></a>
+        <div class="arrow-right"></div>
+      </li>
+      <li class="menu" ><a href="#" > <span ux:data="data{diner.Contact.location}" class="medium">dummy add</span> </a>
+        <div class="arrow-right"></div>
+      </li>
+    </ul>
+
+    <!-- <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="a">
       <li data-role="list-divider">Contact</li>
       <li><a style="text-shadow:none" href="tel:" ux:data="data{diner.Contact._href@href;diner.Contact._phone_number}"></a></li>
       <li><a href="#" ux:data="data{diner.Contact.location}">Kennedy Hall, Central Campus</a></li>
-    </ul>	
+    </ul> -->	
   </div><!-- /content -->
 </div><!-- /page -->
 </body>

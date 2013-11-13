@@ -324,6 +324,7 @@ var mapInited = false;
   }
 
   //bind events
+  // this direct to a diner hall page
   $('body').on('tap', '.dinner', function() {
     event.preventDefault();
     //goes to a specific diner page at diner.html
@@ -332,6 +333,7 @@ var mapInited = false;
     
     dinnerName = $(this).find('h2').text();
     dinnerDesc = $(this).find('.dinner-desc').text();
+    
     dinnerName = dinnerName ? dinnerName : "Dinner";
 
     $('[data-role=page]#diner .ui-title').text(dinnerName);
@@ -479,7 +481,6 @@ $('body').on('tap', '.menu', function() {
 
 //bind events for page diner
 $(document).on('pageshow', '#diner', function() {
-<<<<<<< HEAD
   // if (cd.diner.init) return;
   // cd.diner.init = true;
 	
@@ -490,12 +491,8 @@ $(document).on('pageshow', '#diner', function() {
 	  //items : 4,
 	  //itemsDesktop : [1199,3],
 	  //itemsDesktopSmall : [979,3]
- 
   });
-		 
-	
-=======
->>>>>>> Connect and diner
+
   if (cd.verbose) console.log("page diner shown");
   setDinerData();
   // dinnerName = dinnerName ? dinnerName : "Dinner";
@@ -504,9 +501,6 @@ $(document).on('pageshow', '#diner', function() {
   // 
   // if (cd.diner.init) return;
   // cd.diner.init = true;
-  
-
-
 });
 function setDinerData(){
   if(!cd.diner.cacheMap[cd.diner.currentDinerId]){
