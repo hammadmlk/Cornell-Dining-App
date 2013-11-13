@@ -58,9 +58,7 @@
 
     <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="a">
       <li data-role="list-divider">Today's Menu</li>
-      <li><a data-transition="slide" href="menu.html">Breakfast Menu</a></li>
-      <li><a data-transition="slide" href="menu.html">Lunch Menu</a></li>
-      <li><a data-transition="slide" href="menu.html">Dinner Menu</a></li>
+      <li class="menu" ux:data="data{diner.menu}"><a data-transition="slide" href="menu.html" ux:data="data{diner.menu.meal}">Breakfast Menu</a></li>
     </ul>
     <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="a">
       <li data-role="list-divider">Contact</li>

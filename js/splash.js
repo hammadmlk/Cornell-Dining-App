@@ -74,11 +74,11 @@ function styleMask($obj, $mask){
     if(($obj.height() +$obj.offset().top > window.innerHeight) || !$obj.height()){
       // debugger;
       maskHeight = window.innerHeight - $obj.offset().top;
-      console.log('1st', "innerheight : " + window.innerHeight, "top : "+$obj.offset().top, $obj);
+      // console.log('1st', "innerheight : " + window.innerHeight, "top : "+$obj.offset().top, $obj);
     }else{
       maskHeight =$obj.height();
     } 
-    console.log("mask height", maskHeight);
+    // console.log("mask height", maskHeight);
     $mask.css('height', maskHeight);
     $mask.fadeIn();
   }, 300);
@@ -146,8 +146,12 @@ function getAllDiners(usingCache) {
       latitude: cd.latitude
     }
   }, function(ret) {
+    cd.dinerList= [];
     $.each(ret, function(index,area){
       $.each(area.diners, function(i, diner){
+        cd.dinerList.push({
+          name : diner.diner_name,
+          id : diner.diner_id});
         diner._diner_distance = calcDistanceToMe(diner.diner_location.latitude, diner.diner_location.longitude);
         diner._diner_time = calcTime(diner);
       });
@@ -221,6 +225,7 @@ $(document).on('pageinit', '#home', function() {
   if (cd.verbose) console.log("home page inited");
 
   $.mobile.loadPage( "diner.html", { showLoadMsg: false } );
+  $.mobile.loadPage( "menu.html", { showLoadMsg: false } );
 
   //load data
   getNearByLocation(useCache);
@@ -344,11 +349,15 @@ var mapInited = false;
           diner_id : dinerId
         }
       }, function(ret) {
-        console.log(ret);
         var pNumber = ret.Contact.phone_number;
 
         ret.Contact._href="tel:"+pNumber;
         ret.Contact._phone_number= "("+pNumber.substring(0,3)+") "+pNumber.substring(3,6) + "-" + pNumber.substring(6); 
+        ret._menu = {};
+        $.each(ret.menu, function(index, menu){
+          menu.meal = menu.meal.trim();
+          ret._menu[menu.meal] = menu.menu_item;
+        });
         cd.diner.cacheMap[dinerId] = ret;
       });
     }
@@ -454,10 +463,23 @@ $('body').on('submit', '#search-bar', function(event){
   return false;
 });
 
+//diner menu
+$('body').on('tap', '.menu', function() {
+  cd.diner.currentMenu = $(this).text().trim();
+  console.log(cd.diner.currentMenu);
+  // debugger;
+  $('#menu div[data-role="header"] h1').text(cd.diner.currentMenu);
+  $('#menu .menu-header').text("Today's " + cd.diner.currentMenu +" Menu");
+  $('#menu [ux\\:data^="data{menu"]').setData({
+    menu: cd.diner.cacheMap[cd.diner.currentDinerId]._menu[cd.diner.currentMenu]
+  });
+});
+
 });
 
 //bind events for page diner
 $(document).on('pageshow', '#diner', function() {
+<<<<<<< HEAD
   // if (cd.diner.init) return;
   // cd.diner.init = true;
 	
@@ -472,11 +494,18 @@ $(document).on('pageshow', '#diner', function() {
   });
 		 
 	
+=======
+>>>>>>> Connect and diner
   if (cd.verbose) console.log("page diner shown");
   setDinerData();
   // dinnerName = dinnerName ? dinnerName : "Dinner";
   // $('.ui-title').text(dinnerName);
   // $('.desc').text(dinnerDesc);
+  // 
+  // if (cd.diner.init) return;
+  // cd.diner.init = true;
+  
+
 
 });
 function setDinerData(){
@@ -514,13 +543,31 @@ $(document).on('pageinit', '#connect', function() {
       }
     },
     submitHandler: function(form) {
-      // form.submit();
       if (cd.verbose) console.log("validate after");
-      $("#popupDialog").popup();
-      $("#popupDialog").popup("open");
+      var netid = form["netid"].value;
+      var message = form["message"].value;
+      var facility = form["facility"].value;
+      debugger;
+      sendRequest({
+        "uri": "comment.json",
+        "method": "POST",
+        "data": {
+          netID: form["netid"].value,
+          commentContent: form["message"].value,
+          hallID: form["facility"].value
+}
+      }, function(ret, res) {
+        $("#popupDialog").popup();
+        $("#popupDialog").popup("open");
+      });
       return false;
     }
   });
+
+  $('#select-facility [ux\\:data^="data{options"]').setData({
+    options: cd.dinerList
+  });
+
 });
 
 //search
@@ -546,4 +593,11 @@ $(document).on('pageshow', '#result', function() {
   $('#result .keyword').text(cd.keyWord);
   addLoadingMask($('#result .list-container'));
   setSearchResult();
+});
+
+
+//bind events for page connect
+$(document).on('pageshow', '#menu', function() {
+  console.log("showing menu");
+
 });
