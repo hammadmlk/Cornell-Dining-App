@@ -402,9 +402,13 @@ body {
 .black{
   color: black;
 }
-.active-btn{
+.inactive-btn{
   color: black;
+}
+.active-btn{
+  color: #ed1c24;
   font-weight: bold;
+  font-size: 110%;
 }
 
 .bigred{
@@ -462,7 +466,7 @@ body {
 #search-bar input{
   height:45px;
   padding: 0;
-  font-size: 20px;
+  font-size: 18px;
   line-height: 45px;
 }
 #search-bar #fdj-container{

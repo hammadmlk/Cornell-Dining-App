@@ -426,14 +426,14 @@ $('body').on('tap', '#switch-btn', function() {
   var listBtn = $(this).find('#list-btn');
   if (mapBtn.hasClass("active-btn")) {
       //to list
-      listBtn.removeClass("bigred").addClass("active-btn");
-      mapBtn.removeClass("active-btn").addClass("bigred");
+      listBtn.removeClass("inactive-btn").addClass("active-btn");
+      mapBtn.removeClass("active-btn").addClass("inactive-btn");
       $('#nearme .list-container').fadeIn();
       $('#map-container').fadeOut();
     } else {
       //to map
-      mapBtn.removeClass("bigred").addClass("active-btn");
-      listBtn.removeClass("active-btn").addClass("bigred");
+      mapBtn.removeClass("inactive-btn").addClass("active-btn");
+      listBtn.removeClass("active-btn").addClass("inactive-btn");
       $('#nearme .list-container').fadeOut();
       $('#map-container').fadeIn();
       if (!mapInited) {
