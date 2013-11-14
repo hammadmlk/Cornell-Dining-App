@@ -72,7 +72,6 @@ function styleMask($obj, $mask){
   setTimeout(function(){
     var maskHeight = 0;
     if(($obj.height() +$obj.offset().top > window.innerHeight) || !$obj.height()){
-      // debugger;
       maskHeight = window.innerHeight - $obj.offset().top;
       // console.log('1st', "innerheight : " + window.innerHeight, "top : "+$obj.offset().top, $obj);
     }else{
@@ -196,6 +195,7 @@ function searchFood(keyWord){
       cd.result = ret;
     }
   });
+  addLoadingMask($('#result .list-container'));
   $.mobile.changePage("result.html", {
     transition: "slide"
   });
@@ -224,8 +224,10 @@ $(document).on('pageinit', '#home', function() {
   cd.home.init = true;
   if (cd.verbose) console.log("home page inited");
 
+  //prepare pages to transit to
   $.mobile.loadPage( "diner.html", { showLoadMsg: false } );
   $.mobile.loadPage( "menu.html", { showLoadMsg: false } );
+  $.mobile.loadPage( "result.html", { showLoadMsg: false } );
 
   //load data
   getNearByLocation(useCache);
@@ -308,10 +310,10 @@ var mapInited = false;
 
   function getInfoWindow(diner) {
     var contentString = '<div class="map-diner" id="content">' +
-    '<h1 id="firstHeading" class="firstHeading bigred map-dinner-name">' + diner.name + '</h1>' +
+    '<h1 id="firstHeading" class="firstHeading black map-dinner-name">' + diner.name + '</h1>' +
     '<div id="bodyContent">' +
     '<p>' + diner.desc + '</p>' +
-    '<p class="bigred">Open details</p>'
+    '<p class="black">Open details</p>'
     '</div>' +
     '</div>';
     var maxWidth = $('#map-canvas').width() - 80;
@@ -419,18 +421,19 @@ $('body').on('tap', '#showmore-btn', function() {
 });
 
 $('body').on('tap', '#switch-btn', function() {
+  //
   var mapBtn = $(this).find('#map-btn');
   var listBtn = $(this).find('#list-btn');
-  if (mapBtn.hasClass("bigred")) {
+  if (mapBtn.hasClass("active-btn")) {
       //to list
-      listBtn.removeClass("black").addClass("bigred");
-      mapBtn.removeClass("bigred").addClass("black");
+      listBtn.removeClass("bigred").addClass("active-btn");
+      mapBtn.removeClass("active-btn").addClass("bigred");
       $('#nearme .list-container').fadeIn();
       $('#map-container').fadeOut();
     } else {
       //to map
-      mapBtn.removeClass("black").addClass("bigred");
-      listBtn.removeClass("bigred").addClass("black");
+      mapBtn.removeClass("bigred").addClass("active-btn");
+      listBtn.removeClass("active-btn").addClass("bigred");
       $('#nearme .list-container').fadeOut();
       $('#map-container').fadeIn();
       if (!mapInited) {
@@ -467,7 +470,7 @@ $('body').on('submit', '#search-bar', function(event){
 
 //diner menu
 $('body').on('tap', '.menu', function() {
-  cd.diner.currentMenu = $(this).text().trim();
+  cd.diner.currentMenu = $(this).find('.highlight').text().trim();
   console.log(cd.diner.currentMenu);
   // debugger;
   $('#menu div[data-role="header"] h1').text(cd.diner.currentMenu);
@@ -476,7 +479,6 @@ $('body').on('tap', '.menu', function() {
     menu: cd.diner.cacheMap[cd.diner.currentDinerId]._menu[cd.diner.currentMenu]
   });
 });
-
 });
 
 //bind events for page diner
@@ -538,10 +540,6 @@ $(document).on('pageinit', '#connect', function() {
     },
     submitHandler: function(form) {
       if (cd.verbose) console.log("validate after");
-      var netid = form["netid"].value;
-      var message = form["message"].value;
-      var facility = form["facility"].value;
-      debugger;
       sendRequest({
         "uri": "comment.json",
         "method": "POST",
@@ -564,7 +562,7 @@ $(document).on('pageinit', '#connect', function() {
 
 });
 
-//search
+//search data
 function setSearchResult(){
   if(!cd.result) {
     setTimeout(setSearchResult, cd.TIME_OUT_INTERVAL);
@@ -578,7 +576,8 @@ function setSearchResult(){
     $('#result h2').hide();
     $('#result .prompt').show();
   }
-  delete cd.result;
+  // delete cd.result;
+  console.log("removing");
   removeLoadingMask($('#result .list-container'));
 }
 
