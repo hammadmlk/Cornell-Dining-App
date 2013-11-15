@@ -1,0 +1,30 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+</head> 
+<body> 
+  <div data-role="page" id="fav-page" data-add-back-btn="true" data-theme="b">
+   <div data-role="header">
+    <a href="javascript:void(0);" class="backbtn" data-rel="back"  data-shadow="true" data-role="none"></a>
+    <h1>Favorites</h1>
+  </div>
+  <div data-role="content">
+    <ul data-role="none" class="no-text-shadow today-menus">
+   <h2 class="desc bigred">Your favorite foods are served at:</h2>
+      <li class="menu" ux:data="data{fav}">
+        <a href="#"><span ux:data="data{fav.foodName}" class="medium">Food 1</span></a>
+        <div class="arrow-right"></div>
+      </li>
+    </ul>
+
+
+</div><!-- /content -->
+
+
+
+
+</div><!-- /page -->
+
+
+</body>
+</html>

@@ -419,11 +419,16 @@ body {
 }
 
 #icons div{
-  width: 32%;
+  width: 24%;
   float:left;
   height: 52px;
-  background-size: 80% 80%;
+  background-size: 85% 85%;
 }
+
+#icons #fav-icon{
+  background: red url('../img/iter1/fav-icon.png') center center no-repeat;
+}
+
 #nearme-title{
   margin-left: 15px;
   float: left;
@@ -694,13 +699,13 @@ label.error {
   /*white-space: nowrap;*/
 }
 
-#diner .today-menus{
+.today-menus{
   margin: 35px 0 ;
   list-style: none;
   padding: 0;
 }
 
-#diner .menu {
+.menu {
   background-color: #d1d2d4;
   width : 100%;
   position: relative;
@@ -710,7 +715,7 @@ label.error {
 
 /* grey bg color #d1d2d4 */
 
-#diner .menu .arrow-right{
+.menu .arrow-right{
   position: absolute;
   right: 15px;
   width : 36px;
@@ -720,7 +725,7 @@ label.error {
   background: url("../img/iter1/arrow-right.png") no-repeat center right 0px;
 }
 
-#diner .menu a{
+.ui-page .ui-content .menu a{
   color : #ed1c24;
   padding: 0.7em 15px;
   text-decoration : none !important;
@@ -729,12 +734,12 @@ label.error {
   width: 100%;
   z-index: 2;
 }
-#diner .menu .highlight{
+.menu .highlight{
   font-size: 24px;
   font-weight: bold;
   text-shadow: 0 1px 0  #ffffff;
 }
-#diner .menu .medium{
+.menu .medium{
   font-size: 16px;
   text-shadow: 0 1px 0  #ffffff;
   display: block;

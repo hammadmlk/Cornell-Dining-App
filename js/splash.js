@@ -1,9 +1,9 @@
 $.mobile.page.prototype.options.domCache = true;
 
 var cd = {};
-cd.splashTimeSpan = 4000;
+cd.splashTimeSpan = 3000;
 cd.TIME_OUT_INTERVAL = 50;
-cd.verbose = true;
+cd.verbose = false;
 cd.home = {
   init: false
 };
@@ -50,7 +50,7 @@ function calcDistanceToMe(dest_la, dest_lo){
 }
 
 function addLoadingMask($obj){
-  console.log('addLoadingMask' , $obj);
+  if(cd.verbose) console.log('addLoadingMask' , $obj);
   $mask = $obj.children('.mask');
   if($mask.length === 0){
     $mask = ($(document.createElement('div'))).prependTo($obj);
@@ -61,7 +61,7 @@ function addLoadingMask($obj){
 }
 
 function styleMask($obj, $mask){
-  console.log('styleMask' , $obj);
+  if(cd.verbose) console.log('styleMask' , $obj);
   if($obj.width() === 0){
     //$obj not rendered yet
     setTimeout( function(){
@@ -201,6 +201,27 @@ function searchFood(keyWord){
   });
 }
 
+//fav food ftn
+var KEY_FAV_FOOD_ARRAY = "favfood";
+Storage.prototype.setArray = function(key, obj) {
+    return this.setItem(key, JSON.stringify(obj))
+}
+Storage.prototype.getArray = function(key) {
+    return JSON.parse(this.getItem(key))
+}
+
+// fav food interface
+function getFavFood(){
+  return localStorage.getArray(KEY_FAV_FOOD_ARRAY)||[];
+}
+
+function setFavFood(fId, fName){
+  //TODO : optimization, now O(n^2)
+  var arr = getFavFood();
+  arr.push({id:fId, name: fName});
+  localStorage.setArray(KEY_FAV_FOOD_ARRAY, cd.fav);
+}
+
 //bind event for page splash
 $(document).on('pageinit', '#splash', function() {
   if (cd.verbose) console.log("page splash inited");
@@ -228,6 +249,7 @@ $(document).on('pageinit', '#home', function() {
   $.mobile.loadPage( "diner.html", { showLoadMsg: false } );
   $.mobile.loadPage( "menu.html", { showLoadMsg: false } );
   $.mobile.loadPage( "result.html", { showLoadMsg: false } );
+  $.mobile.loadPage( "fav.html", { showLoadMsg: false } );
 
   //load data
   getNearByLocation(useCache);
@@ -410,6 +432,30 @@ $('body').on('tap', '#connect-icon', function() {
     transition: "slide"
   });
 });
+
+//TODO : fav foods
+$('body').on('tap', '#fav-icon', function() {
+
+  sendRequest({
+    "uri": "get_fav.json",
+    "method": "GET",
+    "data": {
+      favorites: getFavFood()
+    }
+  }, function(ret) {
+    //bind data
+  });
+
+
+  //if display on another page
+  $.mobile.changePage("fav.html", {
+    transition: "slide"
+  });
+  //if display on home page 
+  //  TODO : add section on home.html
+});
+
+
 
 $('body').on('tap', '#fullscreen-btn', function() {
   alert("Full screen the map.");

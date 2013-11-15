@@ -1,5 +1,4 @@
 <?php
-// Fil Name: proxy.php
 if (!isset($_GET['url'])) die();
 $url = urldecode($_GET['url']);
 $targetServer = $_GET['targetServer'];
