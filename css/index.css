@@ -20,6 +20,11 @@
   -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
 }
 
+@font-face {
+	font-family: Agency_FB;
+	src: local(Agency_FB), url('../fonts/AGENCYR.TTF') format('opentype');
+}
+
 body {
   -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
@@ -36,12 +41,14 @@ body {
     color-stop(0.51, #E4E4E4)
     );
   background-attachment:fixed;
-  font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+  /*font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;*/
+  font-family:Agency_FB;
   font-size:12px;
   height:100%;
   margin:0px;
   padding:0px;
   width:100%;
+ 
 }
 
 
@@ -148,7 +155,8 @@ body {
 .ui-body-b select,
 .ui-body-b textarea,
 .ui-body-b button {
- font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+ /*font-family: Helvetica, Arial, sans-serif*/ /*{global-font-family}*/;
+ font-family:Agency_FB;
 }
 .ui-body-b .ui-link-inherit {
   color: #000000 /*{b-body-color}*/;
@@ -222,7 +230,8 @@ body {
 .ui-btn-up-b,
 .ui-btn-hover-b,
 .ui-btn-down-b {
- font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+ /*font-family: Helvetica, Arial, sans-serif *//*{global-font-family}*/;
+ font-family:Agency_FB;
  text-decoration: none;
 }
 
@@ -263,7 +272,8 @@ body {
 .ui-bar-d select,
 .ui-bar-d textarea,
 .ui-bar-d button {
-  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+  /*font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;*/
+  font-family:Agency_FB;
 }
 .ui-body-d,
 .ui-overlay-d {
@@ -287,7 +297,8 @@ body {
 .ui-body-d select,
 .ui-body-d textarea,
 .ui-body-d button {
-  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+  /*font-family: Helvetica, Arial, sans-serif*/ /*{global-font-family}*/;
+  font-family:Agency_FB;
 }
 .ui-body-d .ui-link-inherit {
   color: #333333 /*{d-body-color}*/;
@@ -361,7 +372,8 @@ body {
 .ui-btn-up-d,
 .ui-btn-hover-d,
 .ui-btn-down-d {
-  font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+  /*font-family: Helvetica, Arial, sans-serif *//*{global-font-family}*/;
+  font-family:Agency_FB;
   text-decoration: none;
 }
 
