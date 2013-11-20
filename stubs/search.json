@@ -1,0 +1,67 @@
+[
+    {
+        "diner_distance": 9.5299412805616157e-09,
+        "diner_id": 5,
+        "diner_location": {
+            "latitude": "42.4476932428124",
+            "longitude": "-76.48840503465243"
+        },
+        "diner_name": "West Side Express",
+        "item": "Hamburger Bar",
+        "meal": "Dinner ",
+        "serve_date": "2013-11-19",
+        "station": "Grill Station"
+    },
+    {
+        "diner_distance": 9.5299412805616157e-09,
+        "diner_id": 5,
+        "diner_location": {
+            "latitude": "42.4476932428124",
+            "longitude": "-76.48840503465243"
+        },
+        "diner_name": "West Side Express",
+        "item": "Dr. Praegers Jumbo California Veg Burger",
+        "meal": "Dinner ",
+        "serve_date": "2013-11-19",
+        "station": "Grill Station"
+    },
+    {
+        "diner_distance": 0.000772063157535566,
+        "diner_id": 4,
+        "diner_location": {
+            "latitude": "42.4472046669332",
+            "longitude": "-76.48900283546976"
+        },
+        "diner_name": "Rose House Dining Room",
+        "item": "Cheese Tortellini Alla Marinara ",
+        "meal": "Dinner ",
+        "serve_date": "2013-11-19",
+        "station": "Hot Traditional Station - Entrees"
+    },
+    {
+        "diner_distance": 0.013535550773435817,
+        "diner_id": 6,
+        "diner_location": {
+            "latitude": "42.4554368668494",
+            "longitude": "-76.47730334247933"
+        },
+        "diner_name": "Robert Purcell Marketplace Eatery",
+        "item": "Burger Station",
+        "meal": "Dinner ",
+        "serve_date": "2013-11-19",
+        "station": "Grill Station"
+    },
+    {
+        "diner_distance": 9.5299412805616157e-09,
+        "diner_id": 2,
+        "diner_location": {
+            "latitude": "42.4476932428124",
+            "longitude": "-76.48840503465243"
+        },
+        "diner_name": "Becker House Dining Room",
+        "item": "Hamburger Bar",
+        "meal": "Lunch ",
+        "serve_date": "2013-11-20",
+        "station": "Grill Station"
+    }
+]

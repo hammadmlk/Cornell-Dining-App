@@ -1,56 +1,54 @@
-/*
-	
-	@request:ec2-54-200-173-73.us-west-2.compute.amazonaws.com:5000/get_nearby.json
-	@method:GET
-	@param: longitude:float latitude:float
-*/
 [
     {
-        "diner_id": 0,
-        "diner_name": "Bear Necessities",
-        "diner_desc": "- A convenience store & grill in Robert Purcell",
-        "close_at": "2013-10-14T14:00:00",
-        "is_open": 1,
-        "diner_location": {
-            "longitude": 42.44787,
-            "latitude": -76.47404
-        },
-        "diner_distance": 0.3
-    },
-    {
+        "close_at": "20:30:00",
+        "current_meal": "dinner",
+        "diner_desc": "Located in Alice Cook House, the Cook House Dining Room is an All You Care To Eat dining room for the House's residents, and for the whole Cornell community",
+        "diner_distance": 0.0075836653235418616,
         "diner_id": 1,
-        "diner_name": "Carol's café",
-        "diner_desc": "- A café in Balch Hall",
-        "close_at": "2013-10-14T14:00:00",
-        "is_open": 1,
-        "location": {
-            "longitude": 42.44757,
-            "latitude": -76.47204
+        "diner_location": {
+            "latitude": "42.4476932428124",
+            "longitude": "-76.48840503465243"
         },
-        "diner_distance": 0.5
+        "diner_name": "Cook House Dining Room",
+        "is_open": 1
     },
     {
+        "close_at": "",
+        "current_meal": "",
+        "diner_desc": "Located in Carl Becker House, the Becker House Dining Room is an All You Care To Eat dining room for the House's residents, and for the whole Cornell community.",
+        "diner_distance": 0.0075836653235418616,
         "diner_id": 2,
-        "diner_name": "North Star Dining Room",
-        "diner_desc": "- All Your Care To Eat dining room in Appel Commons",
-        "close_at": "2013-10-14T14:00:00",
-        "is_open": 1,
-        "location": {
-            "longitude": 42.44689,
-            "latitude": -76.47524
+        "diner_location": {
+            "latitude": "42.4476932428124",
+            "longitude": "-76.48840503465243"
         },
-        "diner_distance": 0.6
+        "diner_name": "Becker House Dining Room",
+        "is_open": 0
     },
     {
+        "close_at": "",
+        "current_meal": "",
+        "diner_desc": "Located in William Keeton House, the Keeton House Dining Room is an All You Care To Eat dining room for the House's residents, and for the whole Cornell community.",
+        "diner_distance": 0.0080963104236806954,
         "diner_id": 3,
-        "diner_name": "Robert Purcell Marketplace Eatery",
-        "diner_desc": "- All Your Care To Eat dining room in Robert Purcell Community Center",
-        "close_at": "2013-10-14T14:00:00",
-        "is_open": 1,
-        "location": {
-            "longitude": 42.44689,
-            "latitude": -76.47524
+        "diner_location": {
+            "latitude": "42.44795947958593",
+            "longitude": "-76.48884376307332"
         },
-        "diner_distance": 0.7
+        "diner_name": "Keeton House Dining Room",
+        "is_open": 0
+    },
+    {
+        "close_at": "",
+        "current_meal": "",
+        "diner_desc": "Located in Flora Rose House, the Rose House Dining Room is an All You Care To Eat dining room for the House's residents, and for the whole Cornell community.",
+        "diner_distance": 0.007907998318021579,
+        "diner_id": 4,
+        "diner_location": {
+            "latitude": "42.4472046669332",
+            "longitude": "-76.48900283546976"
+        },
+        "diner_name": "Rose House Dining Room",
+        "is_open": 0
     }
 ]

@@ -31,29 +31,29 @@
               <img src="img/iter1/opennear-me.png" alt="" id="nearme-title-img">
             </div>
               <div id="switch-btn">
-                <p><span id="map-btn" class="inactive-btn">MAP</span> | <span id="list-btn" class="active-btn">LIST</span></p>
+                <p><span id="map-btn" class="inactive-btn">MAP</span><span id="list-btn" class="active-btn">LIST</span></p>
               </div>
             </div>
 
             <div class="list-container">
               <div ux:data="data{diner;diner.diner_id@data-diner-id}" class="dinner" href="diner.html" style="display:none">
-                <h2 ux:data="data{diner.diner_name}">Diner's name</h2>
-                <p class="dinner-desc" ux:data="data{diner.diner_desc}">Diner</p>
-                <p class="dinner-time" ux:data="data{diner.diner_time}">lunch starts: 30 min</p>
-                <p class="dinner-dist"><strong ux:data="data{diner._diner_distance}">0.3</strong>miles</p>
+                <h2 class="diner-name" ux:data="data{diner.diner_name}">Diner's name</h2>
+                <p class="diner-desc" ux:data="data{diner.diner_desc}">Diner</p>
+                <p class="diner-time" ux:data="data{diner.diner_time}">lunch starts: 30 min</p>
+                <p class="diner-dist"><strong ux:data="data{diner._diner_distance}">0.3</strong>miles</p>
               </div>
 <!--
               <div id="showmore-btn">        
-                <p class="bigred">
+                <p class="">
                   show more
                 </p>
               </div>
 
               <div class="dinner" href="dinner.html">
                 <h2>Robert Purcell Marketplace Eatery</h2>
-                <p class="dinner-desc">&minus; All Your Care To Eat dining room in Robert Purcell Community Center</p>
-                <p class="dinner-time">lunch starts: 30 min</p>
-                <p class="dinner-dist"><strong>1.4</strong>miles</p>
+                <p class="diner-desc">&minus; All Your Care To Eat dining room in Robert Purcell Community Center</p>
+                <p class="diner-time">lunch starts: 30 min</p>
+                <p class="diner-dist"><strong>1.4</strong>miles</p>
               </div>
             </div>
           -->
@@ -64,7 +64,7 @@
         <div id="map-container" style="display:none">
          <div id="map-canvas"></div>
          <div id="fullscreen-btn">
-          <p class="bigred">
+          <p class="">
             fullscreen
           </p></div>
         </div>
@@ -72,16 +72,16 @@
 
       <div id="all" style="display:none">
         <div class="list-container" ux:data="data{area}">
-          <div class="campus-section-header">
+          <div class="campus-section-header-container">
             <span class="contractor"> </span>
-            <h1 class="bigred" ux:data="data{area.campus_name}"></h1>
+            <h1 class="campus-section-header"> <span ux:data="data{area.campus_name}"></span> campus</h1>
           </div>
           <div class="campus-panel">
             <div ux:data="data{area.diners;area.diners.diner_id@data-diner-id}" class="dinner" href="diner.html">
-              <h2 ux:data="data{area.diners.diner_name}">Diner name</h2>
-              <p class="dinner-desc" ux:data="data{area.diners.diner_desc}">Diner</p>
-              <p class="dinner-time" ux:data="data{area.diners.diner_time}">lunch starts: 30 min</p>
-              <p class="dinner-dist"><strong ux:data="data{area.diners._diner_distance}">0.3</strong>miles</p>
+              <h2 class="diner-name" ux:data="data{area.diners.diner_name}">Diner name</h2>
+              <p class="diner-desc" ux:data="data{area.diners.diner_desc}">Diner</p>
+              <p class="diner-time" ux:data="data{area.diners.diner_time}">lunch starts: 30 min</p>
+              <p class="diner-dist"><strong ux:data="data{area.diners._diner_distance}">0.3</strong>miles</p>
             </div>
           </div>
         </div>

@@ -41,17 +41,14 @@ body {
     color-stop(0.51, #E4E4E4)
     );
   background-attachment:fixed;
-  /*font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;*/
   font-family:Agency_FB;
-  font-size:12px;
+  font-size:14px;
   height:100%;
   margin:0px;
   padding:0px;
   width:100%;
- 
+
 }
-
-
 
 /* Landscape layout (with min-width) */
 @media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
@@ -99,6 +96,12 @@ body {
   animation:fade 3000ms infinite;
   -webkit-animation:fade 3000ms infinite;
 }
+
+h1, h2, h3, p,input, a, label {
+  color: #ed1c24;
+  font-family : Agency_FB;
+}
+
 
 
 /* custom jquery theme */
@@ -155,7 +158,6 @@ body {
 .ui-body-b select,
 .ui-body-b textarea,
 .ui-body-b button {
- /*font-family: Helvetica, Arial, sans-serif*/ /*{global-font-family}*/;
  font-family:Agency_FB;
 }
 .ui-body-b .ui-link-inherit {
@@ -297,7 +299,6 @@ body {
 .ui-body-d select,
 .ui-body-d textarea,
 .ui-body-d button {
-  /*font-family: Helvetica, Arial, sans-serif*/ /*{global-font-family}*/;
   font-family:Agency_FB;
 }
 .ui-body-d .ui-link-inherit {
@@ -381,11 +382,15 @@ body {
 
 /* end d*/
 
-
+h1.ui-title{
+  /*color:white;*/
+}
 
 .ui-header .ui-title{
-  margin-left: 20%;
-  margin-right: 20%;
+  font-size: 22px;
+  margin: .25em 20% .2em;
+  color: white;
+  line-height: 30px;
 }
 
 .ui-li-heading{
@@ -409,9 +414,19 @@ body {
   width: 100px;
   float: right;
   text-align: right;
-  padding-right: 15px;
+  padding-right: 10px;
 }
-.black{
+#switch-btn span {
+  width: 40px;
+  display: inline-block;
+  text-align: center;
+  height: 25px;
+  line-height: 25px
+}
+#map-btn {
+  border-right: 1px black solid;
+}
+#switch-btn p{
   color: black;
 }
 .inactive-btn{
@@ -420,11 +435,6 @@ body {
 .active-btn{
   color: #ed1c24;
   font-weight: bold;
-  font-size: 110%;
-}
-
-.bigred{
-  color: #ed1c24;
 }
 #icons{
   height: 82px;
@@ -483,8 +493,9 @@ body {
 #search-bar input{
   height:45px;
   padding: 0;
-  font-size: 18px;
+  font-size: 24px;
   line-height: 45px;
+  font-family: Agency_FB;
 }
 #search-bar #fdj-container{
   background: url('../img/iter1/fdj.png') right center no-repeat;
@@ -517,6 +528,7 @@ body {
   color: white;
   margin-bottom: 7px;
   overflow: hidden;
+  padding: 5px 22px;
 }
 .list-container .dinner:last-child{
   margin-bottom: 0;
@@ -524,33 +536,33 @@ body {
 .list-container p{
   margin: 5px;
 }
-.list-container h2{
-  margin: 5px 0px 5px 25px;
-  font-size: 18px;
+.list-container .diner-name{
+  margin: 5px 0px 5px;
+  font-size: 19px;
   font-weight: normal;
   text-shadow: none;
 }
-.list-container .dinner-desc{
-  margin: 5px 0 5px 25px;
-  font-size: 14px;
+.list-container .diner-desc{
+  margin: 5px 0 5px;
+  font-size: 15px;
   text-shadow: none;
 }
 
-.yellow{
-  color:#f9ed33;
-}
-.dinner-time{
+.diner-time{
   float: left;
   width: 120px;
   color: #f9ed33;
-  padding-left: 30px;
+  padding-left: 5px;
   text-shadow: none;
 }
-.dinner-dist{
+.diner-name,.diner-desc{
+  color: white;
+}
+.diner-dist{
   float: right;
-  width: 100px;
+  width: 80px;
   color:#f9ed33;
-  padding-right: 30px;
+  padding-right: 5px;
   text-shadow: none;
   text-align: right;
 }
@@ -563,16 +575,26 @@ body {
   font-size: 14px;
 }
 
-#all .list-container h1{
-  padding-left: 25px;
+#all .list-container .campus-panel{
   margin-bottom: 10px;
 }
+
+#all .list-container .campus-section-header-container .campus-section-header{
+  padding-left: 10px;
+  margin: 0px 5px 2px;
+  font-size: 22px;
+  font-weight: normal;
+}
+#all .list-container .campus-section-header-container .campus-section-header span{
+  font-size: 180%;
+}
 #all .contractor{
-  background: url("../img/iter1/arrow-up.png") no-repeat center 0px;
+  background: url("../img/iter1/arrow-up.png") no-repeat center center;
   content: '';
   display: block;
   height: 17px;
   padding-right: 80px;
+  padding-top: 17px;
   float: right;
   transition: all 0.4s;
   -webkit-transition: all 0.4s; /* Safari */
@@ -583,7 +605,7 @@ body {
   -webkit-transform:rotate(180deg); 
 }
 
-#all .campus-section-header{
+#all .campus-section-header-container{
   border-bottom:1px solid rgba(130, 130, 130, 0.298039);
 }
 
@@ -703,6 +725,7 @@ label.error {
  #diner .desc{
   font-size: 16px;
   /*max-height: 150px;*/
+  padding: 0 25px;
   min-height: 50px;
   line-height: 20px;
   color: black;
@@ -712,7 +735,7 @@ label.error {
 }
 
 .today-menus{
-  margin: 35px 0 ;
+  margin: 20px 0 ;
   list-style: none;
   padding: 0;
 }
@@ -755,7 +778,22 @@ label.error {
   font-size: 16px;
   text-shadow: 0 1px 0  #ffffff;
   display: block;
-  padding-top: 0.45em;
+  padding-top: 0.3em;
+}
+.hours[limited="1"]{
+  background: cornsilk;
+}
+
+.hours .highlight{
+  width: 150px;
+  display: inline-block;
+  text-transform: capitalize;
+  text-align: left;
+}
+.hours span{
+  width: 46px;
+  display: inline-block;
+  text-align: center;
 }
 
 .ui-header .backbtn{
@@ -768,3 +806,5 @@ label.error {
   top:0;
   left:0;
 }
+
+/* Owl Carousel Slider related is now in slider.css*/

@@ -1,21 +1,41 @@
-/*
-	@request:ec2-54-200-173-73.us-west-2.compute.amazonaws.com:5000/get_info.json
-	@method:GET
-	@param:"hall_id":int
-*/
 {
-    "hall_id": 0,
-    "menu": [
-        "Sandwich",
-        "Hamberger",
-        "Chicken Salad",
-        "Pepsi Beverages",
-        "Baked Goods",
-        "Contact"
-    ],
     "Contact": {
-        "phone_number": "6072551879",
-        "location": "Kennedy Hall, Central Campus"
-    }
+        "location": "Carl Becker House, West Campus",
+        "phone_number": "6072558882"
+    },
+    "current_meal": "",
+    "description": "Chef Tony Kveragas, a Cornell alum and a graduate of La Varenne Culinary School in France, enjoys sharing his exuberance for food through his creative menus and recipes.",
+    "hall_id": 2,
+    "images": [
+        "http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/Becker-House-Dining-exterior.png",
+        "http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/_MG_5977_2.png",
+        "http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/food_1.png"
+    ],
+    "menu": [],
+    "today_hour": [
+        {
+            "end": "03:30PM",
+            "event_type": "lunch",
+            "is_limited": 1,
+            "start": "02:00PM"
+        },
+        {
+            "end": "02:00PM",
+            "event_type": "lunch",
+            "is_limited": 0,
+            "start": "10:30AM"
+        },
+        {
+            "end": "10:30AM",
+            "event_type": "breakfast",
+            "is_limited": 0,
+            "start": "07:00AM"
+        },
+        {
+            "end": "08:00PM",
+            "event_type": "dinner",
+            "is_limited": 0,
+            "start": "05:00PM"
+        }
+    ]
 }
-	

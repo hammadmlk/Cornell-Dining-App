@@ -1,129 +1,156 @@
 [
     {
-        "campus_name": "North Campus",
+        "campus_name": "North",
         "diners": [
             {
-                "diner_id": 0,
-                "diner_name": "Bear Necessities",
-                "diner_desc": "- A convenience store & grill in Robert Purcell",
-                "close_at": "2013-10-14T14:00:00",
-                "is_open": 1,
+                "close_at": "20:30:00",
+                "current_meal": "dinner",
+                "diner_desc": "Located on the third floor of Robert Purcell Community Center on north campus, the Marketplace Eatery is an award-winning All You Care To Eat dining room with a huge variety of menu options.",
+                "diner_distance": 0.012200601217939904,
+                "diner_id": 6,
                 "diner_location": {
-                    "longitude": 42.44787,
-                    "latitude": -76.47404
+                    "latitude": "42.4554368668494",
+                    "longitude": "-76.47730334247933"
                 },
-                "diner_distance": 0.3
+                "diner_name": "Robert Purcell Marketplace Eatery",
+                "is_open": 1,
+                "position": "North"
             },
             {
-                "diner_id": 1,
-                "diner_name": "Carol's café",
-                "diner_desc": "- A café in Balch Hall",
-                "close_at": "2013-10-14T14:00:00",
-                "is_open": 1,
+                "close_at": "",
+                "current_meal": "",
+                "diner_desc": "Whatever you're hungry for, you're sure to find something irresistible on the menu at North Star, an All You Care To Eat dining room on the third floor of Appel Commons.",
+                "diner_distance": 0.0097205216581522265,
+                "diner_id": 7,
                 "diner_location": {
-                    "longitude": 42.44757,
-                    "latitude": -76.47204
+                    "latitude": "42.45294324064466",
+                    "longitude": "-76.47776763669056"
                 },
-                "diner_distance": 0.4
-            },
-            {
-                "diner_id": 2,
                 "diner_name": "North Star Dining Room",
-                "diner_desc": "- All Your Care To Eat dining room in Appel Commons",
-                "close_at": "2013-10-14T14:00:00",
-                "is_open": 1,
-                "diner_location": {
-                    "longitude": 42.44689,
-                    "latitude": -76.47524
-                },
-                "diner_distance": 0.5
-            }
-        ]
-    },
-    {
-        "campus_name": "West Campus",
-        "diners": [
-            {
-                "diner_id": 0,
-                "diner_name": "Bear Necessities",
-                "diner_desc": "- A convenience store & grill in Robert Purcell",
-                "close_at": "2013-10-14T14:00:00",
-                "is_open": 1,
-                "diner_location": {
-                    "longitude": 42.44787,
-                    "latitude": -76.47404
-                },
-                "diner_distance": 0.3
-            }
-        ]
-    },
-    {
-        "campus_name": "East Campus",
-        "diners": [
-            {
-                "diner_id": 0,
-                "diner_name": "Bear Necessities",
-                "diner_desc": "- A convenience store & grill in Robert Purcell",
-                "close_at": "2013-10-14T14:00:00",
-                "is_open": 1,
-                "diner_location": {
-                    "longitude": 42.44787,
-                    "latitude": -76.47404
-                },
-                "diner_distance": 0.3
+                "is_open": 0,
+                "position": "North"
             },
             {
+                "close_at": "",
+                "current_meal": "",
+                "diner_desc": "Cornell Dining's best-kept secret, Risley Dining is an All You Care To Eat dining room in Risley Residential College, just north of the Thurston Avenue bridge.",
+                "diner_distance": 0.0081645830974767467,
+                "diner_id": 8,
+                "diner_location": {
+                    "latitude": "42.45222842990206",
+                    "longitude": "-76.48137246980025"
+                },
+                "diner_name": "Risley Dining Room",
+                "is_open": 0,
+                "position": "North"
+            }
+        ]
+    },
+    {
+        "campus_name": "West",
+        "diners": [
+            {
+                "close_at": "20:30:00",
+                "current_meal": "dinner",
+                "diner_desc": "Located in Alice Cook House, the Cook House Dining Room is an All You Care To Eat dining room for the House's residents, and for the whole Cornell community",
+                "diner_distance": 0.0075836653235418616,
                 "diner_id": 1,
-                "diner_name": "Carol's café",
-                "diner_desc": "- A café in Balch Hall",
-                "close_at": "2013-10-14T14:00:00",
-                "is_open": 1,
                 "diner_location": {
-                    "longitude": 42.44757,
-                    "latitude": -76.47204
+                    "latitude": "42.4476932428124",
+                    "longitude": "-76.48840503465243"
                 },
-                "diner_distance": 0.4
+                "diner_name": "Cook House Dining Room",
+                "is_open": 1,
+                "position": "West"
             },
             {
+                "close_at": "",
+                "current_meal": "",
+                "diner_desc": "Located in Carl Becker House, the Becker House Dining Room is an All You Care To Eat dining room for the House's residents, and for the whole Cornell community.",
+                "diner_distance": 0.0075836653235418616,
                 "diner_id": 2,
-                "diner_name": "North Star Dining Room",
-                "diner_desc": "- All Your Care To Eat dining room in Appel Commons",
-                "close_at": "2013-10-14T14:00:00",
-                "is_open": 1,
                 "diner_location": {
-                    "longitude": 42.44689,
-                    "latitude": -76.47524
+                    "latitude": "42.4476932428124",
+                    "longitude": "-76.48840503465243"
                 },
-                "diner_distance": 0.5
+                "diner_name": "Becker House Dining Room",
+                "is_open": 0,
+                "position": "West"
+            },
+            {
+                "close_at": "",
+                "current_meal": "",
+                "diner_desc": "Located in William Keeton House, the Keeton House Dining Room is an All You Care To Eat dining room for the House's residents, and for the whole Cornell community.",
+                "diner_distance": 0.0080963104236806954,
+                "diner_id": 3,
+                "diner_location": {
+                    "latitude": "42.44795947958593",
+                    "longitude": "-76.48884376307332"
+                },
+                "diner_name": "Keeton House Dining Room",
+                "is_open": 0,
+                "position": "West"
+            },
+            {
+                "close_at": "",
+                "current_meal": "",
+                "diner_desc": "Located in Flora Rose House, the Rose House Dining Room is an All You Care To Eat dining room for the House's residents, and for the whole Cornell community.",
+                "diner_distance": 0.007907998318021579,
+                "diner_id": 4,
+                "diner_location": {
+                    "latitude": "42.4472046669332",
+                    "longitude": "-76.48900283546976"
+                },
+                "diner_name": "Rose House Dining Room",
+                "is_open": 0,
+                "position": "West"
+            },
+            {
+                "close_at": "",
+                "current_meal": "",
+                "diner_desc": "Located in Hans Bethe House on West Campus, West Side Express is a great place to grab a quick bite when you're on the run or when you need a late-night refueling. ",
+                "diner_distance": 0.0075836653235418616,
+                "diner_id": 5,
+                "diner_location": {
+                    "latitude": "42.4476932428124",
+                    "longitude": "-76.48840503465243"
+                },
+                "diner_name": "West Side Express",
+                "is_open": 0,
+                "position": "West"
+            },
+            {
+                "close_at": "",
+                "current_meal": "",
+                "diner_desc": "Located next to the Center for Jewish Living building on the south edge of west campus, 104West! is Cornell's kosher and multicultural All You Care To Eat dining room.",
+                "diner_distance": 0.0081645830974767467,
+                "diner_id": 9,
+                "diner_location": {
+                    "latitude": "42.45222842990206",
+                    "longitude": "-76.48137246980025"
+                },
+                "diner_name": "104 West!",
+                "is_open": 0,
+                "position": "West"
             }
         ]
     },
     {
-        "campus_name": "South Campus",
+        "campus_name": "Central",
         "diners": [
             {
-                "diner_id": 0,
-                "diner_name": "Bear Necessities",
-                "diner_desc": "- A convenience store & grill in Robert Purcell",
-                "close_at": "2013-10-14T14:00:00",
-                "is_open": 1,
+                "close_at": "",
+                "current_meal": "",
+                "diner_desc": "Located in Willard Straight Hall in the heart of central campus, Okenshields is an All You Care To Eat dining room with beautiful views of the Slope and Ithaca hillsides. ",
+                "diner_distance": 0.0040604086676055634,
+                "diner_id": 10,
                 "diner_location": {
-                    "longitude": 42.44787,
-                    "latitude": -76.47404
+                    "latitude": "42.44678900609101",
+                    "longitude": "-76.48475929560111"
                 },
-                "diner_distance": 0.3
-            },
-            {
-                "diner_id": 1,
-                "diner_name": "Carol's café",
-                "diner_desc": "- A café in Balch Hall",
-                "close_at": "2013-10-14T14:00:00",
-                "is_open": 1,
-                "diner_location": {
-                    "longitude": 42.44757,
-                    "latitude": -76.47204
-                },
-                "diner_distance": 0.4
+                "diner_name": "Okenshields",
+                "is_open": 0,
+                "position": "Central"
             }
         ]
     }

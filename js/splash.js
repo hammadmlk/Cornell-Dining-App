@@ -1,7 +1,7 @@
 $.mobile.page.prototype.options.domCache = true;
 
 var cd = {};
-cd.splashTimeSpan = 3000;
+cd.splashTimeSpan = 1500;
 cd.TIME_OUT_INTERVAL = 50;
 cd.verbose = false;
 cd.home = {
@@ -356,7 +356,7 @@ var mapInited = false;
     //see function setDinerData
     
     dinnerName = $(this).find('h2').text();
-    dinnerDesc = $(this).find('.dinner-desc').text();
+    dinnerDesc = $(this).find('.diner-desc').text();
     
     dinnerName = dinnerName ? dinnerName : "Dinner";
 
@@ -455,9 +455,8 @@ $('body').on('tap', '#fav-icon', function() {
   //  TODO : add section on home.html
 });
 
-
-
 $('body').on('tap', '#fullscreen-btn', function() {
+
   alert("Full screen the map.");
 });
 
@@ -496,7 +495,7 @@ $('body').on('tap', '.menu-diner', function() {
   });
 });
 
-$('body').on('tap', '.campus-section-header', function() {
+$('body').on('tap', '.campus-section-header-container', function() {
   if (cd.verbose) console.log('campus section header taped');
   event.preventDefault();
   var contractor = $(this).find(".contractor");
@@ -532,7 +531,7 @@ $(document).on('pageshow', '#diner', function() {
   // if (cd.diner.init) return;
   // cd.diner.init = true;
 	
-  console.log("HAMMAD")		; 
+  console.log("Initiating owl carousel")		; 
   $("#slider").owlCarousel({		 
 	  //autoPlay: 3000, //Set AutoPlay to 3 seconds
 	  pagination: false,

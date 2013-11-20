@@ -13,9 +13,20 @@
     <h1>Menu</h1>
   </div>
   <div data-role="content"> 
-    <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="a">
+<!--     <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="a">
       <li data-role="list-divider" class="menu-header">Menu</li>
       <li ux:data="data{menu}"><p ux:data="data{menu.menu_item}">Food</p></li>
+    </ul> -->
+
+    <ul data-role="none" class="no-text-shadow today-menus" ux:data=>
+    <h2 class="" >station</h2>
+      <li class="menu">
+        <a href="tel:" ux:data="data{diner.Contact._href@href}"><span ux:data="data{diner.Contact._phone_number}" class="medium"></span></a>
+        <div class="arrow-right"></div>
+      </li>
+      <li class="menu" ><a href="#" > <span ux:data="data{diner.Contact.location}" class="medium">dummy add</span> </a>
+        <div class="arrow-right"></div>
+      </li>
     </ul>
 
   </div><!-- /content -->
