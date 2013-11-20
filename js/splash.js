@@ -458,6 +458,13 @@ $('body').on('tap', '#fav-icon', function() {
 $('body').on('tap', '#fullscreen-btn', function() {
 
   alert("Full screen the map.");
+  var maxWidth = $('#map-canvas').width() - 80;
+  // console.log(maxWidth);
+  var maxHeight = $('#map-canvas').height() - 80;
+  // console.log(maxHeight);
+  $mask.css('height', maxHeight);
+  $mask.css('weight', maxWidth);
+  $mask.fadeIn();
 });
 
 $('body').on('tap', '#showmore-btn', function() {
