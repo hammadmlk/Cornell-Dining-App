@@ -18,14 +18,11 @@
       <li ux:data="data{menu}"><p ux:data="data{menu.menu_item}">Food</p></li>
     </ul> -->
 
-    <ul data-role="none" class="no-text-shadow today-menus" ux:data=>
-    <h2 class="" >station</h2>
-      <li class="menu">
-        <a href="tel:" ux:data="data{diner.Contact._href@href}"><span ux:data="data{diner.Contact._phone_number}" class="medium"></span></a>
-        <div class="arrow-right"></div>
-      </li>
-      <li class="menu" ><a href="#" > <span ux:data="data{diner.Contact.location}" class="medium">dummy add</span> </a>
-        <div class="arrow-right"></div>
+    <ul data-role="none" class="no-text-shadow today-menus" ux:data="data{menu}">
+    <h2 class="" ux:data="data{menu.station}">station</h2>
+      <li class="menu compact" ux:data="data{menu._foods}">
+        <a class="food-item" ux:data="data{menu._foods._name}"></a>
+        <div class="icon-fav unfav"></div>
       </li>
     </ul>
 

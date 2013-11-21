@@ -594,7 +594,7 @@ h1.ui-title{
   display: block;
   height: 17px;
   padding-right: 80px;
-  padding-top: 17px;
+  padding-top: 33px;
   float: right;
   transition: all 0.4s;
   -webkit-transition: all 0.4s; /* Safari */
@@ -748,6 +748,22 @@ label.error {
   height: 45px;
 }
 
+.menu.compact{
+  height: 35px;
+  margin: 5px 0;
+}
+.menu .icon-fav{
+  position: absolute;
+  right: 15px;
+  width : 36px;
+  height: 88%;
+  top: 3px;
+  background: url("../img/iter1/star.png") no-repeat center right 0px;
+  background-size: 100% 100%
+}
+.icon-fav.unfav{
+  -webkit-filter: grayscale(100%);
+}
 /* grey bg color #d1d2d4 */
 
 .menu .arrow-right{

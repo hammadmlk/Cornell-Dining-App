@@ -204,10 +204,11 @@ function searchFood(keyWord){
 //fav food ftn
 var KEY_FAV_FOOD_ARRAY = "favfood";
 Storage.prototype.setArray = function(key, obj) {
-    return this.setItem(key, JSON.stringify(obj))
+  return this.setItem(key, JSON.stringify(obj))
 }
 Storage.prototype.getArray = function(key) {
-    return JSON.parse(this.getItem(key))
+  console.log(this.getItem(key));
+  return JSON.parse(this.getItem(key))
 }
 
 // fav food interface
@@ -215,10 +216,10 @@ function getFavFood(){
   return localStorage.getArray(KEY_FAV_FOOD_ARRAY)||[];
 }
 
-function setFavFood(fId, fName){
+function setFavFood(fName){
   //TODO : optimization, now O(n^2)
   var arr = getFavFood();
-  arr.push({id:fId, name: fName});
+  arr.push({name: fName});
   localStorage.setArray(KEY_FAV_FOOD_ARRAY, cd.fav);
 }
 
@@ -380,8 +381,14 @@ var mapInited = false;
         ret.Contact._href="tel:"+pNumber;
         ret.Contact._phone_number= "("+pNumber.substring(0,3)+") "+pNumber.substring(3,6) + "-" + pNumber.substring(6); 
         ret._menu = {};
-        $.each(ret.menu, function(index, menu){
+        $.each(ret.menu, function(i, menu){
           menu.meal = menu.meal.trim();
+          $.each(menu.menu_item, function(j, station){
+            station._foods =[];
+            $.each(station.items, function(k, food){
+              station._foods.push({"_name":food});
+            })
+          });
           ret._menu[menu.meal] = menu.menu_item;
         });
         cd.diner.cacheMap[dinerId] = ret;
@@ -502,6 +509,18 @@ $('body').on('tap', '.menu-diner', function() {
   });
 });
 
+$('body').on('tap', '.food-item', function() {
+  event.preventDefault();
+  var icon = $(this).siblings(".icon-fav");
+  if(icon.toggleClass("unfav").hasClass("unfav")){
+    console.log("Likes", this.innerHTML);
+    setFavFood(this.innerHTML);
+  }else{
+    console.log("Likes", this.innerHTML);
+  }
+
+});
+
 $('body').on('tap', '.campus-section-header-container', function() {
   if (cd.verbose) console.log('campus section header taped');
   event.preventDefault();
@@ -521,12 +540,14 @@ $('body').on('submit', '#search-bar', function(event){
 });
 
 //diner menu
-$('body').on('tap', '.menu', function() {
+$('body').on('tap', '#diner .menu', function() {
+
   cd.diner.currentMenu = $(this).find('.highlight').text().trim();
   console.log(cd.diner.currentMenu);
   // debugger;
   $('#menu div[data-role="header"] h1').text(cd.diner.currentMenu);
   $('#menu .menu-header').text("Today's " + cd.diner.currentMenu +" Menu");
+  console.log(cd.diner.cacheMap[cd.diner.currentDinerId]._menu[cd.diner.currentMenu])
   $('#menu [ux\\:data^="data{menu"]').setData({
     menu: cd.diner.cacheMap[cd.diner.currentDinerId]._menu[cd.diner.currentMenu]
   });
