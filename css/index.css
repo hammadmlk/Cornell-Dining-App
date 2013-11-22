@@ -557,10 +557,16 @@ h1.ui-title{
  consider revision
 */
 .list-container .dinner{
-  background: rgba(190,190,190,0.9);
-  margin-bottom: 7px;
+
   overflow: hidden;
-  padding: 5px 22px;
+  padding: 0px 5px;
+  
+  background: white;
+  margin-left:15px;
+  margin-right:15px;
+  margin-bottom: 5px;
+  
+  
 }
 
 .list-container .dinner:last-child{
@@ -573,7 +579,7 @@ h1.ui-title{
   text-decoration: none;
   font-weight:bold;
   font-size:27px;
-  color: black;
+  xcolor: black;
 }
 .list-container .diner-desc{
   margin: 5px 0 5px;
