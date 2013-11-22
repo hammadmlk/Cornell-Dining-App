@@ -350,7 +350,7 @@ var mapInited = false;
 
   //bind events
   // this direct to a diner hall page
-  $('body').on('tap', '.dinner', function() {
+  $('body').on('click', '.dinner', function() {
     event.preventDefault();
     //goes to a specific diner page at diner.html
     
@@ -401,7 +401,7 @@ var mapInited = false;
 
   });
 
-$('body').on('tap', '.map-diner', function() {
+$('body').on('click', '.map-diner', function() {
   event.preventDefault();
   dinnerName = $(this).find('.map-dinner-name').text();
   dinnerDesc = $(this).find('#bodyContent').text();
@@ -418,7 +418,7 @@ $('body').on('blur', '#search-bar', function() {
   $('#search-bar').removeClass('focus');
 });
 
-$('body').on('tap', '#listall-icon', function() {
+$('body').on('click', '#listall-icon', function() {
   $(this).siblings().removeClass('active');
   $(this).addClass('active');
   $("#nearme").fadeOut(400, function() {
@@ -426,7 +426,7 @@ $('body').on('tap', '#listall-icon', function() {
   });
 });
 
-$('body').on('tap', '#nearme-icon', function() {
+$('body').on('click', '#nearme-icon', function() {
   $(this).siblings().removeClass('active');
   $(this).addClass('active');
   $("#all").fadeOut(400, function() {
@@ -434,14 +434,14 @@ $('body').on('tap', '#nearme-icon', function() {
   });
 });
 
-$('body').on('tap', '#connect-icon', function() {
+$('body').on('click', '#connect-icon', function() {
   $.mobile.changePage("connect.html", {
     transition: "slide"
   });
 });
 
 //TODO : fav foods
-$('body').on('tap', '#fav-icon', function() {
+$('body').on('click', '#fav-icon', function() {
 
   sendRequest({
     "uri": "get_fav.json",
@@ -462,7 +462,7 @@ $('body').on('tap', '#fav-icon', function() {
   //  TODO : add section on home.html
 });
 
-$('body').on('tap', '#fullscreen-btn', function() {
+$('body').on('click', '#fullscreen-btn', function() {
 
   alert("Full screen the map.");
   var maxWidth = $('#map-canvas').width() - 80;
@@ -474,12 +474,12 @@ $('body').on('tap', '#fullscreen-btn', function() {
   $mask.fadeIn();
 });
 
-$('body').on('tap', '#showmore-btn', function() {
+$('body').on('click', '#showmore-btn', function() {
   $(this).fadeOut();
   $('#more-dinner').slideDown();
 });
 
-$('body').on('tap', '#switch-btn', function() {
+$('body').on('click', '#switch-btn', function() {
   //
   var mapBtn = $(this).find('#map-btn');
   var listBtn = $(this).find('#list-btn');
@@ -501,7 +501,7 @@ $('body').on('tap', '#switch-btn', function() {
     }
   });
 
-$('body').on('tap', '.menu-diner', function() {
+$('body').on('click', '.menu-diner', function() {
   event.preventDefault();
   menudiner = $(this).text();
   $.mobile.changePage("nutrition.html", {
@@ -509,7 +509,7 @@ $('body').on('tap', '.menu-diner', function() {
   });
 });
 
-$('body').on('tap', '.food-item', function() {
+$('body').on('click', '.food-item', function() {
   event.preventDefault();
   var icon = $(this).siblings(".icon-fav");
   if(icon.toggleClass("unfav").hasClass("unfav")){
@@ -521,7 +521,7 @@ $('body').on('tap', '.food-item', function() {
 
 });
 
-$('body').on('tap', '.campus-section-header-container', function() {
+$('body').on('click', '.campus-section-header-container', function() {
   if (cd.verbose) console.log('campus section header taped');
   event.preventDefault();
   var contractor = $(this).find(".contractor");
@@ -540,7 +540,7 @@ $('body').on('submit', '#search-bar', function(event){
 });
 
 //diner menu
-$('body').on('tap', '#diner .menu', function() {
+$('body').on('click', '#diner .menu', function() {
 
   cd.diner.currentMenu = $(this).find('.highlight').text().trim();
   console.log(cd.diner.currentMenu);

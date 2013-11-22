@@ -1,6 +1,11 @@
+// FILE TO TALK TO SERVER.
+/////////////////////////
+
+// res: 
+// cb: callback
 function sendRequest(res, cb) {
   var TARGET_SERVER = "sf-sas-skoda01.serverfarm.cornell.edu/"
-  var ROOT_DIR = "cd"; //could be localhost/www , depending on your apache config
+  var ROOT_DIR = "192.168.200.50/Cornell-Dining"; //could be localhost/www , depending on your apace config
   var SERVICE_ROOT = "http://"+ ROOT_DIR +"/proxy.php?targetServer=" + TARGET_SERVER + "&url=";
 
   if ((/file/).test(window.location.protocol)) {

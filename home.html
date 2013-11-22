@@ -1,40 +1,46 @@
 <!DOCTYPE html> 
 <html> 
 <head> 
-  <title>Home Page</title> 
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"> 
+<!-- Will inherit head of index file -->
 </head> 
 <body> 
   <div data-role="page" id="home" >
-    <div data-role="header" style="text-align:center">
+
+	<div data-role="header" style="text-align:center">
+      <img src="img/iter1/header.png"  style="display:inline-block"/>
+	  <div id="search-btn"></div>
+	</div>
+  
+	<!--div data-role="header" style="text-align:center">
       <img src="img/iter1/header.png" />
-    </div>
+	  <div id='search-btn'></div>
+    </div-->
 
     <div data-role="content"> 
       <div id="">
-        <form id="search-bar" class="ui-input-search ui-shadow-inset ui-btn-corner-all ui-btn-shadow ui-body-c">
-          <div id="fdj-container"></div>
-          <input placeholder="Search food and dining hall" data-type="search" data-role="none" class="ui-input-search ui-input-text">
-        </form>
+      
+		<form id="search-bar">
+			<input type="search" placeholder="Search food and halls" data-role="none">
+		</form>
+		
         <div id="icons">
-          <div id="nearme-icon" class="active"></div>
-          <div id="listall-icon"></div>
-          <div id="connect-icon"></div>
-          <!-- TODO : change to real icon -->
-          <div id="fav-icon" style="color:white;font-size: 20px;text-align: center;line-height: 51px;">My Fav</div>
+		  <!-- removing the openNearme btn from design >
+          <!--div id="nearme-icon" class="active"></div-->
+          
+		  <div id="listall-icon"></div>
+          <div id="fav-icon"></div>
+		  <div id="connect-icon"></div>      
         </div>
+		
         <div id="nearme">
-          <div style="overflow:hidden">
-            <div id="nearme-title">
-              <img src="img/iter1/opennear-me.png" alt="" id="nearme-title-img">
-            </div>
-              <div id="switch-btn">
-                <p><span id="map-btn" class="inactive-btn">MAP</span><span id="list-btn" class="active-btn">LIST</span></p>
-              </div>
-            </div>
-
+			<div style="overflow:hidden">
+				<div id="nearme-title">
+				  OPEN NEAR YOU
+				</div>				
+				<div id="switch-btn">
+					<p><span id="map-btn" class="inactive-btn">MAP</span><span id="list-btn" class="active-btn">LIST</span></p>
+				</div>
+			</div>
             <div class="list-container">
               <div ux:data="data{diner;diner.diner_id@data-diner-id}" class="dinner" href="diner.html" style="display:none">
                 <h2 class="diner-name" ux:data="data{diner.diner_name}">Diner's name</h2>
@@ -90,6 +96,25 @@
     </div><!-- /content -->
   </div><!-- /page -->
 
+  
+<script>
+	// TODO: WHEN keyboard is popped out. Taping on screen 
+	//       should ignore click event.
+	
+	//Makes the search box visible when search button is clicked
+	//and focuses it.
+	$('body').on('click', '#search-btn', function() {
+	  $('#search-bar').show();	
+	  $('#search-bar input').focus();
+	});
+	// hides the search bar again when focus removed.
+	$('body').on('blur', '#search-bar', function() {
+	  $('#search-bar').hide();
+	});
+	
+	
+	
+</script>
 
 </body>
 </html>
