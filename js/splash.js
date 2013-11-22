@@ -233,6 +233,14 @@ $(document).on('pageinit', '#splash', function() {
   }, cd.splashTimeSpan);
 });
 
+//init listall page
+// TODO: have a look at this.. i may have used this wrongly
+$(document).on('pageinit', '#listall', function() {
+	var useCache = false; // ??????   <<-- i guess this should not be like this
+	getAllDiners(useCache);
+});
+
+
 //init page home
 $(document).on('pageinit', '#home', function() {
   var useCache = false;
@@ -240,7 +248,7 @@ $(document).on('pageinit', '#home', function() {
     //use cache
     useCache = true;
     getNearByLocation(useCache);
-    getAllDiners(useCache);
+    //getAllDiners(useCache);
     return;
   }
   cd.home.init = true;
@@ -251,7 +259,8 @@ $(document).on('pageinit', '#home', function() {
   $.mobile.loadPage( "menu.html", { showLoadMsg: false } );
   $.mobile.loadPage( "result.html", { showLoadMsg: false } );
   $.mobile.loadPage( "fav.html", { showLoadMsg: false } );
-
+  $.mobile.loadPage( "listall.html", { showLoadMsg: false } );	
+  
   //load data
   getNearByLocation(useCache);
   getAllDiners(useCache);
@@ -419,12 +428,20 @@ $('body').on('blur', '#search-bar', function() {
 });
 
 $('body').on('click', '#listall-icon', function() {
+  
+  /*
   $(this).siblings().removeClass('active');
   $(this).addClass('active');
   $("#nearme").fadeOut(400, function() {
     $("#all").fadeIn();
   });
-});
+  */
+  //new by hammad
+  $.mobile.changePage("listall.html", {
+    transition: "slide"
+  });
+  
+}); // end init homepage
 
 $('body').on('click', '#nearme-icon', function() {
   $(this).siblings().removeClass('active');
@@ -453,11 +470,11 @@ $('body').on('click', '#fav-icon', function() {
     //bind data
   });
 
-
   //if display on another page
   $.mobile.changePage("fav.html", {
     transition: "slide"
   });
+  
   //if display on home page 
   //  TODO : add section on home.html
 });

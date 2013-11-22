@@ -10,11 +10,6 @@
       <img src="img/iter1/header.png"  style="display:inline-block"/>
 	  <div id="search-btn"></div>
 	</div>
-  
-	<!--div data-role="header" style="text-align:center">
-      <img src="img/iter1/header.png" />
-	  <div id='search-btn'></div>
-    </div-->
 
     <div data-role="content"> 
       <div id="">
@@ -23,10 +18,7 @@
 			<input type="search" placeholder="Search food and halls" data-role="none">
 		</form>
 		
-        <div id="icons">
-		  <!-- removing the openNearme btn from design >
-          <!--div id="nearme-icon" class="active"></div-->
-          
+        <div id="icons">          
 		  <div id="listall-icon"></div>
           <div id="fav-icon"></div>
 		  <div id="connect-icon"></div>      
@@ -35,10 +27,13 @@
         <div id="nearme">
 			<div style="overflow:hidden">
 				<div id="nearme-title">
-				  OPEN NEAR YOU
+				  <span>Open</span> near you
 				</div>				
 				<div id="switch-btn">
-					<p><span id="map-btn" class="inactive-btn">MAP</span><span id="list-btn" class="active-btn">LIST</span></p>
+					<p>
+					  <span id="map-btn" class="inactive-btn">MAP</span>
+					  <span id="list-btn" class="active-btn">LIST</span>
+					</p>
 				</div>
 			</div>
             <div class="list-container">
@@ -76,6 +71,7 @@
         </div>
       </div>
 
+	  <!-- MOVED TO A NEW HTML PAGE listall.html
       <div id="all" style="display:none">
         <div class="list-container" ux:data="data{area}">
           <div class="campus-section-header-container">
@@ -92,15 +88,13 @@
           </div>
         </div>
       </div>
+	  -->
 
     </div><!-- /content -->
   </div><!-- /page -->
 
   
 <script>
-	// TODO: WHEN keyboard is popped out. Taping on screen 
-	//       should ignore click event.
-	
 	//Makes the search box visible when search button is clicked
 	//and focuses it.
 	$('body').on('click', '#search-btn', function() {

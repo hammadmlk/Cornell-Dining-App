@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+<!-- Will inherit head of index file -->
+</head> 
+<body> 
+  <div data-role="page" id="listall" data-add-back-btn="true" data-theme="b" >
+
+	<div data-role="header" style="text-align:center">
+	  <a href="javascript:void(0);" class="backbtn" data-rel="back"  data-shadow="true" data-role="none"></a>
+      <img src="img/iter1/header.png"  style="display:inline-block"/>
+	  <div id="search-btn" class="lista"></div>
+	</div>
+  
+    <div data-role="content"> 
+      <div id="">
+      
+		<form id="search-bar" class="lista">
+			<input type="search" placeholder="Search food and halls" data-role="none">
+		</form>
+	
+		<div id="all">
+			<div class="list-container" ux:data="data{area}">
+			  <div class="campus-section-header-container">
+				<span class="contractor"> </span>
+				<h1 class="campus-section-header"> <span ux:data="data{area.campus_name}"></span> campus</h1>
+			  </div>
+			  <div class="campus-panel">
+				<div ux:data="data{area.diners;area.diners.diner_id@data-diner-id}" class="dinner" href="diner.html">
+				  <h2 class="diner-name" ux:data="data{area.diners.diner_name}">Diner name</h2>
+				  <p class="diner-desc" ux:data="data{area.diners.diner_desc}">Diner</p>
+				  <p class="diner-time" ux:data="data{area.diners.diner_time}">lunch starts: 30 min</p>
+				  <p class="diner-dist"><strong ux:data="data{area.diners._diner_distance}">0.3</strong>miles</p>
+				</div> <!-- /diner -->
+			  </div> <!-- /campus panel -->
+			</div> <!-- /list container -->
+		</div> <!-- /all -->
+
+    </div><!-- /content -->
+  </div><!-- /page -->
+
+  
+<script>
+	//Makes the search box visible when search button is clicked
+	//and focuses it.
+	
+	$('body').on('click', '#search-btn', function() {
+	  //TODO: not a good way to do .show()... this hack needs CHANGE.	
+	  $( "#listall" ).find( "form" ).show();
+	  //$('#search-bar').show();  // this is not working coz on home.html
+	  // TODO: change this implementation.
+	  $( "#listall" ).find( "input" ).focus();
+	  //$('#search-bar input').focus(); // not working coz of home.html
+	});
+	// hides the search bar again when focus removed.
+	$( "#listall" ).find( "input" ).on('blur', function() {
+		$( "#listall" ).find( "form" ).hide();
+		//alert('d');
+	});
+	//$('body').on('blur', '#search-bar', function() {
+	//  $('#search-bar').hide();
+	//});
+	
+</script>
+
+</body>
+</html>

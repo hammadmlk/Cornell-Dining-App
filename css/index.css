@@ -424,30 +424,41 @@ h1.ui-title{
   line-height: 25px
 }
 #map-btn {
-  border-right: 1px black solid;
+  /*border-right: 1px black solid;*/
 }
 #switch-btn p{
   color: black;
+  font-weight:bold;
 }
 .inactive-btn{
   color: black;
+  background: lightgray;
 }
 .active-btn{
-  color: #ed1c24;
+  color: white;
   font-weight: bold;
+  background: #ed1c24;
 }
 
-
+/*same style as North campus. Perhaps can be merged*/
 #nearme-title{
+  padding-left: 10px;
+  margin: 0px 5px 2px;
+  font-size: 22px;
+  font-weight: normal;
+
   font-family:Agency_FB;
   text-decoration: none;
-  font-weight:bold;
-  font-size:25px;
-  color:red;
+  color:#ed1c24;
   
-  margin-left: 15px;
   float: left;
 }
+
+#nearme-title span{
+  font-size: 180%;
+}
+
+/*no longer needed*/
 #nearme-title-img{
   margin-top : 10px;
 }
@@ -466,7 +477,7 @@ h1.ui-title{
 #listall-icon{
   display: inline-block;
   width: 100px;
-  background: url('../img/iter1/homepage_nav_icons.png') 0px center no-repeat;
+  background: url('../img/iter1/homepage_nav_icons_active.png') 0px center no-repeat;
   background-size: 300%;
   xborder-right: 4px solid black;
 }
@@ -474,14 +485,14 @@ h1.ui-title{
 #icons #fav-icon{
   display: inline-block;
   width: 100px;
-  background: url('../img/iter1/homepage_nav_icons.png') -100px center no-repeat;
+  background: url('../img/iter1/homepage_nav_icons_active.png') -100px center no-repeat;
   background-size: 300%;
   xborder-right: 4px solid black;
 }
 #connect-icon{
   display: inline-block;
   width: 100px;
-  background: url('../img/iter1/homepage_nav_icons.png') -204px center no-repeat;
+  background: url('../img/iter1/homepage_nav_icons_active.png') -204px center no-repeat;
   background-size: 300%;
 }
 
