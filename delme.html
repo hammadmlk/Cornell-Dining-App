@@ -1,0 +1,73 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+  <title>Cornell Dining App</title> 
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"> 
+  <link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" />
+  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  <script src="js/3rd/jquery-2.0.3.min.js"></script>
+  <!--script src="js/3rd/jquery.mobile-1.3.2.js"></script-->
+  <script src="js/3rd/setData.js"></script>
+  <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+  <script src="js/3rd/jquery.validate.min.js"></script>
+  <script src="js/service.js"></script>
+  <script src="js/splash.js"></script>  
+
+  <!-- Important Owl stylesheet -->
+  <link rel="stylesheet" href="owl-carousel/owl.carousel.css">
+  <!-- Default Theme -->
+  <link rel="stylesheet" href="owl-carousel/owl.theme.css">
+  <!-- Include js plugin -->
+  <script src="owl-carousel/owl.carousel.js"></script>
+
+  <style>
+	#owl-demo .item{
+	  margin: 3px;
+	  height:140px;
+	  overflow: hidden;
+	}
+	#owl-demo .item img{
+	  display: block;
+	  width: 100%;
+	  height: auto;
+	}
+  </style>
+</head> 
+
+<body> 
+  <div id="owl-demo">
+	<div class="item">
+		<img src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/cook-house-dining-exterior-shot.png" alt="Owl Image">
+	</div>
+	<div class="item">
+		<img src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/0312_12_101_select_2.png" alt="Owl Image">
+	</div>
+	<div class="item">
+		<img src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/0312_12_117_select_2.png" alt="Owl Image">
+	</div>
+	<div class="item">
+		<img src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/cook-house-dining-exterior-shot.png" alt="Owl Image">
+	</div>
+	<div class="item">
+		<img src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/0312_12_101_select_2.png" alt="Owl Image">
+	</div>
+	<div class="item">
+		<img src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/0312_12_117_select_2.png" alt="Owl Image">
+	</div>       
+  </div>
+  <script>
+	$(document).ready(function() {
+		var owl = $("#owl-demo");
+		owl.owlCarousel({
+			items : 4,
+			itemsScaleUp:true,
+			navigation : false,
+			pagination :false,
+			autoPlay: 2000
+		});
+	});
+  </script>
+</body>
+</html>

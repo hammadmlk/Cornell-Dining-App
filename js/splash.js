@@ -577,12 +577,12 @@ $(document).on('pageshow', '#diner', function() {
   // cd.diner.init = true;
 	
   console.log("Initiating owl carousel")		; 
-  $("#slider").owlCarousel({		 
-	  //autoPlay: 3000, //Set AutoPlay to 3 seconds
-	  pagination: false,
-	  //items : 4,
-	  //itemsDesktop : [1199,3],
-	  //itemsDesktopSmall : [979,3]
+  $("#slider").owlCarousel({
+		items : 4,
+		itemsScaleUp:true,
+		navigation : false,
+		pagination :false,
+		autoPlay: 5000
   });
 
   if (cd.verbose) console.log("page diner shown");
