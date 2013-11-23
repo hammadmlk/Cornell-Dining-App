@@ -1,5 +1,6 @@
 /*OWL Carousel*/
 
+/*Diner Image Slider*/
 #slider .item{
   margin: 3px;
   height:140px;
@@ -9,4 +10,11 @@
   display: block;
   width: 100%;
   height: auto;
+}
+
+
+/* Diner Hours and Menu Slider*/
+#hoursAndMenuSlider .owl-item .slide{
+  padding-left: 5px;
+  padding-right: 5px;
 }

@@ -581,6 +581,26 @@ h1.ui-title{
   border-bottom: 0;
 }
 
+.dinerInfo .section.head{
+  border-bottom:2px solid black;
+}
+.dinerInfo .section.head h1{
+  margin:0 auto;
+  width:100px;
+  text-align: center;
+}
+.dinerInfo .section.head .btn.left{
+  bottom: -3px;
+  float:left;
+  width:30%;
+}
+.dinerInfo .section.head .btn.right{
+  bottom: -3px;
+  float:right;
+  width:30%;
+}
+
+
 .dinerInfo .section h1{
   font-size:25px;
   font-weight:normal;
@@ -615,6 +635,15 @@ h1.ui-title{
   bottom: 15px;
   
 }
+
+.dinerInfo .section  .btn:first-child{
+	float:left;
+}
+
+.dinerInfo .section  .btn.long {
+  width: 100px;
+}
+
 .dinerInfo .section  .btn a{
   color:white;
   text-decoration: none;

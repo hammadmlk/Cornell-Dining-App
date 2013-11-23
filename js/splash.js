@@ -580,10 +580,27 @@ $(document).on('pageshow', '#diner', function() {
   $("#slider").owlCarousel({
 		items : 4,
 		itemsScaleUp:true,
-		navigation : false,
 		pagination :false,
 		autoPlay: 5000
   });
+  $("#hoursAndMenuSlider").owlCarousel({
+    singleItem : true,
+	pagination :false,
+	autoHeight : true
+  });
+  //get carousel instance data and store it in variable owl
+  var owl = $("#hoursAndMenuSlider").data('owlCarousel');
+  var content = "<div><h1>"+"This Slide was added via Javascript. B-)"+"</h1></div>";    // TEST CODE
+  owl.addItem(content); // add to owl slider // TEST CODE
+  
+  $( "#nextDate" ).click(function() {
+    owl.next();
+	$("#date").text("Next Date"); //TODO
+  });
+  $( "#prevDate" ).click(function() {
+    owl.prev();
+	$("#date").text("Prev Date"); //TODO
+	});
 
   if (cd.verbose) console.log("page diner shown");
   setDinerData();

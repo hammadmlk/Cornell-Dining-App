@@ -3,15 +3,12 @@
   <head></head>
   <body>
     <div data-role="page" id="diner" data-dom-cache="true" data-add-back-btn="true" data-theme="a">
-      <!--header-->
-	  <div data-role="header">
+      <div data-role="header">
         <a href="javascript:void(0);" class="backbtn" data-rel="back"  data-shadow="true" data-role="none"></a>
         <h1>Dinner</h1>
       </div>
-	  <!--/header-->
-      
-	  <!--content-->
-	  <div data-role="content">
+      <div data-role="content">
+		
         <!-- hours -->
         <ul data-role="none" class="no-text-shadow today-menus">
           <h2 class="">Today's Hours</h2>
@@ -19,19 +16,8 @@
             <a><span ux:data="data{diner.today_hour.event_type}" class="highlight">Type</span> <span ux:data="data{diner.today_hour.start}" >start</span> - <span ux:data="data{diner.today_hour.end}"></span></a>
           </li>
         </ul>
-		<!--/hours-->
-        <!--     
-          <ul data-theme="d" data-role="listview" data-inset="true" data-divider-theme="d">
-               <li data-role="list-divider">Hours</li>
-               <li>Sunday, 12:00pm - 4:00pm</li>
-               <li>Monday, 8:00am - 8:00pm</li>
-               <li>Tuesday, 8:00am - 8:00pm</li>
-               <li class=""><b>Wednesday, 8:00am - 8:00pm</b></li>
-               <li>Thursday, 8:00am - 8:00pm</li>
-               <li>Friday, 8:00am - 8:00pm</li>
-               <li>Saturday, 12:00pm - 6:00pm</li>
-             </ul> 
-          -->
+		<!-- /hours -->
+                       
         <!-- menus -->
         <ul data-role="none" class="no-text-shadow today-menus">
           <h2 class="">Today's Menu</h2>
@@ -41,6 +27,64 @@
             <div class="arrow-right"></div>
           </li>
         </ul>
+		<!--/menus -->
+        
+		<!--Hours and Menu-->
+		<div data-role="none" id="hoursAndMenuInfo" class="dinerInfo">
+		  <h1 class="">Hours and Menu</h1>		    
+			<div class="section head" >
+			  <div class="btn left" id="prevDate">
+			    <a href="#">Prev</a>
+			  </div>
+			  <div class="btn right" id="nextDate">
+			    <a href="#" ux:data="">Next</a>
+			  </div>
+			  <h1 id="date">12 Nov, 2013</h1>
+		    </div>
+			<div id="hoursAndMenuSlider" class="owl-carousel">
+			  <div class="slide"> <!-- Slide 1-->
+				<div class="section" >
+				  <h1>Breakfast</h1>
+				  <div class="btn long">
+					<a href="#:" ux:data="">Show Menu</a>
+				  </div>
+				  <p>07:00AM - 9:30AM</p>
+				</div>
+				<div class="section" >
+				  <h1>Lunch</h1>
+				  <div class="btn long">
+					<a href="#:" ux:data="">Show Menu</a>
+				  </div>
+				  <p>01:00PM - 2:30PM</p>
+				</div>
+			  </div>			
+			  <div class="slide"> <!-- Slide 2-->
+				<div class="section" >
+				  <h1>Breakfast</h1>
+				  <div class="btn long">
+					<a href="#:" ux:data="">Show Menu</a>
+				  </div>
+				  <p>07:00AM - 9:30AM</p>
+				</div>
+				<div class="section" >
+				  <h1>Lunch</h1>
+				  <div class="btn long">
+					<a href="#:" ux:data="">Show Menu</a>
+				  </div>
+				  <p>01:00PM - 3:30PM</p>
+				</div>
+				<div class="section" >
+				  <h1>Dinner</h1>
+				  <div class="btn long">
+					<a href="#:" ux:data="">Show Menu</a>
+				  </div>
+				  <p>07:00PM - 9:30PM</p>
+				</div>
+			  </div>
+					<!-- Slide 3 was added via javascript-->
+			</div>
+		</div>
+		<!--/Hours and Menu-->
 		
 		<!--General Information-->
 		<div data-role="none" id="generalInfo" class="dinerInfo">
@@ -69,9 +113,9 @@
 			  <div class="item"><img src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/0312_12_101_select_2.png" alt="Owl Image"></div>
 			  <div class="item"><img src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/0312_12_117_select_2.png" alt="Owl Image"></div>
 			</div>
-		  </div>
-        </div> 
-		<!--/general info -->
+		  </div> 
+        </div>
+		<!--/general info-->
       </div>
       <!-- /content -->
     </div>
