@@ -45,22 +45,26 @@
 			<p ux:data="data{diner.Contact.location}">Address here</p>
           </div>
 		  <div class="section">
-			<h1>Contact</h1>
-			<div class="btn">
-				<a href="tel:" ux:data="data{diner.Contact._href@href}">Call</a>
-			</div>
-			<p ux:data="data{diner.Contact._phone_number}">607-255-5555</p>
-          </div>
-		  <div class="section" >
-			<h1>About</h1>
-			<p ux:data="data{diner.description}">Address here</p>
-          </div>
+  			<h1>Contact</h1>
+  			<div class="btn">
+  				<a href="tel:" ux:data="data{diner.Contact._href@href}">Call</a>
+  			</div>
+  			<p ux:data="data{diner.Contact._phone_number}">607-255-5555</p>
+      </div>
+
+      <div class="section" >
+       <h1>About</h1>
+       <p ux:data="data{diner.description}">Description here</p>
+      </div>
+
 		  <div class="section" >
 		    <div id="slider">
-			  <div class="item"><img src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/cook-house-dining-exterior-shot.png" alt="Owl Image"></div>
-			  <div class="item"><img src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/0312_12_101_select_2.png" alt="Owl Image"></div>
-			  <div class="item"><img src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/0312_12_117_select_2.png" alt="Owl Image"></div>
+			  <div class="item" ux:data="data{diner._images}">
+          <img ux:data="data{diner._images._url@src}" src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/cook-house-dining-exterior-shot.png" alt="Diner Image" />
+        </div>
+        </div>
 			</div>
+
 		  </div> 
         </div>
 		<!--/general info-->

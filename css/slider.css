@@ -3,7 +3,10 @@
 /*Diner Image Slider*/
 #slider .item{
   margin: 3px;
+  /*
+  Changed to using auto height, as imgs get croped when height is fixed
   height:140px;
+  */
   overflow: hidden;
 }
 #slider .item img{

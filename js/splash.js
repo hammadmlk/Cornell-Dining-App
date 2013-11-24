@@ -390,6 +390,11 @@ var mapInited = false;
         ret.Contact._href="tel:"+pNumber;
         ret.Contact._phone_number= "("+pNumber.substring(0,3)+") "+pNumber.substring(3,6) + "-" + pNumber.substring(6); 
 
+        ret._images = [];
+        $.each(ret.images, function(i, url){
+          ret._images.push({"_url":url});
+        });
+
         // $.each(ret.menu, function(i, menu){
         //   menu.meal = menu.meal.trim();
         //   $.each(menu.menu_item, function(j, station){
@@ -579,11 +584,17 @@ $(document).on('pageshow', '#diner', function() {
 
   if (cd.verbose) console.log("page diner shown");
 
-  // deconstruct owl carousel 
+  // deconstruct hours/menu owl carousel 
   if ($("#hoursAndMenuSlider").data('owl-init')){
     $("#hoursAndMenuSlider .slide").unwrap().unwrap().unwrap();
     $("#hoursAndMenuSlider").data('owl-init', false);
     $("#hoursAndMenuSlider").data('owlCarousel', null);
+  }
+
+  if ($("#slider").data('owl-init')){
+    $("#slider .item").unwrap().unwrap().unwrap();
+    $("#slider").data('owl-init', false);
+    $("#slider").data('owlCarousel', null);
   }
 
   setDinerData();
@@ -600,10 +611,10 @@ $(document).on('pageshow', '#diner', function() {
   }	
   
   $("#slider").owlCarousel({
-		items : 4,
-		itemsScaleUp:true,
+		// itemsScaleUp:true,
 		pagination :false,
-		autoPlay: 5000
+    autoHeight : true,
+    autoPlay: 5000
   });
 
   $("#hoursAndMenuSlider").owlCarousel({
