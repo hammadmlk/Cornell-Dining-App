@@ -5,30 +5,9 @@
     <div data-role="page" id="diner" data-dom-cache="true" data-add-back-btn="true" data-theme="a">
       <div data-role="header">
         <a href="javascript:void(0);" class="backbtn" data-rel="back"  data-shadow="true" data-role="none"></a>
-        <h1>Dinner</h1>
+        <h1>Diner</h1>
       </div>
       <div data-role="content">
-		
-        <!-- hours -->
-        <ul data-role="none" class="no-text-shadow today-menus">
-          <h2 class="">Today's Hours</h2>
-          <li class="menu hours" ux:data="data{diner.today_hour;diner.today_hour.is_limited@limited}">
-            <a><span ux:data="data{diner.today_hour.event_type}" class="highlight">Type</span> <span ux:data="data{diner.today_hour.start}" >start</span> - <span ux:data="data{diner.today_hour.end}"></span></a>
-          </li>
-        </ul>
-		<!-- /hours -->
-                       
-        <!-- menus -->
-        <ul data-role="none" class="no-text-shadow today-menus">
-          <h2 class="">Today's Menu</h2>
-          <!-- <li >Today's Menu</li> -->
-          <li class="menu" ux:data="data{diner.menu}">
-            <a data-transition="slide" href="menu.html"> <span ux:data="data{diner.menu.meal}" class="highlight">Breakfast</span>menuToday</a>
-            <div class="arrow-right"></div>
-          </li>
-        </ul>
-		<!--/menus -->
-        
 		<!--Hours and Menu-->
 		<div data-role="none" id="hoursAndMenuInfo" class="dinerInfo">
 		  <h1 class="">Hours and Menu</h1>		    
@@ -41,47 +20,16 @@
 			  </div>
 			  <h1 id="date">12 Nov, 2013</h1>
 		    </div>
+
 			<div id="hoursAndMenuSlider" class="owl-carousel">
-			  <div class="slide"> <!-- Slide 1-->
-				<div class="section" >
-				  <h1>Breakfast</h1>
+			  <div class="slide" ux:data="data{diner.seven_day_info}">
+				<div class="section" ux:data="data{diner.seven_day_info.info}">
+				  <h1 ux:data="data{diner.seven_day_info.info.event_type}">Breakfast</h1>
 				  <div class="btn long">
 					<a href="#:" ux:data="">Show Menu</a>
 				  </div>
-				  <p>07:00AM - 9:30AM</p>
+				  <p><span class="start"  ux:data="data{diner.seven_day_info.info.start}">07:00AM</span> - <span class="end"  ux:data="data{diner.seven_day_info.info.end}">9:30AM</span></p>
 				</div>
-				<div class="section" >
-				  <h1>Lunch</h1>
-				  <div class="btn long">
-					<a href="#:" ux:data="">Show Menu</a>
-				  </div>
-				  <p>01:00PM - 2:30PM</p>
-				</div>
-			  </div>			
-			  <div class="slide"> <!-- Slide 2-->
-				<div class="section" >
-				  <h1>Breakfast</h1>
-				  <div class="btn long">
-					<a href="#:" ux:data="">Show Menu</a>
-				  </div>
-				  <p>07:00AM - 9:30AM</p>
-				</div>
-				<div class="section" >
-				  <h1>Lunch</h1>
-				  <div class="btn long">
-					<a href="#:" ux:data="">Show Menu</a>
-				  </div>
-				  <p>01:00PM - 3:30PM</p>
-				</div>
-				<div class="section" >
-				  <h1>Dinner</h1>
-				  <div class="btn long">
-					<a href="#:" ux:data="">Show Menu</a>
-				  </div>
-				  <p>07:00PM - 9:30PM</p>
-				</div>
-			  </div>
-					<!-- Slide 3 was added via javascript-->
 			</div>
 		</div>
 		<!--/Hours and Menu-->

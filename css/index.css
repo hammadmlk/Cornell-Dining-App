@@ -600,6 +600,9 @@ h1.ui-title{
   width:30%;
 }
 
+.dinerInfo .section.head .btn.disabled{
+  -webkit-filter: grayscale(100%);
+}
 
 .dinerInfo .section h1{
   font-size:25px;

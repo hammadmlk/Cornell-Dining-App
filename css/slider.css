@@ -18,3 +18,7 @@
   padding-left: 5px;
   padding-right: 5px;
 }
+
+#hoursAndMenuSlider .slide h1{
+  text-transform: capitalize;
+}

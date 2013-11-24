@@ -389,17 +389,18 @@ var mapInited = false;
 
         ret.Contact._href="tel:"+pNumber;
         ret.Contact._phone_number= "("+pNumber.substring(0,3)+") "+pNumber.substring(3,6) + "-" + pNumber.substring(6); 
-        ret._menu = {};
-        $.each(ret.menu, function(i, menu){
-          menu.meal = menu.meal.trim();
-          $.each(menu.menu_item, function(j, station){
-            station._foods =[];
-            $.each(station.items, function(k, food){
-              station._foods.push({"_name":food});
-            })
-          });
-          ret._menu[menu.meal] = menu.menu_item;
-        });
+
+        // $.each(ret.menu, function(i, menu){
+        //   menu.meal = menu.meal.trim();
+        //   $.each(menu.menu_item, function(j, station){
+        //     station._foods =[];
+        //     $.each(station.items, function(k, food){
+        //       station._foods.push({"_name":food});
+        //     })
+        //   });
+        //   ret._menu[menu.meal] = menu.menu_item;
+        // });
+
         cd.diner.cacheMap[dinerId] = ret;
       });
     }
@@ -575,35 +576,54 @@ $('body').on('click', '#diner .menu', function() {
 $(document).on('pageshow', '#diner', function() {
   // if (cd.diner.init) return;
   // cd.diner.init = true;
-	
-  console.log("Initiating owl carousel")		; 
+
+  if (cd.verbose) console.log("page diner shown");
+
+  // deconstruct owl carousel 
+  if ($("#hoursAndMenuSlider").data('owl-init')){
+    $("#hoursAndMenuSlider .slide").unwrap().unwrap().unwrap();
+    $("#hoursAndMenuSlider").data('owl-init', false);
+    $("#hoursAndMenuSlider").data('owlCarousel', null);
+  }
+
+  setDinerData();
+  
+  var updateDate = function(){
+    var d = moment().add('days', this.currentItem).format('ddd, MMM D');
+    $("#date").text(d);
+    $(".section.head .btn").removeClass('disabled');
+    if (this.currentItem === this.maximumItem){
+      $( "#nextDate" ).addClass('disabled');
+    }else if(this.currentItem === 0){
+      $( "#prevDate" ).addClass('disabled');
+    }
+  }	
+  
   $("#slider").owlCarousel({
 		items : 4,
 		itemsScaleUp:true,
 		pagination :false,
 		autoPlay: 5000
   });
+
   $("#hoursAndMenuSlider").owlCarousel({
     singleItem : true,
-	pagination :false,
-	autoHeight : true
+    pagination :false,
+    autoHeight : true,
+    afterMove: updateDate,
+    rewindNav : false,
+    afterInit: updateDate
   });
+
   //get carousel instance data and store it in variable owl
   var owl = $("#hoursAndMenuSlider").data('owlCarousel');
-  var content = "<div><h1>"+"This Slide was added via Javascript. B-)"+"</h1></div>";    // TEST CODE
-  owl.addItem(content); // add to owl slider // TEST CODE
-  
   $( "#nextDate" ).click(function() {
     owl.next();
-	$("#date").text("Next Date"); //TODO
   });
   $( "#prevDate" ).click(function() {
     owl.prev();
-	$("#date").text("Prev Date"); //TODO
 	});
 
-  if (cd.verbose) console.log("page diner shown");
-  setDinerData();
   // dinnerName = dinnerName ? dinnerName : "Dinner";
   // $('.ui-title').text(dinnerName);
   // $('.desc').text(dinnerDesc);
