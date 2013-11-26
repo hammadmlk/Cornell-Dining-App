@@ -117,15 +117,19 @@
             }
           }
           if (attr) {
-            switch (attr) {
-            case 'class':
-              elem.addClass(value);
-              break;
-            case 'html':
-              elem.html(value);
-              break;
-            default:
-              elem.attr(attr, value);
+            if(attr.indexOf("data-") === 0){
+              elem.data(attr.substring(5), value);
+            }else{
+              switch (attr) {
+              case 'class':
+                elem.addClass(value);
+                break;
+              case 'html':
+                elem.html(value);
+                break;
+              default:
+                elem.attr(attr, value);
+              }
             }
           } else {
             elem.text(value);

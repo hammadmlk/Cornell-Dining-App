@@ -17,6 +17,7 @@ cd.nutrition = {
 cd.connect = {
   init: false
 };
+cd.fav;
 
 $(function() {
   document.addEventListener("deviceready", onDeviceReady, false);
@@ -203,24 +204,55 @@ function searchFood(keyWord){
 
 //fav food ftn
 var KEY_FAV_FOOD_ARRAY = "favfood";
-Storage.prototype.setArray = function(key, obj) {
-  return this.setItem(key, JSON.stringify(obj))
-}
-Storage.prototype.getArray = function(key) {
-  console.log(this.getItem(key));
-  return JSON.parse(this.getItem(key))
-}
+Storage.prototype.setSet = function(key, set) {
+  if(! set instanceof Set) throw set+ " is not a Set." ;
+  console.log("setSet : " + JSON.stringify(set.data));
+  this.setItem(key, JSON.stringify(set.data));
+  return set;
+};
+Storage.prototype.getSet = function(key) {
+  return (this.getItem(key) == null)? this.setSet(key, new Set()): new Set(JSON.parse(this.getItem(key)));
+};
+
 
 // fav food interface
 function getFavFood(){
-  return localStorage.getArray(KEY_FAV_FOOD_ARRAY)||[];
+  return localStorage.getSet(KEY_FAV_FOOD_ARRAY);
+}
+function _getFavFoodArr(){
+  return localStorage.getSet(KEY_FAV_FOOD_ARRAY).keys();
+}
+function getFavFoodArr(){
+  return (cd.fav)?cd.fav.keys():_getFavFoodArr();
+}
+function formatedFavFoodArr(){
+  var KEY = "favorite_food";
+  var queryArray = getFavFoodArr();
+  $.each(queryArray, function(i, item){
+    queryArray[i] = (KEY + "=" + item);
+  });
+  var queryStr =  queryArray.join("&");
+  return queryStr;
 }
 
-function setFavFood(fName){
-  //TODO : optimization, now O(n^2)
-  var arr = getFavFood();
-  arr.push({name: fName});
-  localStorage.setArray(KEY_FAV_FOOD_ARRAY, cd.fav);
+function addFavFood(food){
+  //TODO : optimization
+  cd.fav = (cd.fav)?cd.fav:getFavFood();
+  if(!cd.fav.has(food)){
+    cd.fav.add(food, true);
+    localStorage.setSet(KEY_FAV_FOOD_ARRAY, cd.fav);
+  }
+  console.log('addFavFood : cd.fav = ', cd.fav.data);
+}
+function removeFavFood(food){ 
+  cd.fav = (cd.fav)?cd.fav:getFavFood();
+  if(cd.fav.has(food)){
+    cd.fav.remove(food);
+    localStorage.setSet(KEY_FAV_FOOD_ARRAY, cd.fav);
+  }else{
+    throw "Fav Food : " + food +" is not in the array.";
+  }
+  console.log('removeFavFood : cd.fav = ', cd.fav.data);
 }
 
 //bind event for page splash
@@ -362,20 +394,16 @@ var mapInited = false;
   $('body').on('click', '.dinner', function() {
     event.preventDefault();
     //goes to a specific diner page at diner.html
+    //see setDinerData function for binding the rest of data
     
-    //see function setDinerData
-    
-    dinnerName = $(this).find('h2').text();
-    dinnerDesc = $(this).find('.diner-desc').text();
-    
-    dinnerName = dinnerName ? dinnerName : "Dinner";
+    dinerName = $(this).find('h2').text();
+    dinerName = dinerName ? dinerName : "Diner";
+    $('[data-role=page]#diner .ui-title').text(dinerName);
+    $('[data-role=page]#menu .ui-title').text(dinerName);
 
-    $('[data-role=page]#diner .ui-title').text(dinnerName);
-    // $('[data-role=page]#diner .desc').text(dinnerDesc);
-    // 
     addLoadingMask($('[data-role="page"]#diner div[data-role="content"]'));
 
-    var dinerId = $(this).attr("data-diner-id");
+    var dinerId = $(this).data("diner-id");
     cd.diner.currentDinerId = dinerId;
     if (!cd.diner.cacheMap[dinerId]){
       sendRequest({
@@ -394,17 +422,11 @@ var mapInited = false;
         $.each(ret.images, function(i, url){
           ret._images.push({"_url":url});
         });
+        $.each(ret.seven_day_info, function(){
 
-        // $.each(ret.menu, function(i, menu){
-        //   menu.meal = menu.meal.trim();
-        //   $.each(menu.menu_item, function(j, station){
-        //     station._foods =[];
-        //     $.each(station.items, function(k, food){
-        //       station._foods.push({"_name":food});
-        //     })
-        //   });
-        //   ret._menu[menu.meal] = menu.menu_item;
-        // });
+        });
+//day : int index 0~6
+    // menu[day].info
 
         cd.diner.cacheMap[dinerId] = ret;
       });
@@ -418,7 +440,7 @@ var mapInited = false;
 
 $('body').on('click', '.map-diner', function() {
   event.preventDefault();
-  dinnerName = $(this).find('.map-dinner-name').text();
+  dinerName = $(this).find('.map-dinner-name').text();
   dinnerDesc = $(this).find('#bodyContent').text();
   $.mobile.changePage("diner.html", {
     transition: "slide"
@@ -434,19 +456,9 @@ $('body').on('blur', '#search-bar', function() {
 });
 
 $('body').on('click', '#listall-icon', function() {
-  
-  /*
-  $(this).siblings().removeClass('active');
-  $(this).addClass('active');
-  $("#nearme").fadeOut(400, function() {
-    $("#all").fadeIn();
-  });
-  */
-  //new by hammad
   $.mobile.changePage("listall.html", {
     transition: "slide"
   });
-  
 }); // end init homepage
 
 $('body').on('click', '#nearme-icon', function() {
@@ -465,24 +477,24 @@ $('body').on('click', '#connect-icon', function() {
 
 //TODO : fav foods
 $('body').on('click', '#fav-icon', function() {
+    $('#fav-page [ux\\:data^="data{fav"]').setData({
+      fav: getFavFoodArr()
+    });
 
   sendRequest({
-    "uri": "get_fav.json",
+    "uri": "get_favorite.json",
     "method": "GET",
     "data": {
-      favorites: getFavFood()
+      "favorite_food": formatedFavFoodArr()
     }
   }, function(ret) {
     //bind data
   });
 
-  //if display on another page
   $.mobile.changePage("fav.html", {
     transition: "slide"
   });
-  
-  //if display on home page 
-  //  TODO : add section on home.html
+
 });
 
 $('body').on('click', '#fullscreen-btn', function() {
@@ -524,24 +536,17 @@ $('body').on('click', '#switch-btn', function() {
     }
   });
 
-$('body').on('click', '.menu-diner', function() {
-  event.preventDefault();
-  menudiner = $(this).text();
-  $.mobile.changePage("nutrition.html", {
-    transition: "slide"
-  });
-});
-
 $('body').on('click', '.food-item', function() {
   event.preventDefault();
   var icon = $(this).siblings(".icon-fav");
+  var foodName = this.innerHTML;
   if(icon.toggleClass("unfav").hasClass("unfav")){
-    console.log("Likes", this.innerHTML);
-    setFavFood(this.innerHTML);
+    console.log("Dislike", foodName);
+    removeFavFood(foodName);
   }else{
-    console.log("Likes", this.innerHTML);
+    console.log("Likes", foodName);
+    addFavFood(foodName);
   }
-
 });
 
 $('body').on('click', '.campus-section-header-container', function() {
@@ -563,22 +568,48 @@ $('body').on('submit', '#search-bar', function(event){
 });
 
 //diner menu
-$('body').on('click', '#diner .menu', function() {
-
-  cd.diner.currentMenu = $(this).find('.highlight').text().trim();
-  console.log(cd.diner.currentMenu);
-  // debugger;
-  $('#menu div[data-role="header"] h1').text(cd.diner.currentMenu);
-  $('#menu .menu-header').text("Today's " + cd.diner.currentMenu +" Menu");
-  console.log(cd.diner.cacheMap[cd.diner.currentDinerId]._menu[cd.diner.currentMenu])
-  $('#menu [ux\\:data^="data{menu"]').setData({
-    menu: cd.diner.cacheMap[cd.diner.currentDinerId]._menu[cd.diner.currentMenu]
+$('body').on('click', '#diner .show-menu', function() {
+  var menu = $(this).data("menu");
+  if(!menu) return false;
+  $.each(menu.menu_item, function(j, station){
+    station._foods =[];
+    $.each(station.items, function(k, food){
+      station._foods.push({"_name":food});
+    })
   });
+
+  $('#menu [ux\\:data^="data{menu"]').setData({
+    menu: menu.menu_item
+  });
+
+  var favFoodSet = getFavFoodArr();
+  $.each(favFoodSet, function(i, favFood){
+    $.each($('.food-item'), function(j, item){
+      if(item.innerHTML=== favFood){
+        $(item).siblings('div.icon-fav').removeClass('unfav');
+      }
+    });
+  });
+
+  
+
+  $.mobile.changePage($(this).attr("href"), {
+    transition: "slide"
+  });
+  return false;
+
+  // cd.diner.currentMenu = $(this).find('.highlight').text().trim();
+  // console.log(cd.diner.currentMenu);
+  // // debugger;
+  // $('#menu div[data-role="header"] h1').text(cd.diner.currentMenu);
+  // $('#menu .menu-header').text("Today's " + cd.diner.currentMenu +" Menu");
+  // console.log(cd.diner.cacheMap[cd.diner.currentDinerId]._menu[cd.diner.currentMenu])
 });
 });
 
 //bind events for page diner
-$(document).on('pageshow', '#diner', function() {
+$(document).on('pageshow', '#diner', function(event, data) {
+  if(data.prevPage[0].id === "menu") return;
   // if (cd.diner.init) return;
   // cd.diner.init = true;
 
@@ -589,6 +620,7 @@ $(document).on('pageshow', '#diner', function() {
     $("#hoursAndMenuSlider .slide").unwrap().unwrap().unwrap();
     $("#hoursAndMenuSlider").data('owl-init', false);
     $("#hoursAndMenuSlider").data('owlCarousel', null);
+    console.log("Removing hours and menu slider...", $("#hoursAndMenuSlider"));
   }
 
   if ($("#slider").data('owl-init')){
@@ -597,71 +629,67 @@ $(document).on('pageshow', '#diner', function() {
     $("#slider").data('owlCarousel', null);
   }
 
-  setDinerData();
+
+  var initDinerSliders = function(){
+    var updateDate = function(){
+      var d = moment().add('days', this.currentItem).format('ddd, MMM D');
+      $("#date").text(d);
+      $(".section.head .btn").removeClass('disabled');
+      if (this.currentItem === this.maximumItem){
+        $( "#nextDate" ).addClass('disabled');
+      }else if(this.currentItem === 0){
+        $( "#prevDate" ).addClass('disabled');
+      }
+    };
+
+    //display empty cell to correct slider
+    $("#hoursAndMenuSlider .section").show();
+
+    $("#slider").owlCarousel({
+      // itemsScaleUp:true,
+      pagination :false,
+      autoHeight : true,
+      autoPlay: 5000
+    });
+
+    $("#hoursAndMenuSlider").owlCarousel({
+      singleItem : true,
+      pagination :false,
+      autoHeight : true,
+      afterMove: updateDate,
+      rewindNav : false,
+      afterInit: updateDate
+    });
+
+    //get carousel instance data and store it in variable owl
+    var owl = $("#hoursAndMenuSlider").data('owlCarousel');
+    $( "#nextDate" ).click(function() {
+      owl.next();
+    });
+    $( "#prevDate" ).click(function() {
+      owl.prev();
+    });
+  }
+
+  setDinerData(initDinerSliders);
   
-  var updateDate = function(){
-    var d = moment().add('days', this.currentItem).format('ddd, MMM D');
-    $("#date").text(d);
-    $(".section.head .btn").removeClass('disabled');
-    if (this.currentItem === this.maximumItem){
-      $( "#nextDate" ).addClass('disabled');
-    }else if(this.currentItem === 0){
-      $( "#prevDate" ).addClass('disabled');
-    }
-  }	
-  
-  $("#slider").owlCarousel({
-		// itemsScaleUp:true,
-		pagination :false,
-    autoHeight : true,
-    autoPlay: 5000
-  });
-
-  $("#hoursAndMenuSlider").owlCarousel({
-    singleItem : true,
-    pagination :false,
-    autoHeight : true,
-    afterMove: updateDate,
-    rewindNav : false,
-    afterInit: updateDate
-  });
-
-  //get carousel instance data and store it in variable owl
-  var owl = $("#hoursAndMenuSlider").data('owlCarousel');
-  $( "#nextDate" ).click(function() {
-    owl.next();
-  });
-  $( "#prevDate" ).click(function() {
-    owl.prev();
-	});
-
-  // dinnerName = dinnerName ? dinnerName : "Dinner";
-  // $('.ui-title').text(dinnerName);
-  // $('.desc').text(dinnerDesc);
-  // 
   // if (cd.diner.init) return;
   // cd.diner.init = true;
 });
-function setDinerData(){
+function setDinerData(cb){
   if(!cd.diner.cacheMap[cd.diner.currentDinerId]){
-    setTimeout(setDinerData, cd.TIME_OUT_INTERVAL);
+    setTimeout(function(){
+      setDinerData(cb);
+    }, cd.TIME_OUT_INTERVAL);
     return; 
   }
-  console.log('set diner data', cd.diner.cacheMap[cd.diner.currentDinerId]);
+  // console.log('set diner data', cd.diner.cacheMap[cd.diner.currentDinerId]);
   $('#diner [ux\\:data^="data{diner"]').setData({
     diner: cd.diner.cacheMap[cd.diner.currentDinerId]
   });
+  cb();
   removeLoadingMask($('[data-role="page"]#diner div[data-role="content"]'));
 }
-
-
-//bind events for page nutrition
-$(document).on('pageinit', '#nutrition', function() {
-  if (cd.nutrition.init) return;
-  cd.nutrition.init = true;
-  if (cd.verbose) console.log("page nutrition inited");
-  $('h2.diner').text(menudiner);
-});
 
 //bind events for page connect
 $(document).on('pageinit', '#connect', function() {

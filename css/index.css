@@ -650,6 +650,7 @@ h1.ui-title{
 .dinerInfo .section  .btn a{
   color:white;
   text-decoration: none;
+  display: block
 }
 
 
