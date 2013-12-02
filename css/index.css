@@ -967,4 +967,9 @@ label.error {
   left:0;
 }
 
+.keyword{
+  color:green;
+  font-size: 120%;
+}
+
 /* Owl Carousel Slider related is now in slider.css*/

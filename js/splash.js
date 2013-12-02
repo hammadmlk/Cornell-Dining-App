@@ -192,6 +192,8 @@ function searchFood(keyWord){
     if(cd.keyWord === keyWord){
       $.each(ret, function(i, diner){
         diner._diner_distance = calcDistanceToMe(diner.diner_location.latitude, diner.diner_location.longitude);
+        diner._item = diner.item.replace(new RegExp("("+keyWord+")","gi"),"<span class='keyword'>$1</span>");
+        debugger;
       });
       cd.result = ret;
     }
