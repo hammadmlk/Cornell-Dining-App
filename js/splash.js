@@ -11,9 +11,6 @@ cd.diner = {
   currentDinerId: null, // id of the diner that is about to be shown or showing
   cacheMap : []
 };
-cd.nutrition = {
-  init: false
-};
 cd.connect = {
   init: false
 };
@@ -310,11 +307,21 @@ $(document).on('pageinit', '#home', function() {
   getNearByLocation(useCache);
   getAllDiners(useCache);
 
+  function _setMapHeight(){
+    var top = $("#home #map-container").position().top;
+    if(top > window.innerHeight){
+      top = $("#home .list-container").position().top
+    }
+    $('#map-canvas').css('height', window.innerHeight - top - $("#fullscreen-btn").outerHeight());
+  }
+
+
   function initMap() {
     setTimeout(function() {
       console.log("map initialized");
       //TODO: Cached or hard-wired data in case network fail
       $('#map-container').show();
+      _setMapHeight();
       var mapOptions = {
         center: new google.maps.LatLng(cd.latitude, cd.longitude),
         zoom: 17,
@@ -512,15 +519,8 @@ sendRequest({
 });
 
 $('body').on('click', '#fullscreen-btn', function() {
-
-  alert("Full screen the map.");
-  var maxWidth = $('#map-canvas').width() - 80;
-  // console.log(maxWidth);
-  var maxHeight = $('#map-canvas').height() - 80;
-  // console.log(maxHeight);
-  $mask.css('height', maxHeight);
-  $mask.css('weight', maxWidth);
-  $mask.fadeIn();
+  $("#map-container").toggleClass("fullscreen");
+  _setMapHeight();
 });
 
 $('body').on('click', '#showmore-btn', function() {

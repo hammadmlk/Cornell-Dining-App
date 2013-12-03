@@ -716,7 +716,12 @@ h1.ui-title{
 #fullscreen-btn{
   text-align: right;
   font-size: 14px;
+  padding: 5px 4px;
 }
+#fullscreen-btn p{
+  margin:0;
+}
+
 
 #all .list-container .campus-panel{
   margin-bottom: 10px;
@@ -991,4 +996,12 @@ label.error {
   opacity: 0.25;
   background-color: black;
 }
+
+#map-container.fullscreen{
+  position:absolute;
+  width:100%;
+  margin:0;
+  top:45px;
+}
+ 
 
