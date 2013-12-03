@@ -13,18 +13,22 @@
     <h1>Search Result</h1>
   </div>
   <div data-role="content"> 
-    <h3 class=" no-text-shadow"> Results related to <span class="keyword"></span>:</h3>
-    <h3 style="display:none" class="no-text-shadow prompt "> No results found for keyword <span class="keyword"></span></h3>
+    <h3 style="padding-left: 10px;" class=" no-text-shadow"> Results related to <span class="keyword"></span>:</h3>
+    <h3 style="padding-left: 10px; display:none" class="no-text-shadow prompt "> No results found for keyword <span class="keyword"></span></h3>
     
     <div class="list-container">
       <div ux:data="data{diner;diner.diner_id@data-diner-id}" class="dinner" href="diner.html" style="display:none">
-        <h2 class="diner-name" ux:data="data{diner.diner_name}">Diner's name</h2>
         <p class="diner-desc test" ux:data="data{diner._item@html}">highlighted item</p>
-        <p class="diner-desc" ux:data="data{diner.meal}">Lunch ? dinner</p>
-        <p class="diner-desc" ux:data="data{diner.serve_date}">when?</p>
-        <p class="diner-desc" ux:data="data{diner.station}">station</p>
-        <p class="diner-time" ux:data="data{diner.diner_time}">lunch starts: 30 min</p>
-        <p class="diner-dist"><strong ux:data="data{diner._diner_distance}">0.3</strong>miles</p>
+		<p class="diner-desc">
+		  <span ux:data="data{diner.meal}">Lunch ? dinner</span>
+          <span ux:data="data{diner.serve_date}">when?</span>
+		</p>
+		<p class="diner-desc">
+          <span ux:data="data{diner.station}">station</span> |  
+		  <span ux:data="data{diner.diner_name}">Diner's name</span>
+        </p>
+        <!--p class="diner-time" ux:data="data{diner.diner_time}">lunch starts: 30 min</p>
+        <p class="diner-dist"><strong ux:data="data{diner._diner_distance}">0.3</strong>miles</p-->
       </div>
     </div>
   </div><!-- /content -->
