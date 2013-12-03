@@ -127,6 +127,11 @@
               case 'html':
                 elem.html(value);
                 break;
+              case 'show':
+                if( !value || (value instanceof Array ) && value.length ==0)
+                  elem.hide();
+                else elem.show();
+                break;
               default:
                 elem.attr(attr, value);
               }

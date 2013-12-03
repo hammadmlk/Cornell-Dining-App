@@ -427,19 +427,12 @@ var mapInited = false;
         }
       }, function(ret) {
         var pNumber = ret.Contact.phone_number;
-
         ret.Contact._href="tel:"+pNumber;
         ret.Contact._phone_number= "("+pNumber.substring(0,3)+") "+pNumber.substring(3,6) + "-" + pNumber.substring(6); 
-
         ret._images = [];
         $.each(ret.images, function(i, url){
           ret._images.push({"_url":url});
         });
-        $.each(ret.seven_day_info, function(){
-
-        });
-//day : int index 0~6
-    // menu[day].info
 
         cd.diner.cacheMap[dinerId] = ret;
       });

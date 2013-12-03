@@ -1,0 +1,471 @@
+{
+    "Contact": {
+        "location": "Alice Cook House, West Campus",
+        "phone_number": "6072559508"
+    },
+    "current_meal": "",
+    "description": "As the first dining room to open in the West Campus House System, we are proud to have always worked closely with the members of Cook House to tailor our menu offerings to our residents' tastes. Chef Bryan Roberts' daily creations include hot entrees, pizza and pasta, grilled offerings, salads, and irresistible desserts.\r\r",
+    "hall_id": 1,
+    "images": [
+        "http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/cook-house-dining-exterior-shot.png",
+        "http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/0312_12_101_select_2.png",
+        "http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/0312_12_117_select_2.png"
+    ],
+    "seven_day_info": [
+        {
+            "day_offset": 0,
+            "has_menu": 1,
+            "info": [
+                {
+                    "end": "10:00AM",
+                    "event_type": "breakfast",
+                    "is_limited": 0,
+                    "menu": [],
+                    "start": "07:30AM"
+                },
+                {
+                    "end": "08:30PM",
+                    "event_type": "dinner",
+                    "is_limited": 0,
+                    "menu": {
+                        "meal": "dinner",
+                        "menu_item": [
+                            {
+                                "items": [
+                                    "Green Beans With Toasted Almonds",
+                                    "Okra Pilau",
+                                    "Curried Carrots"
+                                ],
+                                "station": "Hot Traditional Station - Sides"
+                            },
+                            {
+                                "items": [
+                                    "House Fries",
+                                    "Grilled Chicken Breast",
+                                    "Pannequettes Souffles Normands",
+                                    "House International Pancakes"
+                                ],
+                                "station": "Grill Station"
+                            },
+                            {
+                                "items": [
+                                    "House Made Dressings",
+                                    "Salad Bar"
+                                ],
+                                "station": "Salad Bar Station"
+                            },
+                            {
+                                "items": [
+                                    "Spicy Beef Nacho Platter",
+                                    "Penne With Roasted Tomato Pesto"
+                                ],
+                                "station": "Hot Traditional Station - Entrees"
+                            },
+                            {
+                                "items": [
+                                    "Spicy Tomato Soup With Corn Tortillas",
+                                    "Chicken Mulligatawny"
+                                ],
+                                "station": "Soup Station"
+                            },
+                            {
+                                "items": [
+                                    "Asian Theme Bar"
+                                ],
+                                "station": "Specialty Station"
+                            }
+                        ]
+                    },
+                    "start": "05:00PM"
+                }
+            ]
+        },
+        {
+            "day_offset": 1,
+            "has_menu": 1,
+            "info": [
+                {
+                    "end": "10:00AM",
+                    "event_type": "breakfast",
+                    "is_limited": 0,
+                    "menu": [],
+                    "start": "07:30AM"
+                },
+                {
+                    "end": "08:30PM",
+                    "event_type": "dinner",
+                    "is_limited": 0,
+                    "menu": {
+                        "meal": "dinner",
+                        "menu_item": [
+                            {
+                                "items": [
+                                    "Chocolate Ice Cream",
+                                    "Fresh Fruit Bar",
+                                    "Assorted Bread  & Rolls",
+                                    " Millet Pilaf ( Vegan)",
+                                    "Chana Masaladar",
+                                    "Roasted Spaghetti Squash",
+                                    "Pecan Crusted Dijon Chicken",
+                                    "Farfalle W/ Smoked Salmon & Dill Cream",
+                                    "Alice's Birthday Cake"
+                                ],
+                                "station": "House Dinner"
+                            }
+                        ]
+                    },
+                    "start": "06:00PM"
+                }
+            ]
+        },
+        {
+            "day_offset": 2,
+            "has_menu": 1,
+            "info": [
+                {
+                    "end": "10:00AM",
+                    "event_type": "breakfast",
+                    "is_limited": 0,
+                    "menu": [],
+                    "start": "07:30AM"
+                },
+                {
+                    "end": "08:30PM",
+                    "event_type": "dinner",
+                    "is_limited": 0,
+                    "menu": {
+                        "meal": "dinner",
+                        "menu_item": [
+                            {
+                                "items": [
+                                    "Jalapeno Cheese Cornbread",
+                                    "Tuscan Kale",
+                                    "Spicy Black Eyed Peas"
+                                ],
+                                "station": "Hot Traditional Station - Sides"
+                            },
+                            {
+                                "items": [
+                                    "Pollo De Jocon",
+                                    "Hacienda Cheese Quesadilla",
+                                    "Empanada",
+                                    "House Fries"
+                                ],
+                                "station": "Grill Station"
+                            },
+                            {
+                                "items": [
+                                    "House Made Dressings",
+                                    "Salad Bar"
+                                ],
+                                "station": "Salad Bar Station"
+                            },
+                            {
+                                "items": [
+                                    "Tok Sel - Quinoa With Lima Beans",
+                                    "Tortellini W/ Pesto Cream",
+                                    "Raspberry Chipotle Glazed Pork Loin"
+                                ],
+                                "station": "Hot Traditional Station - Entrees"
+                            },
+                            {
+                                "items": [
+                                    "Brewhouse Chili",
+                                    "Lentil & Tomato Soup",
+                                    "Spicy Ginger Soup"
+                                ],
+                                "station": "Soup Station"
+                            },
+                            {
+                                "items": [
+                                    "Vegan Vietnamese Rolls "
+                                ],
+                                "station": "Specialty Station"
+                            }
+                        ]
+                    },
+                    "start": "05:00PM"
+                }
+            ]
+        },
+        {
+            "day_offset": 3,
+            "has_menu": 1,
+            "info": [
+                {
+                    "end": "10:00AM",
+                    "event_type": "breakfast",
+                    "is_limited": 0,
+                    "menu": [],
+                    "start": "07:30AM"
+                },
+                {
+                    "end": "08:00PM",
+                    "event_type": "dinner",
+                    "is_limited": 0,
+                    "menu": {
+                        "meal": "dinner",
+                        "menu_item": [
+                            {
+                                "items": [
+                                    "Crispy Potatoes With Cumin",
+                                    "Lentils, Barley & Tomatoes",
+                                    "Gingered String Beans"
+                                ],
+                                "station": "Hot Traditional Station - Sides"
+                            },
+                            {
+                                "items": [
+                                    "Hot German Potato Salad W/ Bacon ",
+                                    "Big Friday"
+                                ],
+                                "station": "Grill Station"
+                            },
+                            {
+                                "items": [
+                                    "House Made Dressings",
+                                    "Salad Bar"
+                                ],
+                                "station": "Salad Bar Station"
+                            },
+                            {
+                                "items": [
+                                    "Chesapeake Fish Steamer",
+                                    "Seitan Tofu Paella"
+                                ],
+                                "station": "Hot Traditional Station - Entrees"
+                            },
+                            {
+                                "items": [
+                                    "Hot & Sour Soup",
+                                    "Manhattan Clam Chowder"
+                                ],
+                                "station": "Soup Station"
+                            },
+                            {
+                                "items": [
+                                    "Pizza Bar",
+                                    "Taco Bar"
+                                ],
+                                "station": "Specialty Station"
+                            }
+                        ]
+                    },
+                    "start": "05:00PM"
+                }
+            ]
+        },
+        {
+            "day_offset": 4,
+            "has_menu": 1,
+            "info": [
+                {
+                    "end": "02:00PM",
+                    "event_type": "lunch",
+                    "is_limited": 0,
+                    "menu": [],
+                    "start": "10:30AM"
+                },
+                {
+                    "end": "08:00PM",
+                    "event_type": "dinner",
+                    "is_limited": 0,
+                    "menu": {
+                        "meal": "dinner",
+                        "menu_item": [
+                            {
+                                "items": [
+                                    "Sylvia's Smoked Turkey Collard Greens",
+                                    "Sylvia's Sassy Rice",
+                                    "Red Beans Mole`"
+                                ],
+                                "station": "Hot Traditional Station - Sides"
+                            },
+                            {
+                                "items": [
+                                    "Grilled Chicken Breast",
+                                    "Fresh Cut Fries",
+                                    "Egg Foo Yong",
+                                    "Water Market Hand Rolls"
+                                ],
+                                "station": "Grill Station"
+                            },
+                            {
+                                "items": [
+                                    "Salad Bar",
+                                    "House Made Dressings"
+                                ],
+                                "station": "Salad Bar Station"
+                            },
+                            {
+                                "items": [
+                                    "Classic Macaroni & Sharp Cheddar Cheese",
+                                    "Sylvia's Fried Chicken"
+                                ],
+                                "station": "Hot Traditional Station - Entrees"
+                            },
+                            {
+                                "items": [
+                                    "Vegetable Beef Soup",
+                                    "Calico Cheese Soup"
+                                ],
+                                "station": "Soup Station"
+                            },
+                            {
+                                "items": [
+                                    "Pizza Bar",
+                                    "Calle Burrito"
+                                ],
+                                "station": "Specialty Station"
+                            }
+                        ]
+                    },
+                    "start": "05:00PM"
+                }
+            ]
+        },
+        {
+            "day_offset": 5,
+            "has_menu": 1,
+            "info": [
+                {
+                    "end": "02:00PM",
+                    "event_type": "brunch",
+                    "is_limited": 0,
+                    "menu": [],
+                    "start": "10:00AM"
+                },
+                {
+                    "end": "08:00PM",
+                    "event_type": "dinner",
+                    "is_limited": 0,
+                    "menu": {
+                        "meal": "dinner",
+                        "menu_item": [
+                            {
+                                "items": [
+                                    "Yellow Rice And Beans",
+                                    "Roasted Brussels Sprouts With Balsamic",
+                                    "Sukuma Wiki - Kenyan Braised Kale"
+                                ],
+                                "station": "Hot Traditional Station - Sides"
+                            },
+                            {
+                                "items": [
+                                    "Pizza Bar",
+                                    "Fruit Smoothie",
+                                    "Baja-style Fish Tacos",
+                                    "House Fries",
+                                    "Custom Fajitas"
+                                ],
+                                "station": "Grill Station"
+                            },
+                            {
+                                "items": [
+                                    "Dinner Desserts"
+                                ],
+                                "station": "Dessert Station"
+                            },
+                            {
+                                "items": [
+                                    "House Made Dressings",
+                                    "Salad Bar"
+                                ],
+                                "station": "Salad Bar Station"
+                            },
+                            {
+                                "items": [
+                                    "Linguini W/ Tomato Bechamel",
+                                    "Oven Roasted Grape Tomatoes",
+                                    "Pork Chops With Mango Balsamic Glaze"
+                                ],
+                                "station": "Hot Traditional Station - Entrees"
+                            },
+                            {
+                                "items": [
+                                    "Traditional Cream Of Tomato Soup",
+                                    "Turkey Noodle Soup"
+                                ],
+                                "station": "Soup Station"
+                            }
+                        ]
+                    },
+                    "start": "05:00PM"
+                }
+            ]
+        },
+        {
+            "day_offset": 6,
+            "has_menu": 1,
+            "info": [
+                {
+                    "end": "10:00AM",
+                    "event_type": "breakfast",
+                    "is_limited": 0,
+                    "menu": [],
+                    "start": "07:30AM"
+                },
+                {
+                    "end": "08:30PM",
+                    "event_type": "dinner",
+                    "is_limited": 0,
+                    "menu": {
+                        "meal": "dinner",
+                        "menu_item": [
+                            {
+                                "items": [
+                                    "Vegan Expressions",
+                                    "Bean Thread Noodles W/ Black Mushrooms",
+                                    "Basmati Rice"
+                                ],
+                                "station": "Hot Traditional Station - Sides"
+                            },
+                            {
+                                "items": [
+                                    "Escalivida - Spanish Grilled Vegetables",
+                                    "Sausage Chicken Spinach Feta Cooked",
+                                    "Fresh Cut Fries",
+                                    "Fresh Beef Patty Sliders"
+                                ],
+                                "station": "Grill Station"
+                            },
+                            {
+                                "items": [
+                                    "Dinner Desserts"
+                                ],
+                                "station": "Dessert Station"
+                            },
+                            {
+                                "items": [
+                                    "House Made Dressings",
+                                    "Salad Bar"
+                                ],
+                                "station": "Salad Bar Station"
+                            },
+                            {
+                                "items": [
+                                    "Manicotti Alla Marinara",
+                                    "Koko's Sesame Chicken"
+                                ],
+                                "station": "Hot Traditional Station - Entrees"
+                            },
+                            {
+                                "items": [
+                                    "Chipotle White Bean Soup"
+                                ],
+                                "station": "Soup Station"
+                            },
+                            {
+                                "items": [
+                                    "Pasta Bar "
+                                ],
+                                "station": "Specialty Station"
+                            }
+                        ]
+                    },
+                    "start": "05:00PM"
+                }
+            ]
+        }
+    ]
+}
