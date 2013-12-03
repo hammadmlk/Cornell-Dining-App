@@ -879,29 +879,44 @@ label.error {
 }
 
 .today-menus{
+  text-shadow: none !important;
   margin: 20px 0 ;
-  list-style: none;
-  padding: 0;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.today-menus h1{
+  color: black;
+  text-decoration: none;
+  text-shadow: none;
+  margin:0px;
 }
 
 .menu {
-  background-color: #d1d2d4;
+  background-color: white;
   width : 100%;
   position: relative;
-  margin: 15px 0;
+  xmargin: 15px 0;
   height: 45px;
 }
 
 .menu.compact{
-  height: 35px;
-  margin: 5px 0;
+  height: 40px;
+  xmargin: 5px 0;
+  border-bottom: 1px solid black;
 }
-.menu .icon-fav{
-  position: absolute;
-  right: 15px;
-  width : 36px;
-  height: 88%;
-  top: 3px;
+.menu.compact:last-child{
+  border-bottom: 0;
+}
+
+.menu.compact a{
+  font-size: 17px;
+}
+
+.icon-fav{
+  width : 30px;
+  height: 30px;
+  float: right;
   background: url("../img/iter1/star.png") no-repeat center right 0px;
   background-size: 100% 100%
 }
