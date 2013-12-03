@@ -41,7 +41,9 @@
     <div class="section" >
      <h1>Address</h1>
      <div class="btn">
-      <a href="#" ux:data="">Map It</a>
+	  <!--unfortunately these are driving directions by default. Cant change it to walking for apple maps using browser. Phone gap must have an api to solve this problem-->
+      <!--replace value of saddr with gps coordinates of diner-->
+	  <a href="http://maps.apple.com/?saddr=Current+Location&daddr=42.4404833,-76.4872000" ux:data="">Map It</a>
     </div>
     <p ux:data="data{diner.Contact.location}">Address here</p>
   </div>
