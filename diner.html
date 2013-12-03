@@ -1,76 +1,77 @@
 <!DOCTYPE html> 
 <html>
-  <head></head>
-  <body>
-    <div data-role="page" id="diner" data-dom-cache="true" data-add-back-btn="true" data-theme="a">
-      <div data-role="header">
-        <a href="javascript:void(0);" class="backbtn" data-rel="back"  data-shadow="true" data-role="none"></a>
-        <h1>Diner</h1>
-      </div>
-      <div data-role="content">
-		<!--Hours and Menu-->
-		<div data-role="none" id="hoursAndMenuInfo" class="dinerInfo">
-		  <h1 class="">Hours and Menu</h1>		    
-			<div class="section head" >
-			  <div class="btn left" id="prevDate">
-			    <a href="#">Prev</a>
-			  </div>
-			  <div class="btn right" id="nextDate">
-			    <a href="#" ux:data="">Next</a>
-			  </div>
-			  <h1 id="date">12 Nov, 2013</h1>
-		    </div>
-
-			<div id="hoursAndMenuSlider" class="owl-carousel">
-			  <div class="slide" ux:data="data{diner.seven_day_info}">
-				<div class="section" ux:data="data{diner.seven_day_info.info}">
-				  <h1 ux:data="data{diner.seven_day_info.info.event_type}">Breakfast</h1>
-				  <div class="btn long">
-					<a href="menu.html" class="show-menu" ux:data="data{diner.seven_day_info.info.menu@data-menu}">Show Menu</a>
-				  </div>
-				  <p><span class="start"  ux:data="data{diner.seven_day_info.info.start}">07:00AM</span> - <span class="end"  ux:data="data{diner.seven_day_info.info.end}">9:30AM</span></p>
-				</div>
-			</div>
-		</div>
-		<!--/Hours and Menu-->
-		
-		<!--General Information-->
-		<div data-role="none" id="generalInfo" class="dinerInfo">
-		  <h1 class="">General Information</h1>
-		  <div class="section" >
-			<h1>Address</h1>
-			<div class="btn">
-				<a href="#" ux:data="">Map It</a>
-			</div>
-			<p ux:data="data{diner.Contact.location}">Address here</p>
-          </div>
-		  <div class="section">
-  			<h1>Contact</h1>
-  			<div class="btn">
-  				<a href="tel:" ux:data="data{diner.Contact._href@href}">Call</a>
-  			</div>
-  			<p ux:data="data{diner.Contact._phone_number}">607-255-5555</p>
-      </div>
-
-      <div class="section" >
-       <h1>About</h1>
-       <p ux:data="data{diner.description}">Description here</p>
-      </div>
-
-		  <div class="section" >
-		    <div id="slider">
-			  <div class="item" ux:data="data{diner._images}">
-          <img ux:data="data{diner._images._url@src}" src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/cook-house-dining-exterior-shot.png" alt="Diner Image" />
-        </div>
-        </div>
-			</div>
-
-		  </div> 
-        </div>
-		<!--/general info-->
-      </div>
-      <!-- /content -->
+<head></head>
+<body>
+  <div data-role="page" id="diner" data-dom-cache="true" data-add-back-btn="true" data-theme="a">
+    <div data-role="header">
+      <a href="javascript:void(0);" class="backbtn" data-rel="back"  data-shadow="true" data-role="none"></a>
+      <h1>Diner</h1>
     </div>
-    <!-- /page -->
-  </body>
+    <div data-role="content">
+      <!--Hours and Menu-->
+      <div data-role="none" id="hoursAndMenuInfo" class="dinerInfo">
+        <h1 class="">Hours and Menu</h1>		    
+        <div class="section head" >
+         <div class="btn left" id="prevDate">
+           <a href="#">Prev</a>
+         </div>
+         <div class="btn right" id="nextDate">
+           <a href="#" ux:data="">Next</a>
+         </div>
+         <h1 id="date">12 Nov, 2013</h1>
+       </div>
+
+       <div id="hoursAndMenuSlider" class="owl-carousel">
+        <div class="slide" ux:data="data{diner.seven_day_info}">
+          <div class="section" ux:data="data{diner.seven_day_info.info}">
+            <h1 ux:data="data{diner.seven_day_info.info.event_type}">Breakfast</h1>
+            <div class="btn long menu-wrapper">
+             <a href="menu.html" class="show-menu" ux:data="data{diner.seven_day_info.info.menu@data-menu}">Show Menu</a>
+            </div>
+            <p><span class="start"  ux:data="data{diner.seven_day_info.info.start}">07:00AM</span> - <span class="end"  ux:data="data{diner.seven_day_info.info.end}">9:30AM</span></p>
+         </div>
+        </div>
+      </div>
+   </div>
+   <!--/Hours and Menu-->
+
+   <!--General Information-->
+   <div data-role="none" id="generalInfo" class="dinerInfo">
+    <h1 class="">General Information</h1>
+    <div class="section" >
+     <h1>Address</h1>
+     <div class="btn">
+      <a href="#" ux:data="">Map It</a>
+    </div>
+    <p ux:data="data{diner.Contact.location}">Address here</p>
+  </div>
+  <div class="section">
+   <h1>Contact</h1>
+   <div class="btn">
+    <a href="tel:" ux:data="data{diner.Contact._href@href}">Call</a>
+  </div>
+  <p ux:data="data{diner.Contact._phone_number}">607-255-5555</p>
+</div>
+
+<div class="section" >
+ <h1>About</h1>
+ <p ux:data="data{diner.description}">Description here</p>
+</div>
+
+<div class="section" >
+  <div id="slider">
+   <div class="item" ux:data="data{diner._images}">
+    <img ux:data="data{diner._images._url@src}" src="http://living.sas.cornell.edu/living/dine/wheretoeat/AYCTEdiningrooms/images/cook-house-dining-exterior-shot.png" alt="Diner Image" />
+  </div>
+</div>
+</div>
+
+</div> 
+</div>
+<!--/general info-->
+</div>
+<!-- /content -->
+</div>
+<!-- /page -->
+</body>
 </html>

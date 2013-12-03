@@ -180,11 +180,13 @@ function setAllDinersData() {
 
 function searchFood(keyWord){
   cd.keyWord = keyWord;
+  var keyWordArr = keyWord.split(' '),
+  keyWordStr = keyWordArr.join('*');
   sendRequest({
     "uri": "search.json",
     "method": "GET",
     "data": {
-      key_word: keyWord,
+      key_word: keyWordStr,
       longitude: cd.longitude,
       latitude: cd.latitude
     }
@@ -192,8 +194,12 @@ function searchFood(keyWord){
     if(cd.keyWord === keyWord){
       $.each(ret, function(i, diner){
         diner._diner_distance = calcDistanceToMe(diner.diner_location.latitude, diner.diner_location.longitude);
-        diner._item = diner.item.replace(new RegExp("("+keyWord+")","gi"),"<span class='keyword'>$1</span>");
-        debugger;
+
+        $.each(keyWordArr, function(index, keyWord){
+          var item = diner._item||diner.item;
+          diner._item = item.replace(new RegExp("("+keyWord+")","gi"),"<span class='keyword'>$1</span>");
+        });
+
       });
       cd.result = ret;
     }
@@ -216,6 +222,10 @@ Storage.prototype.getSet = function(key) {
   return (this.getItem(key) == null)? this.setSet(key, new Set()): new Set(JSON.parse(this.getItem(key)));
 };
 
+function replaceWhiteSpace (str) {
+  return str.replace(/(\s)+/g,"%20");
+}
+
 
 // fav food interface
 function getFavFood(){
@@ -230,12 +240,13 @@ function getFavFoodArr(){
 function formatedFavFoodArr(){
   var KEY = "favorite_food";
   var queryArray = getFavFoodArr();
-  $.each(queryArray, function(i, item){
-    queryArray[i] = (KEY + "=" + item);
-  });
-  var queryStr =  queryArray.join("&");
+  // $.each(queryArray, function(i, item){
+  //   queryArray[i] = (KEY + "=" + item);
+  // });
+  var queryStr = replaceWhiteSpace(queryArray.join("*"));
   return queryStr;
 }
+
 
 function addFavFood(food){
   //TODO : optimization
@@ -479,19 +490,27 @@ $('body').on('click', '#connect-icon', function() {
 
 //TODO : fav foods
 $('body').on('click', '#fav-icon', function() {
-    $('#fav-page [ux\\:data^="data{fav"]').setData({
-      fav: getFavFoodArr()
-    });
 
-  sendRequest({
-    "uri": "get_favorite.json",
-    "method": "GET",
-    "data": {
-      "favorite_food": formatedFavFoodArr()
-    }
-  }, function(ret) {
-    //bind data
+  // $('#fav-page [ux\\:data^="data{fav"]').setData({
+  //   fav: [
+  //   { diner_id: 10,
+  //     diner_name: "Okenshields",
+  //     fav_food: "Broccoli&nbsp;&nbsp;",
+  //     meal: "Dinner    ",
+  //     serve_date: "2013-12-03"}]
+  //   });
+
+sendRequest({
+  "uri": "get_favorite.json",
+  "method": "GET",
+  "data": {
+    "favorite_food": formatedFavFoodArr()
+  }
+}, function(ret) {
+  $('#fav-page [ux\\:data^="data{fav"]').setData({
+    fav: ret
   });
+});
 
   $.mobile.changePage("fav.html", {
     transition: "slide"
@@ -593,19 +612,10 @@ $('body').on('click', '#diner .show-menu', function() {
     });
   });
 
-  
-
   $.mobile.changePage($(this).attr("href"), {
     transition: "slide"
   });
   return false;
-
-  // cd.diner.currentMenu = $(this).find('.highlight').text().trim();
-  // console.log(cd.diner.currentMenu);
-  // // debugger;
-  // $('#menu div[data-role="header"] h1').text(cd.diner.currentMenu);
-  // $('#menu .menu-header').text("Today's " + cd.diner.currentMenu +" Menu");
-  // console.log(cd.diner.cacheMap[cd.diner.currentDinerId]._menu[cd.diner.currentMenu])
 });
 });
 
@@ -712,13 +722,18 @@ $(document).on('pageinit', '#connect', function() {
         "uri": "comment.json",
         "method": "POST",
         "data": {
-          netID: form["netid"].value,
-          commentContent: form["message"].value,
-          hallID: form["facility"].value
-}
+          netID: replaceWhiteSpace(form["netid"].value),
+          commentContent: replaceWhiteSpace(form["message"].value),
+          hallID: replaceWhiteSpace(form["facility"].value)
+        }
       }, function(ret, res) {
         $("#popupDialog").popup();
         $("#popupDialog").popup("open");
+        console.log(form);
+        $(form).find("input, select, textarea").val("");
+        $(form).find(".ui-select .ui-btn-text").text("Select a Diner");
+      }, function(ret, res){
+        console.log("Failed to comment");
       });
       return false;
     }
@@ -737,6 +752,7 @@ function setSearchResult(){
     return;
   }
   if(cd.result.length !== 0){
+    $('.prompt').hide();
     $('#result [ux\\:data^="data{diner"]').setData({
       diner: cd.result
     });
@@ -762,3 +778,32 @@ $(document).on('pageshow', '#menu', function() {
   console.log("showing menu");
 
 });
+
+//set fav data
+function setFavData(){
+  if(!cd.result) {
+    setTimeout(setFavData, cd.TIME_OUT_INTERVAL);
+    return;
+  }
+  if(cd.result.length !== 0){
+    $('#result [ux\\:data^="data{diner"]').setData({
+      diner: cd.result
+    });
+  }else{
+    $('#result h2').hide();
+    $('#result .prompt').show();
+  }
+  // delete cd.result;
+  console.log("removing");
+  removeLoadingMask($('#result .list-container'));
+}
+
+$(document).on('pageshow', '#fav-page', function() {
+  console.log("showing fav page");
+  // $('#result .keyword').text(cd.keyWord);
+  addLoadingMask($('#result .list-container'));
+  setFavData();
+});
+
+
+

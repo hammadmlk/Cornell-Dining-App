@@ -2,10 +2,12 @@
 /////////////////////////
 
 // res: 
-// cb: callback
-function sendRequest(res, cb) {
+// cb: callback           - called when request succeds
+// bcb: back-up callback  - called when request fails
+function sendRequest(res, cb, bcb) {
   var TARGET_SERVER = "sf-sas-skoda01.serverfarm.cornell.edu/"
-  var ROOT_DIR = "192.168.200.50/Cornell-Dining"; //could be localhost/www , depending on your apace config
+  // 169.254.19.197/cornell/CS5010/dining/platforms/ios/www
+  var ROOT_DIR = "cd"; //could be localhost/www , depending on your apace config
   var SERVICE_ROOT = "http://"+ ROOT_DIR +"/proxy.php?targetServer=" + TARGET_SERVER + "&url=";
 
   if ((/file/).test(window.location.protocol)) {
@@ -34,5 +36,6 @@ function sendRequest(res, cb) {
     cb(o, res);
   }).fail(function() {
     console.error('[service.rest] request error', res, arguments);
+    bcb(o, res);
   });
 }

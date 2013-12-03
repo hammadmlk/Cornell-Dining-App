@@ -17,9 +17,8 @@
 
 
 /* Diner Hours and Menu Slider*/
-#hoursAndMenuSlider .owl-item .slide{
-  padding-left: 5px;
-  padding-right: 5px;
+.dinerInfo .section .btn.menu-wrapper{
+  margin-right: 14px;
 }
 
 #hoursAndMenuSlider .slide h1{

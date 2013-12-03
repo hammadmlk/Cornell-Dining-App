@@ -9,22 +9,20 @@
     <h1>Favorites</h1>
   </div>
   <div data-role="content">
+   <div class="list-container">
     <ul data-role="none" class="no-text-shadow today-menus">
-   <h2 class="desc ">Your favorite foods are served at:</h2>
-      <li class="menu" ux:data="data{fav}">
-        <!-- <a href="#"><span ux:data="data{fav.foodName}" class="medium">Food 1</span></a> -->
-        <div class="arrow-right"></div>
-      </li>
-    </ul>
-
-
+     <h2 class="desc ">Your favorite foods are served at:</h2>
+     <li class="dinner" ux:data="data{fav;fav.diner_id@data-diner-id}">
+      <!-- <a href="#"><span ux:data="data{fav.foodName}" class="medium">Food 1</span></a> -->
+      <h2 class="diner-name" ux:data="data{fav.diner_name}">where</h2>
+      <p class="diner-desc" ux:data="data{fav.fav_food@html}">Fav dish name</p>
+      <p class="diner-desc" ux:data="data{fav.meal}">diner?lunch</p>
+      <p class="diner-time" ux:data="data{fav.serve_date}">serve date</p>
+      <div class="arrow-right"></div>
+    </li>
+  </ul>
+</div>
 </div><!-- /content -->
-
-
-
-
 </div><!-- /page -->
-
-
 </body>
 </html>

@@ -987,4 +987,8 @@ label.error {
   font-size: 120%;
 }
 
-/* Owl Carousel Slider related is now in slider.css*/
+.ui-popup-screen.in {
+  opacity: 0.25;
+  background-color: black;
+}
+
