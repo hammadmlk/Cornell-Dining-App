@@ -704,3 +704,6 @@ label.error {
 }
  
 
+div[data-role="page"].ui-page{
+  background: #e7e8e9;
+}

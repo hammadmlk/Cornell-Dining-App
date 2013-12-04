@@ -317,7 +317,6 @@ $(document).on('pageinit', '#home', function() {
     $('#map-canvas').css('height', window.innerHeight - top - $("#fullscreen-btn").outerHeight());
   }
 
-
   function initMap() {
     setTimeout(function() {
       console.log("map initialized");
@@ -490,29 +489,41 @@ $('body').on('click', '#connect-icon', function() {
   });
 });
 
-//TODO : fav foods
+//fav food entrance
 $('body').on('click', '#fav-icon', function() {
+  addLoadingMask($('#fav-page .list-container'));  
+  sendRequest({
+    "uri": "get_favorite.json",
+    "method": "GET",
+    "data": {
+      "favorite_food": formatedFavFoodArr()
+    }
+  }, function(ret) {
+    $("#fav-page .prompt").hide();
+    var favArr = [], prev = null, favMap={};
+    $.each(ret, function(index, food){
+      if(!favMap[food.fav_food]){
+        favMap[food.fav_food] = [food]
+      }else{
+        favMap[food.fav_food].push(food);
+      }
+    });
+    $.each(favMap, function(index, food){
+        favArr.push({
+          _food_name : index,
+          _served_at : food
+        })
+    });
 
-  // $('#fav-page [ux\\:data^="data{fav"]').setData({
-  //   fav: [
-  //   { diner_id: 10,
-  //     diner_name: "Okenshields",
-  //     fav_food: "Broccoli&nbsp;&nbsp;",
-  //     meal: "Dinner    ",
-  //     serve_date: "2013-12-03"}]
-  //   });
 
-sendRequest({
-  "uri": "get_favorite.json",
-  "method": "GET",
-  "data": {
-    "favorite_food": formatedFavFoodArr()
-  }
-}, function(ret) {
-  $('#fav-page [ux\\:data^="data{fav"]').setData({
-    fav: ret
+console.log(favArr);
+
+    $('#fav-page [ux\\:data^="data{fav"]').setData({
+      fav: favArr
+    });
+
+    removeLoadingMask($('#fav-page .list-container'));
   });
-});
 
   $.mobile.changePage("fav.html", {
     transition: "slide"
@@ -613,6 +624,17 @@ $('body').on('click', '#diner .show-menu', function() {
   return false;
 });
 });
+
+//
+$(document).on('pageshow', '#home', function(event, data) {
+  if(data.prevPage[0].id === "fav-page"){
+    $('[data-role="page"]#fav-page').remove();
+    $.mobile.loadPage( "fav.html", { showLoadMsg: false } );
+  }else if(data.prevPage[0].id === "result"){
+    $('[data-role="page"]#result').remove();
+  }
+});
+
 
 //bind events for page diner
 $(document).on('pageshow', '#diner', function(event, data) {

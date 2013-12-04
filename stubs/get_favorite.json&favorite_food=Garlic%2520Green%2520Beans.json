@@ -1,0 +1,51 @@
+[
+    {
+        "diner_id": 6,
+        "diner_name": "Robert Purcell Marketplace Eatery",
+        "fav_food": "Garlic Green Beans&nbsp;&nbsp;",
+        "meal": "Dinner    ",
+        "serve_date": "2013-12-04"
+    },
+    {
+        "diner_id": 9,
+        "diner_name": "104 West!",
+        "fav_food": "Garlic Green Beans&nbsp;&nbsp;",
+        "meal": "Dinner    ",
+        "serve_date": "2013-12-05"
+    },
+    {
+        "diner_id": 10,
+        "diner_name": "Okenshields",
+        "fav_food": "Garlic Green Beans&nbsp;&nbsp;",
+        "meal": "Lunch     ",
+        "serve_date": "2013-12-05"
+    },
+    {
+        "diner_id": 7,
+        "diner_name": "North Star",
+        "fav_food": "Garlic Green Beans&nbsp;&nbsp;",
+        "meal": "Lunch     ",
+        "serve_date": "2013-12-07"
+    },
+    {
+        "diner_id": 7,
+        "diner_name": "North Star",
+        "fav_food": "Garlic Green Beans&nbsp;&nbsp;",
+        "meal": "Lunch     ",
+        "serve_date": "2013-12-07"
+    },
+    {
+        "diner_id": 6,
+        "diner_name": "Robert Purcell Marketplace Eatery",
+        "fav_food": "Garlic Green Beans&nbsp;&nbsp;",
+        "meal": "Dinner    ",
+        "serve_date": "2013-12-18"
+    },
+    {
+        "diner_id": 7,
+        "diner_name": "North Star",
+        "fav_food": "Garlic Green Beans&nbsp;&nbsp;",
+        "meal": "Dinner    ",
+        "serve_date": "2013-12-25"
+    }
+]
