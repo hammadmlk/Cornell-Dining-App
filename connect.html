@@ -1,59 +1,46 @@
-<!DOCTYPE html> 
-<html> 
-<head> 
-  <title>Home Page</title> 
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"> 
-</head> 
-<body> 
-	<div data-role="page" id="connect" data-add-back-btn="true" data-theme="b">
-   <div data-role="header">
-    <a href="javascript:void(0);" class="backbtn" data-rel="back"  data-shadow="true" data-role="none"></a>
-    <h1>Connect</h1>
+<div data-role="page" id="connect" data-add-back-btn="true" data-theme="b">
+  <div data-role="header">
+	<a href="javascript:void(0);" class="backbtn" data-rel="back" data-shadow="true" data-role="none"></a>
+	<h1>Feedback</h1>
   </div>
-  <div data-role="content"> 
-   <h2 class="desc ">We will be happy to hear from you.</h2>
-   <p class="">Please use the form below to write to us, We will respond as soon as possilbe.</p>
-   <form id="connect" action="">
-    <div data-role="fieldcontain">
-      <label class=" my-ui-input" for="netid">NetID</label>
-      <input type="text" name="netid" id="netid" value=""  />
-      <label for="netid" class="error" style="display: none;">This field is required.</label>
-    </div>  
-    <div data-role="fieldcontain">
-    <label for="select-facility" class="my-ui-input  select ui-input-text">Facility</label>
-    <select name="facility" id="select-facility">
-     <option  ux:data="data{options;options.name;options.id@value}">Select a Diner</option>
-   </select>
- </div>
-   <label for="message" class="">Message</label>
-   <textarea name="message" id="message">
-   </textarea>
-
-   <input type="submit" value="SUBMIT">
- </form>
-</div><!-- /content -->
-<div data-role="popup" id="popupBasic">
-  <p>This is a completely basic popup, no options set.<p>
+  <div data-role="content">
+	<h1 class="">We will be happy to hear from you.</h1>
+	<h2 class="">Please use the form below to write to us, We will respond as soon as possilbe.</h2>
+	<form id="connect" action="">
+		<div data-role="fieldcontain">
+			<label class="" for="netid">NetID</label> 
+			<input type="text" name="netid" id="netid" value="" /> 
+			<label for="netid" class="error" style="display: none;">This field is required.</label>
+		</div>
+		<div data-role="fieldcontain">
+			<label for="select-facility" class="">Facility</label> 
+			<select name="facility" id="select-facility"> 
+			  <option ux:data="data{options;options.name;options.id@value}">Select a Diner</option>
+			</select>
+		</div>
+		<label for="message" class="">Message</label> 
+		<textarea name="message" id="message"></textarea> 
+		<input type="submit" value="SUBMIT" />
+	</form>
+  </div>
+  <!-- /content -->
+  <div data-role="popup" id="popupBasic">
+	<p>This is a completely basic popup, no options set.</p>
+  </div>
+  <div id="popupDialog-popup">
+	<div data-role="popup" data-add-back-btn="false" data-dismissible="false" id="popupDialog" data-transition="pop">
+	  <div role="banner" class="ui-header ui-bar-a">
+		<h1 class="ui-title" role="heading" aria-level="1">Message Sent</h1>
+	  </div>
+	  <div data-role="content" data-theme="d" role="main">
+		<h3>We have received your message</h3>
+		<p>Thank you for letting us to hear from you. We value your opinion very much, and we will respond to you as soon as
+		possible.</p>
+		<a data-role="button" data-direction="reverse" href="home.html" data-transition="slide" data-theme="b"
+		data-corners="true" data-shadow="true" data-icon="check" data-iconshadow="true" data-wrapperels="span">Back to Dining
+		Halls</a>
+	  </div>
+	</div>
+  </div>
 </div>
-
-<div id="popupDialog-popup">
-  <div data-role="popup" data-add-back-btn="false" data-dismissible="false" id="popupDialog" data-transition="pop" >
-      <div role="banner" class="ui-header ui-bar-a">
-        <h1 class="ui-title" role="heading" aria-level="1">Message Sent</h1>
-      </div>
-      <div data-role="content" data-theme="d" role="main">
-        <h3>We have received your message</h3>
-        <p> Thank you for letting us to hear from you. We value your opinion very much, and we will respond to you as soon as possible.</p>
-        <a data-role="button" data-direction="reverse" href="home.html" data-transition="slide" data-theme="b" data-corners="true" data-shadow="true" data-icon="check" data-iconshadow="true" data-wrapperels="span">Back to Dining Halls
-        </a>  
-      </div>
-    </div>
-</div>
-
-</div><!-- /page -->
-
-
-</body>
-</html>
+<!-- /page -->
