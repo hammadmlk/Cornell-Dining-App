@@ -152,7 +152,12 @@ function getAllDiners(usingCache) {
           name : diner.diner_name,
           id : diner.diner_id});
         diner._diner_distance = calcDistanceToMe(diner.diner_location.latitude, diner.diner_location.longitude);
-        diner._diner_time = calcTime(diner);
+        if(diner.close_at === ""){
+          diner._diner_time = "Closed";
+        }else{
+          diner._diner_time = ((diner.current_meal === "open")?"":diner.current_meal+" ") + "closes at " + diner.close_at;
+        }
+        diner._diner_time = (diner._diner_time).charAt(0).toUpperCase() + diner._diner_time.substr(1);
       });
     });
     cd.allDiners = ret;
@@ -326,7 +331,8 @@ $(document).on('pageinit', '#home', function() {
       var mapOptions = {
         center: new google.maps.LatLng(cd.latitude, cd.longitude),
         zoom: 17,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true
       };
       var map = new google.maps.Map(document.getElementById("map-canvas"),
         mapOptions);
@@ -409,6 +415,50 @@ var mapInited = false;
     });
     return infowindow;
   }
+
+  var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+
+/**
+ * The HomeControl adds a control to the map that simply
+ * returns the user to Chicago. This constructor takes
+ * the control DIV as an argument.
+ * @constructor
+ */
+function HomeControl(controlDiv, map) {
+
+  // Set CSS styles for the DIV containing the control
+  // Setting padding to 5 px will offset the control
+  // from the edge of the map
+  controlDiv.style.padding = '5px';
+
+  // Set CSS for the control border
+  var controlUI = document.createElement('div');
+  controlUI.style.backgroundColor = 'white';
+  controlUI.style.borderStyle = 'solid';
+  controlUI.style.borderWidth = '2px';
+  controlUI.style.cursor = 'pointer';
+  controlUI.style.textAlign = 'center';
+  controlUI.title = 'Click to set the map to Home';
+  controlDiv.appendChild(controlUI);
+
+  // Set CSS for the control interior
+  var controlText = document.createElement('div');
+  controlText.style.fontFamily = 'Arial,sans-serif';
+  controlText.style.fontSize = '12px';
+  controlText.style.paddingLeft = '4px';
+  controlText.style.paddingRight = '4px';
+  controlText.innerHTML = '<b>Home</b>';
+  controlUI.appendChild(controlText);
+
+  // Setup the click event listeners: simply set the map to
+  // Chicago
+  google.maps.event.addDomListener(controlUI, 'click', function() {
+    map.setCenter(chicago)
+  });
+
+}
+
+//
 
   //bind events
   // this direct to a diner hall page
