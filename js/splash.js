@@ -110,6 +110,8 @@ function getNearByLocation(usingCache) {
       diner.diner_location.latitude = parseFloat(diner.diner_location.latitude, 10);
       diner.diner_location.longitude = parseFloat(diner.diner_location.longitude, 10);
       diner._diner_distance = calcDistanceToMe(diner.diner_location.latitude, diner.diner_location.longitude);
+      diner._diner_time = ((diner.current_meal === "open")?"":diner.current_meal+" ") + "closes at " + diner.close_at;
+      diner._diner_time = (diner._diner_time).charAt(0).toUpperCase() + diner._diner_time.substr(1);
       // console.log(index,diner)}
     });
     cd.nearbyDiners = ret;
