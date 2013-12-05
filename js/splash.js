@@ -409,7 +409,7 @@ $(document).on('pageinit', '#home', function() {
       map.bounds.extend(myLatLng);
       marker.infoWindow = getInfoWindow(diner);
       infoWindows.push(marker.infoWindow);
-      google.maps.event.addListener(marker, cd.touchEvent, function() {
+      google.maps.event.addListener(marker, 'click', function() {
         for (var i = 0; i < infoWindows.length; i++) {
           infoWindows[i].close();
         }
@@ -460,7 +460,7 @@ $(document).on('pageinit', '#home', function() {
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: center the map to current location
-    google.maps.event.addDomListener(controlUI, cd.touchEvent, function() {
+    google.maps.event.addDomListener(controlUI, 'click', function() {
       map.setCenter(getCurrentGMapLatLng())
     });
   }
@@ -488,7 +488,7 @@ $(document).on('pageinit', '#home', function() {
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: center the map to current location
-    google.maps.event.addDomListener(controlUI, cd.touchEvent, function() {
+    google.maps.event.addDomListener(controlUI, 'click', function() {
       $("#map-container").toggleClass("fullscreen");
       _setMapHeight(map);
     });
