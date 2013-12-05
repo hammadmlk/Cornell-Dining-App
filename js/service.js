@@ -5,10 +5,9 @@
 // cb: callback           - called when request succeds
 // bcb: back-up callback  - called when request fails
 function sendRequest(res, cb, bcb) {
-  var TARGET_SERVER = "sf-sas-skoda01.serverfarm.cornell.edu/"
-  // 169.254.19.197/cornell/CS5010/dining/platforms/ios/www
-  var ROOT_DIR = "cd"; //could be localhost/www , depending on your apace config
-  var SERVICE_ROOT = "http://"+ ROOT_DIR +"/proxy.php?targetServer=" + TARGET_SERVER + "&url=";
+  var TARGET_SERVER = "sf-sas-skoda01.serverfarm.cornell.edu/";
+  var ROOT_DIR = location.href.substr(0,location.href.lastIndexOf('/')+1);
+  var SERVICE_ROOT = ROOT_DIR +"/proxy.php?targetServer=" + TARGET_SERVER + "&url=";
 
   if ((/file/).test(window.location.protocol)) {
     SERVICE_ROOT = "http:/sf-sas-skoda01.serverfarm.cornell.edu/"

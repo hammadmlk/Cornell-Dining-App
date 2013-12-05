@@ -1,7 +1,7 @@
 $.mobile.page.prototype.options.domCache = true;
 
 var cd = {};
-cd.splashTimeSpan = 1500;
+cd.splashTimeSpan = 3000;
 cd.TIME_OUT_INTERVAL = 50;
 cd.verbose = false;
 cd.home = {
@@ -15,6 +15,9 @@ cd.connect = {
   init: false
 };
 cd.fav;
+//It seems click event is supported different on Android, and on iOS.
+//Only tap is recognized by iOS devices.
+cd.touchEvent = (navigator.userAgent.indexOf("iPhone")!== -1)?'tap':'click';
 
 $(function() {
   document.addEventListener("deviceready", onDeviceReady, false);
@@ -406,7 +409,7 @@ $(document).on('pageinit', '#home', function() {
       map.bounds.extend(myLatLng);
       marker.infoWindow = getInfoWindow(diner);
       infoWindows.push(marker.infoWindow);
-      google.maps.event.addListener(marker, 'click', function() {
+      google.maps.event.addListener(marker, cd.touchEvent, function() {
         for (var i = 0; i < infoWindows.length; i++) {
           infoWindows[i].close();
         }
@@ -457,7 +460,7 @@ $(document).on('pageinit', '#home', function() {
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: center the map to current location
-    google.maps.event.addDomListener(controlUI, 'click', function() {
+    google.maps.event.addDomListener(controlUI, cd.touchEvent, function() {
       map.setCenter(getCurrentGMapLatLng())
     });
   }
@@ -485,7 +488,7 @@ $(document).on('pageinit', '#home', function() {
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: center the map to current location
-    google.maps.event.addDomListener(controlUI, 'click', function() {
+    google.maps.event.addDomListener(controlUI, cd.touchEvent, function() {
       $("#map-container").toggleClass("fullscreen");
       _setMapHeight(map);
     });
@@ -493,7 +496,7 @@ $(document).on('pageinit', '#home', function() {
 
   //bind events
   // this direct to a diner hall page
-  $('body').on('click', '.dinner', function() {
+  $('body').on(cd.touchEvent, '.dinner', function() {
     event.preventDefault();
     //goes to a specific diner page at diner.html
     //see setDinerData function for binding the rest of data
@@ -533,7 +536,7 @@ $(document).on('pageinit', '#home', function() {
 
   });
 
-$('body').on('click', '.map-diner', function() {
+$('body').on(cd.touchEvent, '.map-diner', function() {
   event.preventDefault();
   dinerName = $(this).find('.map-dinner-name').text();
   dinnerDesc = $(this).find('#bodyContent').text();
@@ -550,13 +553,13 @@ $('body').on('blur', '#search-bar', function() {
   $('#search-bar').removeClass('focus');
 });
 
-$('body').on('click', '#listall-icon', function() {
+$('body').on(cd.touchEvent, '#listall-icon', function() {
   $.mobile.changePage("listall.html", {
     transition: "slide"
   });
 }); // end init homepage
 
-$('body').on('click', '#nearme-icon', function() {
+$('body').on(cd.touchEvent, '#nearme-icon', function() {
   $(this).siblings().removeClass('active');
   $(this).addClass('active');
   $("#all").fadeOut(400, function() {
@@ -564,14 +567,14 @@ $('body').on('click', '#nearme-icon', function() {
   });
 });
 
-$('body').on('click', '#connect-icon', function() {
+$('body').on(cd.touchEvent, '#connect-icon', function() {
   $.mobile.changePage("connect.html", {
     transition: "slide"
   });
 });
 
 //fav food entrance
-$('body').on('click', '#fav-icon', function() {
+$('body').on(cd.touchEvent, '#fav-icon', function() {
   addLoadingMask($('#fav-page .list-container'));  
   sendRequest({
     "uri": "get_favorite.json",
@@ -609,12 +612,12 @@ $('body').on('click', '#fav-icon', function() {
 
 });
 
-$('body').on('click', '#showmore-btn', function() {
+$('body').on(cd.touchEvent, '#showmore-btn', function() {
   $(this).fadeOut();
   $('#more-dinner').slideDown();
 });
 
-$('body').on('click', '#switch-btn', function() {
+$('body').on(cd.touchEvent, '#switch-btn', function() {
   //
   var mapBtn = $(this).find('#map-btn');
   var listBtn = $(this).find('#list-btn');
@@ -636,7 +639,7 @@ $('body').on('click', '#switch-btn', function() {
     }
   });
 
-$('body').on('click', '.food-item', function() {
+$('body').on(cd.touchEvent, '.food-item', function() {
   event.preventDefault();
   var icon = $(this).siblings(".icon-fav");
   var foodName = this.innerHTML;
@@ -649,7 +652,7 @@ $('body').on('click', '.food-item', function() {
   }
 });
 
-$('body').on('click', '.campus-section-header-container', function() {
+$('body').on(cd.touchEvent, '.campus-section-header-container', function() {
   if (cd.verbose) console.log('campus section header taped');
   event.preventDefault();
   var contractor = $(this).find(".contractor");
@@ -668,7 +671,7 @@ $('body').on('submit', '#search-bar', function(event){
 });
 
 //diner menu
-$('body').on('click', '#diner .show-menu', function() {
+$('body').on(cd.touchEvent, '#diner .show-menu', function() {
   var menu = $(this).data("menu");
   if(!menu) return false;
   $.each(menu.menu_item, function(j, station){
