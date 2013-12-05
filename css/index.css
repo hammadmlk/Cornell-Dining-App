@@ -118,7 +118,7 @@ h1.ui-title{
 }
 
 #map-container{
-  margin: 0 25px;
+  margin: 0 25px 5px;
   padding: 0;
 }
 #map-canvas {
@@ -706,4 +706,21 @@ label.error {
 
 div[data-role="page"].ui-page{
   background: #e7e8e9;
+}
+
+/* Buttons on Google Map*/
+.gm-style div.map-btn-div{
+  padding: 5px;
+}
+.gm-style div.map-btn-ui{
+  background-color:#ed1c24;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+}
+.gm-style div.map-btn-text{
+  font-family:Agency_FB;
+  font-size: 16px;
+  padding: 3px 6px;
+  font-weight: bold;
 }

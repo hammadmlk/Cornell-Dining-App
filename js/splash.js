@@ -36,6 +36,10 @@ $(function() {
 
 });
 
+function getCurrentGMapLatLng(){
+  return new google.maps.LatLng(cd.latitude, cd.longitude);
+}
+
 //return distance between two points in miles
 function calcDistance(la1,lo1,la2,lo2){
   return google.maps.geometry.spherical.computeDistanceBetween(
@@ -314,12 +318,13 @@ $(document).on('pageinit', '#home', function() {
   getNearByLocation(useCache);
   getAllDiners(useCache);
 
-  function _setMapHeight(){
+  function _setMapHeight(map){
     var top = $("#home #map-container").position().top;
     if(top > window.innerHeight){
       top = $("#home .list-container").position().top
     }
-    $('#map-canvas').css('height', window.innerHeight - top - $("#fullscreen-btn").outerHeight());
+    $('#map-canvas').css('height', window.innerHeight - top -parseInt($('#map-container').css('marginBottom'), 10));
+    if(map) google.maps.event.trigger(map, 'resize');
   }
 
   function initMap() {
@@ -337,6 +342,19 @@ $(document).on('pageinit', '#home', function() {
       var map = new google.maps.Map(document.getElementById("map-canvas"),
         mapOptions);
       map.bounds = new google.maps.LatLngBounds();
+      
+      // Create DIVs to hold the customized control
+      var homeControlDiv = document.createElement('div');
+      var homeControl = new HomeControl(homeControlDiv, map);
+
+      homeControlDiv.index = 1;
+      map.controls[google.maps.ControlPosition.TOP_RIGHT].push(homeControlDiv);
+
+      var fsControlDiv = document.createElement('div');
+      var fsControl = new FullScreenControl(fsControlDiv, map);
+
+      fsControlDiv.index = 1;
+      map.controls[google.maps.ControlPosition.TOP_RIGHT].push(fsControlDiv);
 
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(cd.latitude, cd.longitude),
@@ -362,8 +380,8 @@ $(document).on('pageinit', '#home', function() {
       setMarkers(map, diners);
       cd.map = map;
     }, cd.TIME_OUT_INTERVAL);
-}
-var mapInited = false;
+  }
+  var mapInited = false;
 
   /**
    * Data for the markers consisting of a name, a LatLng and a zIndex for
@@ -416,49 +434,62 @@ var mapInited = false;
     return infowindow;
   }
 
-  var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+  /**
+   * The HomeControl adds a control to the map that simply
+   * returns the user to current location. This constructor takes
+   * the control DIV as an argument.
+   * @constructor
+   */
+  function HomeControl(controlDiv, map) {
+    // Set CSS styles for the DIV containing the control
+    controlDiv.classList.add('map-btn-div');
 
-/**
- * The HomeControl adds a control to the map that simply
- * returns the user to Chicago. This constructor takes
- * the control DIV as an argument.
- * @constructor
- */
-function HomeControl(controlDiv, map) {
+    // Set CSS for the control border
+    var controlUI = document.createElement('div');
+    controlUI.classList.add('map-btn-ui');
+    controlUI.title = 'Click to set the map to current location';
+    controlDiv.appendChild(controlUI);
 
-  // Set CSS styles for the DIV containing the control
-  // Setting padding to 5 px will offset the control
-  // from the edge of the map
-  controlDiv.style.padding = '5px';
+    // Set CSS for the control interior
+    var controlText = document.createElement('div');
+    controlText.classList.add('map-btn-text');
+    controlText.innerHTML = 'Home';
+    controlUI.appendChild(controlText);
 
-  // Set CSS for the control border
-  var controlUI = document.createElement('div');
-  controlUI.style.backgroundColor = 'white';
-  controlUI.style.borderStyle = 'solid';
-  controlUI.style.borderWidth = '2px';
-  controlUI.style.cursor = 'pointer';
-  controlUI.style.textAlign = 'center';
-  controlUI.title = 'Click to set the map to Home';
-  controlDiv.appendChild(controlUI);
+    // Setup the click event listeners: center the map to current location
+    google.maps.event.addDomListener(controlUI, 'click', function() {
+      map.setCenter(getCurrentGMapLatLng())
+    });
+  }
 
-  // Set CSS for the control interior
-  var controlText = document.createElement('div');
-  controlText.style.fontFamily = 'Arial,sans-serif';
-  controlText.style.fontSize = '12px';
-  controlText.style.paddingLeft = '4px';
-  controlText.style.paddingRight = '4px';
-  controlText.innerHTML = '<b>Home</b>';
-  controlUI.appendChild(controlText);
+  /**
+   * The FullScreenControl adds a control to the map that 
+   * full screens the map. This constructor takes
+   * the control DIV as an argument.
+   * @constructor
+   */
+  function FullScreenControl(controlDiv, map) {
+    // Set CSS styles for the DIV containing the control
+    controlDiv.classList.add('map-btn-div');
 
-  // Setup the click event listeners: simply set the map to
-  // Chicago
-  google.maps.event.addDomListener(controlUI, 'click', function() {
-    map.setCenter(chicago)
-  });
+    // Set CSS for the control border
+    var controlUI = document.createElement('div');
+    controlUI.classList.add('map-btn-ui');
+    controlUI.title = 'Full-screen the map';
+    controlDiv.appendChild(controlUI);
 
-}
+    // Set CSS for the control interior
+    var controlText = document.createElement('div');
+    controlText.classList.add('map-btn-text');
+    controlText.innerHTML = 'Full-Screen';
+    controlUI.appendChild(controlText);
 
-//
+    // Setup the click event listeners: center the map to current location
+    google.maps.event.addDomListener(controlUI, 'click', function() {
+      $("#map-container").toggleClass("fullscreen");
+      _setMapHeight(map);
+    });
+  }
 
   //bind events
   // this direct to a diner hall page
@@ -565,9 +596,6 @@ $('body').on('click', '#fav-icon', function() {
         })
     });
 
-
-console.log(favArr);
-
     $('#fav-page [ux\\:data^="data{fav"]').setData({
       fav: favArr
     });
@@ -579,11 +607,6 @@ console.log(favArr);
     transition: "slide"
   });
 
-});
-
-$('body').on('click', '#fullscreen-btn', function() {
-  $("#map-container").toggleClass("fullscreen");
-  _setMapHeight();
 });
 
 $('body').on('click', '#showmore-btn', function() {
