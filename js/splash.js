@@ -19,6 +19,13 @@ cd.fav;
 //Only tap is recognized by iOS devices.
 cd.touchEvent = (navigator.userAgent.indexOf("iPhone")!== -1)?'tap':'click';
 
+//Strings should be listed in dictionary, and be used as variable 
+cd.dictionary ={
+  fullScreenBtnTxt:"Full-Screen", //text for sizing button when the map is normal size
+  smallScreenBtnTxt:"Smaller",    //text for sizing button when the map is full-screened
+  goToCurrentBtnTxt:"Home"        //text for centering the map to current location
+}
+
 $(function() {
   document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -480,7 +487,7 @@ $(document).on('pageinit', '#home', function() {
     // Set CSS for the control interior
     var controlText = document.createElement('div');
     controlText.classList.add('map-btn-text');
-    controlText.innerHTML = 'Home';
+    controlText.innerHTML = cd.dictionary.goToCurrentBtnTxt;
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: center the map to current location
@@ -502,18 +509,22 @@ $(document).on('pageinit', '#home', function() {
     // Set CSS for the control border
     var controlUI = document.createElement('div');
     controlUI.classList.add('map-btn-ui');
-    controlUI.title = 'Full-screen the map';
+    controlUI.title = cd.dictionary.fullScreenBtnTxt;
     controlDiv.appendChild(controlUI);
 
     // Set CSS for the control interior
     var controlText = document.createElement('div');
     controlText.classList.add('map-btn-text');
-    controlText.innerHTML = 'Full-Screen';
+    controlText.innerHTML = cd.dictionary.fullScreenBtnTxt;
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: center the map to current location
     google.maps.event.addDomListener(controlUI, 'click', function() {
-      $("#map-container").toggleClass("fullscreen");
+      if($("#map-container").toggleClass("fullscreen").hasClass("fullscreen")){
+        $(this).attr('title', cd.dictionary.smallScreenBtnTxt).find(".map-btn-text").text(cd.dictionary.smallScreenBtnTxt);
+      }else{
+        $(this).attr('title', cd.dictionary.fullScreenBtnTxt).find(".map-btn-text").text(cd.dictionary.fullScreenBtnTxt);
+      }
       _setMapHeight(map);
     });
   }
