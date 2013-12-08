@@ -33,7 +33,7 @@ function sendRequest(res, cb, bcb) {
   return ret.pipe(function(o) {
     console.log('[service.rest] request complete', res, o);
     cb(o, res);
-  }).fail(function() {
+  }).fail(function(o) {
     console.error('[service.rest] request error', res, arguments);
     bcb(o, res);
   });

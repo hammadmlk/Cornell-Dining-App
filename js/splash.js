@@ -131,6 +131,10 @@ function setNearByData() {
   $('#nearme .list-container [ux\\:data^="data{diner"]').setData({
     diner: cd.nearbyDiners
   });
+
+  $('#home #search [ux\\:data^="data{diner"]').setData({
+    diner: cd.nearbyDiners
+  });
 }
 
 function getAllDiners(usingCache) {
@@ -183,9 +187,23 @@ function calcTime(diner){
   }
 }
 
+function _getAllDinersArr(){
+  var ret = [];
+  $.each(cd.allDiners, function(index, section){
+    $.each(section.diners, function(i, diner){
+      ret.push(diner);
+    })
+  });
+  return ret;
+}
+
 function setAllDinersData() {
   $('#all [ux\\:data^="data{area"]').setData({
     area: cd.allDiners
+  });
+
+  $('#listall #search [ux\\:data^="data{diner"]').setData({
+    diner: _getAllDinersArr()
   });
 }
 
@@ -293,6 +311,8 @@ $(document).on('pageinit', '#splash', function() {
 // TODO: have a look at this.. i may have used this wrongly
 $(document).on('pageinit', '#listall', function() {
 	var useCache = false; // ??????   <<-- i guess this should not be like this
+
+  $('#listall form').off('submit').hide().children("div").removeClass("ui-btn-corner-all");
 	getAllDiners(useCache);
 });
 
@@ -383,6 +403,7 @@ $(document).on('pageinit', '#home', function() {
       }
       setMarkers(map, diners);
       cd.map = map;
+      mapInited = true;
     }, cd.TIME_OUT_INTERVAL);
   }
   var mapInited = false;
@@ -502,7 +523,7 @@ $(document).on('pageinit', '#home', function() {
     //goes to a specific diner page at diner.html
     //see setDinerData function for binding the rest of data
     
-    dinerName = $(this).find('h2').text();
+    dinerName = $(this).find('.diner-name').text();
     dinerName = dinerName ? dinerName : "Diner";
     $('[data-role=page]#diner .ui-title').text(dinerName);
     $('[data-role=page]#menu .ui-title').text(dinerName);
@@ -546,13 +567,32 @@ $('body').on(cd.touchEvent, '.map-diner', function() {
   });
 });
 
-$('body').on('focus', '#search-bar', function() {
-  $('#search-bar').addClass('focus');
+//Makes the search box visible when search button is clicked and focuses it.
+$('body').on(cd.touchEvent, '#search-btn', function() {
+    $searchForm = $(this).closest("[data-role='page']").find('form[role="search"]').show();
+    $searchForm.find('input').focus();
+    $searchForm.siblings("ul#search").show();
 });
+// hides the search bar again when focus removed.
+var needToHideForm = true;
+$('body').on('blur', 'input[data-type="search"]', function(e,e2) {
+  if(needToHideForm){
+    $(this).closest('form').hide().siblings("ul#search").hide();
+  }else{
+    needToHideForm = true;
+  }
+});
+$('body').on('mousedown',function(e){
+  if(e.target.classList.contains("ui-icon-delete") ||
+   e.target.id==="search-btn" ||
+    $(e.target).parents("ul#search").length !== 0 ){
+    needToHideForm = false;
+  }else{
+    needToHideForm = true;
+  }
+  // console.log("target ", e.target, "Needtohide?" , needToHideForm); 
+})
 
-$('body').on('blur', '#search-bar', function() {
-  $('#search-bar').removeClass('focus');
-});
 
 $('body').on(cd.touchEvent, '#listall-icon', function() {
   $.mobile.changePage("listall.html", {
@@ -629,17 +669,26 @@ $('body').on(cd.touchEvent, '#switch-btn', function() {
       //to list
       listBtn.removeClass("inactive-btn").addClass("active-btn");
       mapBtn.removeClass("active-btn").addClass("inactive-btn");
-      $('#nearme .list-container').fadeIn();
-      $('#map-container').fadeOut();
+      $('#map-container').fadeOut({
+        duration : 300, 
+        complete:function(){
+          $('#nearme .list-container').fadeIn();
+        }
+      });
     } else {
       //to map
       mapBtn.removeClass("inactive-btn").addClass("active-btn");
       listBtn.removeClass("active-btn").addClass("inactive-btn");
-      $('#nearme .list-container').fadeOut();
-      $('#map-container').fadeIn();
-      if (!mapInited) {
-        initMap();
-      }
+      $('#nearme .list-container').fadeOut({
+        duration : 300, 
+        complete:function(){
+          $('#map-container').fadeIn();
+          if (!mapInited) {
+            initMap();
+          }
+        }
+      });
+      
     }
   });
 
@@ -668,7 +717,9 @@ $('body').on(cd.touchEvent, '.campus-section-header-container', function() {
   }
 });
 
-$('body').on('submit', '#search-bar', function(event){
+$('form[role="search"]').off('submit').hide().children("div").removeClass("ui-btn-corner-all");
+
+$('body').on('submit', 'form', function(event){
   searchFood($(this).find('input').val()); 
   event.preventDefault();
   return false;

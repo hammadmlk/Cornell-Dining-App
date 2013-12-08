@@ -254,20 +254,19 @@ h1.ui-title{
   right: 9px;
 }
 
-#search-bar.focus{
-  -moz-box-shadow: 0 0 12px #ed1c24 /*{global-active-background-color}*/;
-  -webkit-box-shadow: 0 0 12px #ed1c24 /*{global-active-background-color}*/;
-  box-shadow: 0 0 12px #ed1c24 /*{global-active-background-color}*/;
+.ui-listview-filter{
+  margin:0;
+}
+
+.ui-content .ui-listview{
+  margin:0;
+  margin-bottom: 15px;
 }
 
 .ui-content {
   padding: 0px;
   background-color: #e7e8e9;
 }
-.ui-btn-up-c {
-  background: #ed1c24;
-}
-
 .ui-bar-a {
   background: #ed1c24 /*{a-bar-background-color}*/;
 }
@@ -723,4 +722,19 @@ div[data-role="page"].ui-page{
   font-size: 16px;
   padding: 3px 6px;
   font-weight: bold;
+}
+
+/*search */
+#search .diner-name{
+  color:#ed1c24;
+}
+
+form[role="search"] .ui-focus{
+  -moz-box-shadow: 0 0 20px #ed1c24 /*{global-active-background-color}*/;
+  -webkit-box-shadow: 0 0 20px #ed1c24 /*{global-active-background-color}*/;
+  box-shadow: 0 0 20px #ed1c24 /*{global-active-background-color}*/;
+}
+
+.ui-listview-filter .ui-input-search {
+  margin:0;
 }

@@ -12,12 +12,10 @@
 	</div>
 
     <div data-role="content"> 
-      <div id="">
-      
-		<form id="search-bar">
-			<input type="search" placeholder="Search food and halls" data-role="none">
-		</form>
-		
+
+<ul id="search" data-role="listview" data-filter-reveal="true" data-filter-reveal="true" data-filter="true" data-filter-placeholder="Search open eateries...">
+    <li ux:data="data{diner;diner.diner_name@style;diner.diner_id@data-diner-id}" class="dinner"><a class="diner-name" ux:data="data{diner.diner_name}"></a></li>
+</ul>
         <div id="icons">          
 		  <div id="listall-icon"></div>
           <div id="fav-icon"></div>
@@ -51,23 +49,6 @@
       </div>
     </div><!-- /content -->
   </div><!-- /page -->
-
-  
-<script>
-	//Makes the search box visible when search button is clicked
-	//and focuses it.
-	$('body').on('click', '#search-btn', function() {
-	  $('#search-bar').show();	
-	  $('#search-bar input').focus();
-	});
-	// hides the search bar again when focus removed.
-	$('body').on('blur', '#search-bar', function() {
-	  $('#search-bar').hide();
-	});
-	
-	
-	
-</script>
 
 </body>
 </html>

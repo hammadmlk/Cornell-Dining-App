@@ -15,11 +15,11 @@
   
     <div data-role="content"> 
       <div id="">
-      
-		<form id="search-bar" class="lista">
-			<input type="search" placeholder="Search food and halls" data-role="none">
-		</form>
-	
+
+<ul id="search" data-role="listview" data-theme="c" data-filter-reveal="true" data-filter="true" data-filter-placeholder="Search eateries and food...">
+    <li class="dinner" ux:data="data{diner;diner.diner_name@style;diner.diner_id@data-diner-id}"><a class="diner-name" ux:data="data{diner.diner_name}"></a></li>
+</ul>
+
 		<div id="all">
 			<div class="list-container" ux:data="data{area}">
 			  <div class="campus-section-header-container">
@@ -39,30 +39,6 @@
 
     </div><!-- /content -->
   </div><!-- /page -->
-
-  
-<script>
-	//Makes the search box visible when search button is clicked
-	//and focuses it.
-	
-	$('body').on('click', '#search-btn', function() {
-	  //TODO: not a good way to do .show()... this hack needs CHANGE.	
-	  $( "#listall" ).find( "form" ).show();
-	  //$('#search-bar').show();  // this is not working coz on home.html
-	  // TODO: change this implementation.
-	  $( "#listall" ).find( "input" ).focus();
-	  //$('#search-bar input').focus(); // not working coz of home.html
-	});
-	// hides the search bar again when focus removed.
-	$( "#listall" ).find( "input" ).on('blur', function() {
-		$( "#listall" ).find( "form" ).hide();
-		//alert('d');
-	});
-	//$('body').on('blur', '#search-bar', function() {
-	//  $('#search-bar').hide();
-	//});
-	
-</script>
 
 </body>
 </html>
