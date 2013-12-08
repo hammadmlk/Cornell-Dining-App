@@ -525,8 +525,8 @@ $(document).on('pageinit', '#home', function() {
     
     dinerName = $(this).find('.diner-name').text();
     dinerName = dinerName ? dinerName : "Diner";
-    $('[data-role=page]#diner .ui-title').text(dinerName);
-    $('[data-role=page]#menu .ui-title').text(dinerName);
+    $('[data-role=page]#diner .pageTitle').text(dinerName);
+    $('[data-role=page]#menu .pageTitle').text(dinerName);
 
     addLoadingMask($('[data-role="page"]#diner div[data-role="content"]'));
 

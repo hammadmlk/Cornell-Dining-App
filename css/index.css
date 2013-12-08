@@ -231,6 +231,35 @@ h1.ui-title{
 }
 
 
+.header{
+	background: #ed1c24;	
+}
+.header h1{
+	display:inline;
+	text-decoration: none;
+	text-shadow:none;
+	font-weight: normal;
+	font-size: 30px;
+	color: white;
+	vertical-align: bottom;	
+}
+
+.header img{
+	display:inline;
+	height: 36px;
+	width:auto;
+}
+
+.header .backbtn{
+  background:url('images/icons-36-white.png') -282px 2px;
+  border-right: 2px white solid;
+  height: 100%;
+  width: 40px;
+  top:0;
+  left:0;
+}
+
+
 /****SEARCH BUTTON AND BAR ON HOME PAGE****/
 #search-btn{
   float:right;
@@ -238,7 +267,8 @@ h1.ui-title{
   left:0px;
   width:46px;
   height:36px;
-  background:url('images/icons-36-black.png') -1224px 0;
+  background:url('images/icons-36-white.png') -1224px 0;
+  margin-top: 2px;
 }
 
 #search-bar{
@@ -689,16 +719,7 @@ label.error {
   text-align: center;
 }
 
-.ui-header .backbtn{
-  text-decoration : none !important;
-  color : white;
-  background: url("../img/iter1/back.png") no-repeat center center;
-  border-right: 2px white solid;
-  height: 100%;
-  width: 40px;
-  top:0;
-  left:0;
-}
+
 
 .keyword{
   color:green;

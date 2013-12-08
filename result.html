@@ -5,10 +5,16 @@
 </head> 
 <body> 
   <div data-role="page" data-dom-cache="true" id="result" data-add-back-btn="true" data-theme="a">
-   <div data-role="header">
-    <a href="javascript:void(0);" class="backbtn" data-rel="back"  data-shadow="true" data-role="none"></a>
-    <h1>Search Result</h1>
-  </div>
+  
+  	<div data-role="header" class="header">
+		<a class="backbtn" data-rel="back"></a>
+	    <!--div id="search-btn"></div-->
+		<center>
+		  <img src="img/iter1/icon_small.png">
+		  <h1 class="pageTitle">Search Results</h1>
+		</center>
+    </div>
+  
   <div data-role="content"> 
     <h3 style="padding-left: 10px;" class=" no-text-shadow"> Results related to <span class="keyword"></span>:</h3>
     <h3 style="padding-left: 10px; display:none" class="no-text-shadow prompt "> No results found for keyword <span class="keyword"></span></h3>

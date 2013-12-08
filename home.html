@@ -6,16 +6,21 @@
 </head> 
 <body> 
   <div data-role="page" id="home" >
-	<div data-role="header" style="text-align:center">
-      <img src="img/iter1/header.png"  style="display:inline-block"/>
+	
+	<div data-role="header" class="header">
 	  <div id="search-btn"></div>
+	  <center>
+		<img src="img/iter1/icon_small.png">
+		<h1 style="">Cornell Dining</h1>
+	  </center>
 	</div>
 
     <div data-role="content"> 
 
-<ul id="search" data-role="listview" data-filter-reveal="true" data-filter-reveal="true" data-filter="true" data-filter-placeholder="Search open eateries...">
-    <li ux:data="data{diner;diner.diner_name@style;diner.diner_id@data-diner-id}" class="dinner"><a class="diner-name" ux:data="data{diner.diner_name}"></a></li>
-</ul>
+		<ul id="search" data-role="listview" data-filter-reveal="true" data-filter-reveal="true" data-filter="true" data-filter-placeholder="Search open eateries...">
+			<li ux:data="data{diner;diner.diner_name@style;diner.diner_id@data-diner-id}" class="dinner"><a class="diner-name" ux:data="data{diner.diner_name}"></a></li>
+		</ul>
+		
         <div id="icons">          
 		  <div id="listall-icon"></div>
           <div id="fav-icon"></div>

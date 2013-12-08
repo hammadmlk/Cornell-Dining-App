@@ -5,28 +5,34 @@
 </head> 
 <body> 
   <div data-role="page" id="fav-page" data-dom-cache="true" data-add-back-btn="true" data-theme="b">
-   <div data-role="header">
-    <a href="javascript:void(0);" class="backbtn" data-rel="back"  data-shadow="true" data-role="none"></a>
-    <h1>Favorites</h1>
-  </div>
-  <div data-role="content">
-    <h2 class="prompt">Finding your favorite foods...</h2>
-    <div class="list-container">
-      <div data-role="none" class="dinerInfo">
-        <div style="display:none;" ux:data="data{fav}">
-          <h1 class="" ux:data="data{fav._food_name@html}"></h1>
-          <div class="section" ux:data="data{fav._served_at}">
-            <div class="dinner" ux:data="data{fav._served_at.diner_id@data-diner-id}">
-              <h2 class="diner-name" ux:data="data{fav._served_at.diner_name}">where</h2>
-              <p class="diner-time" ux:data="data{fav._served_at.serve_date}">serve date</p>
-              <p class="diner-desc" ux:data="data{fav._served_at.meal}">diner?lunch</p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div data-role="header" class="header">
+		<a class="backbtn" data-rel="back"></a>
+	    <!--div id="search-btn"></div-->
+		<center>
+		  <img src="img/iter1/icon_small.png">
+		  <h1>Starred Food</h1>
+		</center>
     </div>
-  </div>
-</div><!-- /content -->
+		
+
+    <div data-role="content">
+		<h2 class="prompt">Finding your favorite foods...</h2>
+		<div class="list-container">
+		  <div data-role="none" class="dinerInfo">
+			<div style="display:none;" ux:data="data{fav}">
+			  <h1 class="" ux:data="data{fav._food_name@html}"></h1>
+			  <div class="section" ux:data="data{fav._served_at}">
+				<div class="dinner" ux:data="data{fav._served_at.diner_id@data-diner-id}">
+				  <h2 class="diner-name" ux:data="data{fav._served_at.diner_name}">where</h2>
+				  <p class="diner-time" ux:data="data{fav._served_at.serve_date}">serve date</p>
+				  <p class="diner-desc" ux:data="data{fav._served_at.meal}">diner?lunch</p>
+				</div>
+			  </div>
+			</div>
+		  </div>
+		</div>
+    </div>
+  </div><!-- /content -->
 </div><!-- /page -->
 </body>
 </html>
