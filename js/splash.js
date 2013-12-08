@@ -19,6 +19,13 @@ cd.fav;
 //Only tap is recognized by iOS devices.
 cd.touchEvent = (navigator.userAgent.indexOf("iPhone")!== -1)?'tap':'click';
 
+//Strings should be listed in dictionary, and be used as variable 
+cd.dictionary ={
+  fullScreenBtnTxt:"Full-Screen", //text for sizing button when the map is normal size
+  smallScreenBtnTxt:"Smaller",    //text for sizing button when the map is full-screened
+  goToCurrentBtnTxt:"Home"        //text for centering the map to current location
+}
+
 $(function() {
   document.addEventListener("deviceready", onDeviceReady, false);
 
@@ -395,6 +402,7 @@ $(document).on('pageinit', '#home', function() {
         // console.log(diner, diner.diner_location);
         diners.push({
           name: diner.diner_name,
+          id : diner.diner_id,
           longitude: diner.diner_location.longitude,
           latitude: diner.diner_location.latitude,
           zIndex: i,
@@ -443,8 +451,9 @@ $(document).on('pageinit', '#home', function() {
   }
 
   function getInfoWindow(diner) {
-    var contentString = '<div class="map-diner" id="content">' +
-    '<h1 id="firstHeading" class="firstHeading black map-dinner-name">' + diner.name + '</h1>' +
+    console.log(diner);
+    var contentString = '<div class="map-diner dinner" id="content"  data-diner-id="'+ diner.id +'">'+
+    '<h1 id="firstHeading" class="firstHeading map-dinner-name diner-name">' + diner.name + '</h1>' +
     '<div id="bodyContent">' +
     '<p>' + diner.desc + '</p>' +
     '<p class="black">Open details</p>'
@@ -478,7 +487,7 @@ $(document).on('pageinit', '#home', function() {
     // Set CSS for the control interior
     var controlText = document.createElement('div');
     controlText.classList.add('map-btn-text');
-    controlText.innerHTML = 'Home';
+    controlText.innerHTML = cd.dictionary.goToCurrentBtnTxt;
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: center the map to current location
@@ -500,18 +509,22 @@ $(document).on('pageinit', '#home', function() {
     // Set CSS for the control border
     var controlUI = document.createElement('div');
     controlUI.classList.add('map-btn-ui');
-    controlUI.title = 'Full-screen the map';
+    controlUI.title = cd.dictionary.fullScreenBtnTxt;
     controlDiv.appendChild(controlUI);
 
     // Set CSS for the control interior
     var controlText = document.createElement('div');
     controlText.classList.add('map-btn-text');
-    controlText.innerHTML = 'Full-Screen';
+    controlText.innerHTML = cd.dictionary.fullScreenBtnTxt;
     controlUI.appendChild(controlText);
 
     // Setup the click event listeners: center the map to current location
     google.maps.event.addDomListener(controlUI, 'click', function() {
-      $("#map-container").toggleClass("fullscreen");
+      if($("#map-container").toggleClass("fullscreen").hasClass("fullscreen")){
+        $(this).attr('title', cd.dictionary.smallScreenBtnTxt).find(".map-btn-text").text(cd.dictionary.smallScreenBtnTxt);
+      }else{
+        $(this).attr('title', cd.dictionary.fullScreenBtnTxt).find(".map-btn-text").text(cd.dictionary.fullScreenBtnTxt);
+      }
       _setMapHeight(map);
     });
   }
@@ -544,6 +557,7 @@ $(document).on('pageinit', '#home', function() {
         ret.Contact._href="tel:"+pNumber;
         ret.Contact._phone_number= "("+pNumber.substring(0,3)+") "+pNumber.substring(3,6) + "-" + pNumber.substring(6); 
         ret._images = [];
+        ret._mapitHref = "http://maps.apple.com/?saddr=Current+Location&daddr="+ cd.latitude + "," + cd.longitude
         $.each(ret.images, function(i, url){
           ret._images.push({"_url":url});
         });
@@ -557,15 +571,6 @@ $(document).on('pageinit', '#home', function() {
     });
 
   });
-
-$('body').on(cd.touchEvent, '.map-diner', function() {
-  event.preventDefault();
-  dinerName = $(this).find('.map-dinner-name').text();
-  dinnerDesc = $(this).find('#bodyContent').text();
-  $.mobile.changePage("diner.html", {
-    transition: "slide"
-  });
-});
 
 //Makes the search box visible when search button is clicked and focuses it.
 $('body').on(cd.touchEvent, '#search-btn', function() {
@@ -626,6 +631,7 @@ $('body').on(cd.touchEvent, '#fav-icon', function() {
   }, function(ret) {
     $("#fav-page .prompt").hide();
     // var favArr = [], favMap={};
+    favArr = [], favMap={};
     $.each(getFavFoodArr(), function (index, favFood) {
       favMap[favFood] = [];
     });
@@ -642,6 +648,7 @@ $('body').on(cd.touchEvent, '#fav-icon', function() {
           _served_at : food
         })
     });
+
 
     $('#fav-page [ux\\:data^="data{fav"]').setData({
       fav: favArr
@@ -703,6 +710,13 @@ $('body').on(cd.touchEvent, '.food-item', function() {
     console.log("Likes", foodName);
     addFavFood(foodName);
   }
+});
+
+$('body').on(cd.touchEvent, '.remove-fav-food', function() {
+  var foodName;
+  console.log("removing", foodName = $(this).siblings(".food-name").text());
+  $(this).parent().fadeOut();
+  removeFavFood(foodName);
 });
 
 $('body').on(cd.touchEvent, '.campus-section-header-container', function() {
