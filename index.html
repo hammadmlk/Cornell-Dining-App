@@ -1,45 +1,58 @@
 <!DOCTYPE html> 
-<html> 
-<head> 
+<!-- 
+AVOID QUICK PATCHES:
+	Follow design guides when making changes to the file.
+	This file has been partially cleaned up for project handover.
+	Any new changes should follow general design guides.
+
+Comments about this file here:
+	- This page loads all the subsequent pages.
+		- Any new page loaded in the app in wrapped within this page.
+		- Head taq of only this page is read by the application.
+		- more?
+-->
+<html>
+<head>
   <title>Cornell Dining App</title> 
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
-  <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"> 
-  <link rel="stylesheet" href="css/jquery.mobile-1.3.2.css" />
-  <link rel="stylesheet" type="text/css" href="css/index.css" />
+  
+  <!--  -->
+  <meta name="format-detection" content="telephone=no"> 
+  <meta name="viewport" content="width=320, maximum-scale=1, minimum-scale=1">
+  
+  <!-- Stylesheets-->
+  <link rel="stylesheet" type="text/css" href="css/index.css" >
+  
+  <link rel="stylesheet" href="css/jquery.mobile.custom.structure.css" >
+  <link rel="stylesheet" href="css/slider.css"> <!--OWL SLIDER-->
+  <link rel="stylesheet" href="owl-carousel/owl.carousel.css"> <!--OWL SLIDER-->
+  <link rel="stylesheet" href="owl-carousel/owl.theme.css"> <!--OWL SLIDER-->
+ 
+  <!-- 3rd Party Javascipt Libs-->
   <script src="js/3rd/jquery-2.0.3.min.js"></script>
-  <script src="js/3rd/jquery.mobile-1.3.2.js"></script>
-  <script src="js/3rd/setData.js"></script>
-  <script src="js/set.js"></script>
-  <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+  <script src="js/3rd/jquery.mobile.custom.min.js"></script> 
   <script src="js/3rd/jquery.validate.min.js"></script>
+  
   <script src="js/3rd/moment.js"></script>
+  <script src="js/3rd/setData.js"></script> <!--Is this 3rd party ????-->
+
+  <script src="owl-carousel/owl.carousel.js"></script> <!--OWL SLIDER-->
+ 
+  <script src="http://maps.google.com/maps/api/js?sensor=false&libraries=geometry"></script>
+
+  <!-- Javascript Code-->
+  <script src="js/set.js"></script>
   <script src="js/service.js"></script>
   <script src="js/splash.js"></script>  
-
-  <!-- Important Owl stylesheet -->
-  <link rel="stylesheet" href="owl-carousel/owl.carousel.css">
-  <link rel="stylesheet" href="css/slider.css">	   
-  <!-- Default Theme -->
-  <link rel="stylesheet" href="owl-carousel/owl.theme.css">
-  <!-- Include js plugin -->
-  <script src="owl-carousel/owl.carousel.js"></script>
-
+  
 </head> 
 <body> 
-  <div data-role="page" id="splash"> 
-    <div class="splash" style="margin-top: -86px;
-    height: 172px;
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    ">
-    <img src="img/cd-full-logo.png"
-    style="width: 200px;height: 172px;margin: 0 auto;display: block;"
-    alt="startup image" />
+  <div data-role="page" id="SplashScreen"> 
+    <div class="SplashScreen">
+	  <img src="img/cd-full-logo.png" alt="Cornell Dining Logo">
+	</div>
   </div>
-</div>
-<script type="text/javascript" src="phonegap.js"></script>
+
+<script type="text/javascript" src="phonegap.js"></script> <!-- Consider moving to header -->
 
 </body>
 </html>

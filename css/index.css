@@ -60,6 +60,21 @@ body {
   }
 }
 
+/*Splash Screen*/
+.SplashScreen{
+	margin-top: -86px;
+	height: 172px;
+	position: absolute;
+	width: 100%;
+	top: 50%;
+}
+.SplashScreen img{
+	width: 200px; 
+	height: 172px;
+	margin: 0 auto;
+	display: block;
+}
+
 
 .event {
   border-radius:4px;
