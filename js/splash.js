@@ -712,6 +712,13 @@ $('body').on(cd.touchEvent, '.food-item', function() {
   }
 });
 
+$('body').on(cd.touchEvent, '.remove-fav-food', function() {
+  var foodName;
+  console.log("removing", foodName = $(this).siblings(".food-name").text());
+  $(this).parent().fadeOut();
+  removeFavFood(foodName);
+});
+
 $('body').on(cd.touchEvent, '.campus-section-header-container', function() {
   if (cd.verbose) console.log('campus section header taped');
   event.preventDefault();

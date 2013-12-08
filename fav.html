@@ -14,7 +14,11 @@
     <div class="list-container">
       <div data-role="none" class="dinerInfo">
         <div style="display:none;" ux:data="data{fav}">
-          <h1 class="" ux:data="data{fav._food_name@html}"></h1>
+          <h1 class="food-name" ux:data="data{fav._food_name@html}"></h1>
+          
+          <!-- placeholder for remove fav food function. TODO: styling for this -->
+          <div class="remove-fav-food"> Click me to remove this from fav food list</div>
+          
           <div class="section" ux:data="data{fav._served_at}">
             <div class="dinner" ux:data="data{fav._served_at.diner_id@data-diner-id}">
               <h2 class="diner-name" ux:data="data{fav._served_at.diner_name}">where</h2>
