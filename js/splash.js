@@ -1,7 +1,7 @@
 $.mobile.page.prototype.options.domCache = true;
 
 var cd = {};
-cd.splashTimeSpan = 3000;
+cd.SplashScreenTimeSpan = 3000;
 cd.TIME_OUT_INTERVAL = 50;
 cd.verbose = false;
 cd.home = {
@@ -297,14 +297,14 @@ function removeFavFood(food){
   console.log('removeFavFood : cd.fav = ', cd.fav.data);
 }
 
-//bind event for page splash
-$(document).on('pageinit', '#splash', function() {
-  if (cd.verbose) console.log("page splash inited");
+//bind event for page SplashScreen
+$(document).on('pageinit', '#SplashScreen', function() {
+  if (cd.verbose) console.log("page SplashScreen inited");
   setTimeout(function() {
     $.mobile.changePage("home.html", {
       transition: "slideup"
     });
-  }, cd.splashTimeSpan);
+  }, cd.SplashScreenTimeSpan);
 });
 
 //init listall page
