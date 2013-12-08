@@ -557,6 +557,7 @@ $(document).on('pageinit', '#home', function() {
         ret.Contact._href="tel:"+pNumber;
         ret.Contact._phone_number= "("+pNumber.substring(0,3)+") "+pNumber.substring(3,6) + "-" + pNumber.substring(6); 
         ret._images = [];
+        ret._mapitHref = "http://maps.apple.com/?saddr=Current+Location&daddr="+ cd.latitude + "," + cd.longitude
         $.each(ret.images, function(i, url){
           ret._images.push({"_url":url});
         });
