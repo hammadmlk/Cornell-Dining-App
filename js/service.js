@@ -10,7 +10,7 @@ function sendRequest(res, cb, bcb) {
   var SERVICE_ROOT = ROOT_DIR +"/proxy.php?targetServer=" + TARGET_SERVER + "&url=";
 
   if ((/file/).test(window.location.protocol)) {
-    SERVICE_ROOT = "http:/sf-sas-skoda01.serverfarm.cornell.edu/"
+    SERVICE_ROOT = "http://sf-sas-skoda01.serverfarm.cornell.edu/"
   }
 
   console.log('[service.rest] sendRequest', res);

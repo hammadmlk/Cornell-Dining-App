@@ -296,6 +296,7 @@ $(document).on('pageinit', '#listall', function() {
 	getAllDiners(useCache);
 });
 
+ var favArr = [], favMap={};
 
 //init page home
 $(document).on('pageinit', '#home', function() {
@@ -573,7 +574,7 @@ $('body').on(cd.touchEvent, '#connect-icon', function() {
   });
 });
 
-//fav food entrance
+//favorite food entrance
 $('body').on(cd.touchEvent, '#fav-icon', function() {
   addLoadingMask($('#fav-page .list-container'));  
   sendRequest({
@@ -584,7 +585,10 @@ $('body').on(cd.touchEvent, '#fav-icon', function() {
     }
   }, function(ret) {
     $("#fav-page .prompt").hide();
-    var favArr = [], prev = null, favMap={};
+    // var favArr = [], favMap={};
+    $.each(getFavFoodArr(), function (index, favFood) {
+      favMap[favFood] = [];
+    });
     $.each(ret, function(index, food){
       if(!favMap[food.fav_food]){
         favMap[food.fav_food] = [food]
