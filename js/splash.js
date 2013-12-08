@@ -395,6 +395,7 @@ $(document).on('pageinit', '#home', function() {
         // console.log(diner, diner.diner_location);
         diners.push({
           name: diner.diner_name,
+          id : diner.diner_id,
           longitude: diner.diner_location.longitude,
           latitude: diner.diner_location.latitude,
           zIndex: i,
@@ -443,8 +444,9 @@ $(document).on('pageinit', '#home', function() {
   }
 
   function getInfoWindow(diner) {
-    var contentString = '<div class="map-diner" id="content">' +
-    '<h1 id="firstHeading" class="firstHeading black map-dinner-name">' + diner.name + '</h1>' +
+    console.log(diner);
+    var contentString = '<div class="map-diner dinner" id="content"  data-diner-id="'+ diner.id +'">'+
+    '<h1 id="firstHeading" class="firstHeading map-dinner-name diner-name">' + diner.name + '</h1>' +
     '<div id="bodyContent">' +
     '<p>' + diner.desc + '</p>' +
     '<p class="black">Open details</p>'
@@ -558,15 +560,6 @@ $(document).on('pageinit', '#home', function() {
 
   });
 
-$('body').on(cd.touchEvent, '.map-diner', function() {
-  event.preventDefault();
-  dinerName = $(this).find('.map-dinner-name').text();
-  dinnerDesc = $(this).find('#bodyContent').text();
-  $.mobile.changePage("diner.html", {
-    transition: "slide"
-  });
-});
-
 //Makes the search box visible when search button is clicked and focuses it.
 $('body').on(cd.touchEvent, '#search-btn', function() {
     $searchForm = $(this).closest("[data-role='page']").find('form[role="search"]').show();
@@ -626,6 +619,7 @@ $('body').on(cd.touchEvent, '#fav-icon', function() {
   }, function(ret) {
     $("#fav-page .prompt").hide();
     // var favArr = [], favMap={};
+    favArr = [], favMap={};
     $.each(getFavFoodArr(), function (index, favFood) {
       favMap[favFood] = [];
     });
@@ -642,6 +636,7 @@ $('body').on(cd.touchEvent, '#fav-icon', function() {
           _served_at : food
         })
     });
+
 
     $('#fav-page [ux\\:data^="data{fav"]').setData({
       fav: favArr
