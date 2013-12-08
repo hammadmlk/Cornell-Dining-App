@@ -127,7 +127,6 @@ h1.ui-title{
   color: white;
   line-height: 30px;
 }
-
 .ui-li-heading{
   overflow: visible;
 }
@@ -275,9 +274,10 @@ h1.ui-title{
 
 .ui-content .ui-listview{
   margin:0;
+}
+.ui-content .ui-listview li.ui-last-child{
   margin-bottom: 15px;
 }
-
 .ui-content {
   padding: 0px;
   background-color: #e7e8e9;
