@@ -658,12 +658,16 @@ label.error {
 }
 
 .menu-item .food-item-name{
-  float:left;
+  /*Using absolute position and 100% width to cover the entire row, so whereever the user clicks triggers the toggle event*/
   font-size: 20px;
-  color:black;
-  padding-left:10px;
-  xwidth: 90%;
-  margin-top: 7px;
+  color: black;
+  padding-left: 10px;
+  display: block;
+  height: 40px;
+  line-height: 40px;
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .menu-item .icon-fav{
