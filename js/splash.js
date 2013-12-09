@@ -205,7 +205,7 @@ function setAllDinersData() {
     area: cd.allDiners
   });
 
-  $('#home #search [ux\\:data^="data{diner"]').setData({
+  $('#home .ux-suggestions [ux\\:data^="data{diner"]').setData({
     diner: _getAllDinersArr()
   });
 }
@@ -446,11 +446,11 @@ $(document).on('pageinit', '#home', function() {
 
   function getInfoWindow(diner) {
     console.log(diner);
-    var contentString = '<div class="map-diner dinner" id="content"  data-diner-id="'+ diner.id +'">'+
-    '<h1 id="firstHeading" class="firstHeading map-dinner-name diner-name">' + diner.name + '</h1>' +
+    var contentString = '<div class="map-diner ux-diner" data-diner-id="'+ diner.id +'">'+
+    '<h1 class="ux-diner-name">' + diner.name + '</h1>' +
     '<div id="bodyContent">' +
-    '<p>' + diner.desc + '</p>' +
-    '<p class="black">Open details</p>'
+    '<p class="diner-desc">' + diner.desc + '</p>' +
+    '<p>Open details</p>'
     '</div>' +
     '</div>';
     var maxWidth = $('#map-canvas').width() - 80;
@@ -525,12 +525,12 @@ $(document).on('pageinit', '#home', function() {
 
   //bind events
   // this direct to a diner hall page
-  $('body').on(cd.touchEvent, '.dinner', function() {
+  $('body').on(cd.touchEvent, '.ux-diner', function() {
     event.preventDefault();
     //goes to a specific diner page at diner.html
     //see setDinerData function for binding the rest of data
     
-    dinerName = $(this).find('.diner-name').text();
+    dinerName = $(this).find('.ux-diner-name').text();
     dinerName = dinerName ? dinerName : "Diner";
     $('[data-role=page]#diner .pageTitle').text(dinerName);
     $('[data-role=page]#menu .pageTitle').text(dinerName);
@@ -567,16 +567,16 @@ $(document).on('pageinit', '#home', function() {
   });
 
 //Makes the search box visible when search button is clicked and focuses it.
-$('body').on(cd.touchEvent, '#search-btn', function() {
+$('body').on(cd.touchEvent, '.ux-search-btn', function() {
     $searchForm = $(this).closest("[data-role='page']").find('form[role="search"]').show();
     $searchForm.find('input').focus();
-    $searchForm.siblings("ul#search").show();
+    $searchForm.siblings(".ux-suggestions").show();
 });
 // hides the search bar again when focus removed.
 var needToHideForm = true;
 $('body').on('blur', 'input[data-type="search"]', function(e,e2) {
   if(needToHideForm){
-    $(this).closest('form').hide().siblings("ul#search").hide();
+    $(this).closest('form').hide().siblings(".ux-suggestions").hide();
   }else{
     needToHideForm = true;
   }
@@ -584,7 +584,7 @@ $('body').on('blur', 'input[data-type="search"]', function(e,e2) {
 $('body').on('mousedown',function(e){
   if(e.target.classList.contains("ui-icon-delete") ||
    e.target.id==="search-btn" ||
-    $(e.target).parents("ul#search").length !== 0 ){
+    $(e.target).parents(".ux-suggestions").length !== 0 ){
     needToHideForm = false;
   }else{
     needToHideForm = true;
@@ -657,13 +657,7 @@ $('body').on(cd.touchEvent, '#fav-icon', function() {
 
 });
 
-$('body').on(cd.touchEvent, '#showmore-btn', function() {
-  $(this).fadeOut();
-  $('#more-dinner').slideDown();
-});
-
 $('body').on(cd.touchEvent, '#switch-btn', function() {
-  //
   var mapBtn = $(this).find('#map-btn');
   var listBtn = $(this).find('#list-btn');
   if (mapBtn.hasClass("active-btn")) {
@@ -706,9 +700,9 @@ $('body').on(cd.touchEvent, '.food-item-name', function() {
   }
 });
 
-$('body').on(cd.touchEvent, '.remove-fav-food', function() {
+$('body').on(cd.touchEvent, '.ux-remove-fav-food', function() {
   var foodName;
-  console.log("removing", foodName = $(this).siblings(".food-name").text());
+  console.log("removing", foodName = $(this).siblings(".ux-food-name").text());
   $(this).parent().fadeOut();
   removeFavFood(foodName);
 });

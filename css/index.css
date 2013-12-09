@@ -425,7 +425,7 @@ h1.ui-title{
 /*Some css style is attached to list-container .. other is not
  consider revision
 */
-.list-container .dinner{
+.list-container .diner{
 
   overflow: hidden;
   padding: 0px 5px;
@@ -438,7 +438,7 @@ h1.ui-title{
   
 }
 
-.list-container .dinner:last-child{
+.list-container .diner:last-child{
   margin-bottom: 0;
 }
 
@@ -475,6 +475,9 @@ h1.ui-title{
   margin:0px 0px 0px 0px;
 }
 
+.map-diner .diner-desc{
+  color: black
+}
 
 
 #showmore-btn{
@@ -723,8 +726,8 @@ div[data-role="page"].ui-page{
   font-weight: bold;
 }
 
-/*search */
-#search .diner-name{
+/*Provide suggestions when Search */
+#suggestions .diner-name{
   color:#ed1c24;
 }
 
