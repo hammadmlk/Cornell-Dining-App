@@ -534,23 +534,23 @@ h1.ui-title{
  Connect
  */
 
-#connect div[data-role="content"]{
+#connectScreen div[data-role="content"]{
   padding: 0 25px;
 }
-#connect div[data-role="content"] [data-role="fieldcontain"] label.my-ui-input{
+#connectScreen div[data-role="content"] [data-role="fieldcontain"] label.my-ui-input{
   -webkit-border-radius: 1em /*{global-radii-buttons}*/;
   border-radius: 1em /*{global-radii-buttons}*/;
 }
-#connect div[data-role="content"] [data-role="fieldcontain"] div.ui-input-text {
+#connectScreen div[data-role="content"] [data-role="fieldcontain"] div.ui-input-text {
   -webkit-border-radius: 1em /*{global-radii-buttons}*/;
   border-radius: 1em /*{global-radii-buttons}*/;
 }
 
-#connect div[data-role="content"] [data-role="fieldcontain"] div.ui-select {
+#connectScreen div[data-role="content"] [data-role="fieldcontain"] div.ui-select {
   
 }
 
-#connect div[data-role="content"] .ui-btn-up-b {
+#connectScreen div[data-role="content"] .ui-btn-up-b {
   border: 1px solid #f73636 /*{b-bup-border}*/;
   background: #ed1c24 /*{b-bup-background-color}*/;
   font-weight: bold;
@@ -559,7 +559,7 @@ h1.ui-title{
   border-radius: 0em /*{global-radii-buttons}*/;
 }
 
-#connect div[data-role="content"] .ui-btn-hover-b {
+#connectScreen div[data-role="content"] .ui-btn-hover-b {
   border: 1px solid #FF3e3e /*{b-bhover-border}*/;
   background: #FF3e3e /*{b-bhover-background-color}*/;
   font-weight: bold;
@@ -568,14 +568,14 @@ h1.ui-title{
   border-radius: 0em /*{global-radii-buttons}*/;
 }
 
-#connect div[data-role="content"] .ui-btn-down-b {
+#connectScreen div[data-role="content"] .ui-btn-down-b {
   border: 1px solid #FF3e3e /*{b-bdown-border}*/;
   background: #FF3e3e /*{b-bdown-background-color}*/;
   font-weight: bold;
   color: #ffffff /*{b-bdown-color}*/;
 }
 
-#connect #popupDialog-popup [data-role="content"]{
+#connectScreen #popupDialog-popup [data-role="content"]{
   padding:10px 25px; 
 }
 

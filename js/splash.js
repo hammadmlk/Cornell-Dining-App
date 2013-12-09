@@ -597,17 +597,9 @@ $('body').on(cd.touchEvent, '#listall-icon', function() {
   $.mobile.changePage("listall.html", {
     transition: "slide"
   });
-}); // end init homepage
+}); 
 
-$('body').on(cd.touchEvent, '#nearme-icon', function() {
-  $(this).siblings().removeClass('active');
-  $(this).addClass('active');
-  $("#all").fadeOut(400, function() {
-    $("#nearme").fadeIn();
-  });
-});
-
-$('body').on(cd.touchEvent, '#connect-icon', function() {
+$('body').on(cd.touchEvent, '.ux-connect-icon', function() {
   $.mobile.changePage("connect.html", {
     transition: "slide"
   });
@@ -854,7 +846,7 @@ function setDinerData(cb){
 }
 
 //bind events for page connect
-$(document).on('pageinit', '#connect', function() {
+$(document).on('pageinit', '#connectScreen', function() {
   if (cd.connect.init) return;
   cd.connect.init = true;
   $('form#connect').validate({
@@ -923,7 +915,7 @@ $(document).on('pageshow', '#result', function() {
 });
 
 
-//bind events for page connect
+//bind events for page menu
 $(document).on('pageshow', '#menu', function() {
   console.log("showing menu");
 
