@@ -16,16 +16,12 @@
     </div>
 	
 	<div data-role="content"> 
-	<!--     <ul data-role="listview" data-theme="d" data-inset="true" data-divider-theme="a">
-	<li data-role="list-divider" class="menu-header">Menu</li>
-	<li ux:data="data{menu}"><p ux:data="data{menu.menu_item}">Food</p></li>
-	</ul> -->
 
-	<div data-role="none" class="today-menus" ux:data="data{menu}">
-		<h1 class="" ux:data="data{menu.station}">station</h1>
-		<div class="menu compact" ux:data="data{menu._foods}">
-			<a class="food-item" ux:data="data{menu._foods._name}">Item Name</a>
+	<div data-role="none" class="menu" ux:data="data{menu}">
+		<h1 class="station" ux:data="data{menu.station}">station</h1>
+		<div class="menu-item" ux:data="data{menu._foods}">
 			<div class="icon-fav unfav"></div>
+			<a class="food-item-name" ux:data="data{menu._foods._name}">Item Name</a>			
 		</div>
 	</div>
       	

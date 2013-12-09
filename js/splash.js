@@ -699,7 +699,7 @@ $('body').on(cd.touchEvent, '#switch-btn', function() {
     }
   });
 
-$('body').on(cd.touchEvent, '.food-item', function() {
+$('body').on(cd.touchEvent, '.food-item-name', function() {
   event.preventDefault();
   var icon = $(this).siblings(".icon-fav");
   var foodName = this.innerHTML;
@@ -756,7 +756,7 @@ $('body').on(cd.touchEvent, '#diner .show-menu', function() {
 
   var favFoodSet = getFavFoodArr();
   $.each(favFoodSet, function(i, favFood){
-    $.each($('.food-item'), function(j, item){
+    $.each($('.food-item-name'), function(j, item){
       if(item.innerHTML=== favFood){
         $(item).siblings('div.icon-fav').removeClass('unfav');
       }

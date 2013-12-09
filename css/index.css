@@ -626,100 +626,55 @@ label.error {
   /*white-space: nowrap;*/
 }
 
-.today-menus{
+.menu{
   text-shadow: none !important;
   margin: 20px 0 ;
   padding-left: 10px;
   padding-right: 10px;
 }
 
-.today-menus h1{
+.menu .station{
   color: black;
   text-decoration: none;
   text-shadow: none;
   margin:0px;
 }
 
-.menu {
+.menu-item {
   background-color: white;
   width : 100%;
   position: relative;
-  xmargin: 15px 0;
-  height: 45px;
-}
-
-.menu.compact{
+  
   height: 40px;
-  xmargin: 5px 0;
   border-bottom: 1px solid black;
 }
-.menu.compact:last-child{
+
+.menu-item:last-child{
   border-bottom: 0;
 }
 
-.menu.compact a{
-  font-size: 17px;
+.menu-item .food-item-name{
+  float:left;
+  font-size: 20px;
+  color:black;
+  padding-left:10px;
+  xwidth: 90%;
+  margin-top: 7px;
 }
 
-.icon-fav{
+.menu-item .icon-fav{
+  margin-top: 4px;
   width : 30px;
   height: 30px;
   float: right;
-  background: url("../img/iter1/star.png") no-repeat center right 0px;
-  background-size: 100% 100%
-}
-.icon-fav.unfav{
-  -webkit-filter: grayscale(100%);
-}
-/* grey bg color #d1d2d4 */
-
-.menu .arrow-right{
-  position: absolute;
-  right: 15px;
-  width : 36px;
-  height: 88%;
-  border-left: 2px red solid;
-  top: 3px;
-  background: url("../img/iter1/arrow-right.png") no-repeat center right 0px;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-image: url("../img/iter1/star.png"); 
 }
 
-.ui-page .ui-content .menu a{
-  color : #ed1c24;
-  padding: 0.7em 15px;
-  text-decoration : none !important;
-  display: block;
-  position: absolute;
-  width: 100%;
-  z-index: 2;
+.menu-item .icon-fav.unfav{  
+  background-image: url("../img/iter1/star_grey.png");
 }
-.menu .highlight{
-  font-size: 24px;
-  font-weight: bold;
-  text-shadow: 0 1px 0  #ffffff;
-}
-.menu .medium{
-  font-size: 16px;
-  text-shadow: 0 1px 0  #ffffff;
-  display: block;
-  padding-top: 0.3em;
-}
-.hours[limited="1"]{
-  background: cornsilk;
-}
-
-.hours .highlight{
-  width: 150px;
-  display: inline-block;
-  text-transform: capitalize;
-  text-align: left;
-}
-.hours span{
-  width: 46px;
-  display: inline-block;
-  text-align: center;
-}
-
-
 
 .keyword{
   color:green;
