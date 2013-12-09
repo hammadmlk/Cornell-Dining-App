@@ -22,7 +22,11 @@
 
 @font-face {
 	font-family: Agency_FB;
-	src: local(Agency_FB), url('../fonts/AGENCYR.TTF') format('opentype');
+	/*src: local(Agency_FB), url('../fonts/AgencyFB-Reg.ttf') format('truetype');*/
+	src: url('../fonts/AgencyFB-Reg.woff') format('woff'),
+         url('../fonts/AgencyFB-Reg.ttf') format('truetype'),
+         url('../fonts/AgencyFB-Reg.svg#AgencyFB-Reg') format('svg');
+
 }
 
 body {
@@ -505,7 +509,7 @@ h1.ui-title{
   background: url("../img/iter1/arrow-up.png") no-repeat center center;
   content: '';
   display: block;
-  height: 17px;
+  height: 16px;
   padding-right: 80px;
   padding-top: 33px;
   float: right;
