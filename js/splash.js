@@ -138,10 +138,6 @@ function setNearByData() {
   $('#nearme .list-container [ux\\:data^="data{diner"]').setData({
     diner: cd.nearbyDiners
   });
-
-  $('#home #search [ux\\:data^="data{diner"]').setData({
-    diner: cd.nearbyDiners
-  });
 }
 
 function getAllDiners(usingCache) {
@@ -209,7 +205,7 @@ function setAllDinersData() {
     area: cd.allDiners
   });
 
-  $('#listall #search [ux\\:data^="data{diner"]').setData({
+  $('#home #search [ux\\:data^="data{diner"]').setData({
     diner: _getAllDinersArr()
   });
 }
@@ -318,8 +314,6 @@ $(document).on('pageinit', '#SplashScreen', function() {
 // TODO: have a look at this.. i may have used this wrongly
 $(document).on('pageinit', '#listall', function() {
 	var useCache = false; // ??????   <<-- i guess this should not be like this
-
-  $('#listall form').off('submit').hide().children("div").removeClass("ui-btn-corner-all");
 	getAllDiners(useCache);
 });
 
