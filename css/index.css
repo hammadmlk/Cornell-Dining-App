@@ -251,6 +251,12 @@ h1.ui-title{
   overflow: hidden;
   margin: 0;
   text-align: left;
+  max-width: 100%;
+}
+
+#diner .header h1, #menu .header h1{
+font-size: 22px;
+line-height: 33px;
 }
 
 .header img{
@@ -262,7 +268,6 @@ h1.ui-title{
   width: 60%;
   white-space: nowrap;
   text-overflow: ellipsis;
-  overflow: hidden;
   margin: 0 auto;
   text-align: center;
 }
