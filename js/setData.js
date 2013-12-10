@@ -128,9 +128,13 @@
                 elem.html(value);
                 break;
               case 'show':
-                if( !value || (value instanceof Array ) && value.length ==0)
+                if( !value || ((value instanceof Array ) && value.length ===0))
                   elem.hide();
                 else elem.show();
+                break;
+              case 'hide':
+                if( value )
+                  elem.hide();
                 break;
               default:
                 elem.attr(attr, value);

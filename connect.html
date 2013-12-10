@@ -28,6 +28,8 @@
 		<div data-role="fieldcontain">
 			<label for="select-facility" class="">Facility</label> 
 			<select name="facility" id="select-facility"> 
+        <!-- By default, the comment is considered to be related to the diner with hall_id = 1 -->
+        <option class="ux-default-select-value" value="1" disabled selected>Select an eatery</option>
 			  <option ux:data="data{options;options.name;options.id@value}">Select a Diner</option>
 			</select>
 		</div>

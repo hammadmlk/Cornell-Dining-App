@@ -21,17 +21,20 @@ cd.connect = {
 };
 cd.fav;
 
+cd.isIOS = (navigator.userAgent.indexOf("iPhone")!== -1);
+
 //Click event is supported different on Android, and on iOS.
 //Only tap is recognized by iOS devices.
 //Google map uses only 'click' on every platform
-cd.touchEvent = (navigator.userAgent.indexOf("iPhone")!== -1)?'tap':'click';
+cd.touchEvent = cd.isIOS?'tap':'click';
 
 //Strings should be listed in dictionary, and be used as variable 
 cd.dictionary ={
   fullScreenBtnTxt   : "Full-Screen",                         //text for sizing button when the map is normal size
   smallScreenBtnTxt  : "Smaller",                             //text for sizing button when the map is full-screened
   goToCurrentBtnTxt  : "Home",                                //text for centering the map to current location
-  favFooDNotFoundTxt : "Not served anywhere in this month :(" //prompt when no favorite food is found
+  favFooDNotFoundTxt : "Not served anywhere in this month :(",//prompt when no favorite food is found
+  closedEatery       : "Closed all day"
 }
 
 $(function() {
@@ -262,6 +265,8 @@ function searchFood(keyWord){
 
       });
       cd.result = ret;
+    }else{
+      console.error(cd.keyWord, keyWord);
     }
   });
   addLoadingMask($('#result .list-container'));
@@ -596,9 +601,26 @@ $(document).on('pageinit', '#home', function() {
         ret.Contact._href="tel:"+pNumber;
         ret.Contact._phone_number= "("+pNumber.substring(0,3)+") "+pNumber.substring(3,6) + "-" + pNumber.substring(6); 
         ret._images = [];
-        ret._mapitHref = "http://maps.apple.com/?saddr=Current+Location&daddr="+ cd.latitude + "," + cd.longitude
+        
+        //TODO: change cd.latitude and longitude to diner's geolocation
+        ret._mapitHref = (cd.isIOS)?("maps:saddr=Current+Location&daddr="+ ret.latitude + "," + ret.longitude):
+        ("http://maps.google.com/?saddr=Current+Location&daddr="+ ret.latitude + "," + ret.longitude);
+        // ("geo:"+ret.latitude+","+ret.longitude);
         $.each(ret.images, function(i, url){
           ret._images.push({"_url":url});
+        });
+        $.each(ret.seven_day_info, function(i, day){
+
+            if(day.info.length === 0){
+              day.info.push({
+                    "end": "",
+                    "event_type": cd.dictionary.closedEatery,
+                    "is_limited": 0,
+                    "start": "",
+                    "_hide" : true
+              })
+            }else{
+            }
         });
 
         cd.diner.cacheMap[dinerId] = ret;
@@ -807,6 +829,7 @@ $(document).on('pageshow', '#home', function(event, data) {
     $.mobile.loadPage( "fav.html", { showLoadMsg: false } );
   }else if(data.prevPage[0].id === "result"){
     $('[data-role="page"]#result').remove();
+    $.mobile.loadPage( "result.html", { showLoadMsg: false } );
   }
 });
 
@@ -921,9 +944,9 @@ $(document).on('pageinit', '#connectScreen', function() {
       }, function(ret, res) {
         $("#popupDialog").popup();
         $("#popupDialog").popup("open");
-        // console.log(form);
-        $(form).find("input, select, textarea").val("");
-        $(form).find(".ui-select .ui-btn-text").text("Select a Diner");
+        //reset form
+        $(form).find("input[type='text'], textarea").val("");
+        $(form).find(".ux-default-select-value").prop('selected', true);
       }, function(ret, res){
         console.log("Failed to comment");
         alert("Failed to upload the feedback. Please try again later");
