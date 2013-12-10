@@ -17,25 +17,33 @@
   
   
   <div data-role="content">
-	<h1 class="">We will be happy to hear from you.</h1>
-	<h2 class="">Please use the form below to write to us, We will respond as soon as possilbe.</h2>
-	<form id="connect" action="">
-		<div data-role="fieldcontain">
-			<label class="" for="netid">NetID</label> 
-			<input type="text" name="netid" id="netid" value="" /> 
-			<label for="netid" class="error" style="display: none;">This field is required.</label>
+	<h2 class="">We will be happy to hear from you.</h1>
+ 	<h3 class="">Please use the form below to write to us, We will respond as soon as possible.</h2>
+ 	<form id="connect" action="" class="feedback-form" data-role="none">
+	
+ 		<div class="section" data-role="none">
+ 			<label class="label" for="netid" data-role="none">NetID</label> 
+ 			<input type="text" name="netid" id="netid" value="" data-role="none"/> 
+ 			<label for="netid" class="error" style="display: none;" data-role="none" >This field is required.</label>	
 		</div>
-		<div data-role="fieldcontain">
-			<label for="select-facility" class="">Facility</label> 
-			<select name="facility" id="select-facility"> 
-        <!-- By default, the comment is considered to be related to the diner with hall_id = 1 -->
-        <option class="ux-default-select-value" value="1" disabled selected>Select an eatery</option>
-			  <option ux:data="data{options;options.name;options.id@value}">Select a Diner</option>
+		
+		<div class="section" data-role="none">
+			<label class="label" for="select-facility"  data-role="none">Facility</label>
+			<select name="facility" id="select-facility" data-role="none">
+				<!-- By default, the comment is considered to be related to the diner with hall_id = 1 -->
+				<option class="ux-default-select-value" value="1" disabled selected>Select an eatery</option>
+				<option ux:data="data{options;options.name;options.id@value}">Select a Diner</option>
 			</select>
 		</div>
-		<label for="message" class="">Message</label> 
-		<textarea name="message" id="message"></textarea> 
+		
+		<div class="section" data-role="none">
+			<label class="label" for="message"  data-role="none">Message</label> 
+			<textarea name="message" id="message" data-role="none"></textarea>
+			<label for="message" class="error" style="display: none;" data-role="none">This field is required.</label>
+		</div>
+		
 		<input type="submit" value="SUBMIT" />
+		
 	</form>
   </div>
   <!-- /content -->

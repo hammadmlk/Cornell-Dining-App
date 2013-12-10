@@ -396,80 +396,100 @@ line-height: 33px;
   float:left
 }
 
-/*
-.starredFood .section.head{
-  border-bottom:2px solid black;
+/*Feedback*/
+.feedback-form{
+
 }
-.starredFood .section.head h1{
-  margin:0 auto;
-  width:100px;
-  text-align: center;
+.feedback-form h2{
+  padding:0;
+  margin:0;
 }
-.starredFood .section.head .btn.left{
-  bottom: -3px;
-  float:left;
-  width:30%;
+.feedback-form h3{
+  padding:0;
+  margin:0;
 }
-.starredFood .section.head .btn.right{
-  bottom: -3px;
-  float:right;
-  width:30%;
+.feedback-form p{
+  padding:0;
+  margin:0;
+}
+.feedback-form .section{
+  padding:0;
+  margin:0;
+  overflow:hidden;
 }
 
-.starredFood .section.head .btn.disabled{
-  -webkit-filter: grayscale(100%);
-}
+.feedback-form .label{
+  padding:0;
+  margin:0;
 
-.starredFood .section h1{
-  font-size:25px;
-  font-weight:normal;
-  text-decoration: none;
-  text-shadow: none;
-  margin:0px;
-  color: black;
-}
-
-.starredFood .section p{
-  font-size:17px;
-  font-weight:normal;
-  text-decoration: none;
-  text-shadow: none;
-  margin:0px;
-  color: black;
+  display:block;
+  font-weight:bold;
+  text-align:right;
+  width:40px;
   float:left;
 }
+.feedback-form  input[type=text]{
+  
+  float:left;
+  font-size:12px;
+  padding:4px 2px;
+  border:solid 1px #aacfe4;
+  width:160px;
+  margin:2px 0 20px 10px;
+}
 
-.starredFood .section  .btn{
-  font-size:20px;
+.feedback-form  select{
+  
+  float:left;
+  font-size:12px;
+  padding:4px 2px;
+  border:solid 1px #aacfe4;
+  width:160px;
+  margin:2px 0 20px 10px;
+}
+
+.feedback-form  textarea{
+  
+  float:left;
+  font-size:12px;
+  padding:4px 2px;
+  border:solid 1px #aacfe4;
+  width:160px;
+  height:160px;
+  margin:2px 0 20px 10px;
+}
+
+.feedback-form input[type=submit]{
+  clear:both;
+  margin-left:50px;
+  width:80px;
+  height:31px;
+  background:white;
+  text-align:center;
+  line-height:31px;
+  color:black;
+  font-size:11px;
+  font-weight:bold;
+}
+
+.feedback label.error {
+  xcolor: red;
+  xfont-size: 16px;
+  xfont-weight: normal;
+  xline-height: 1.4;
+  xmargin-top: 0.5em;
+  xwidth: 100%;
+  xfloat: none;
+  
+  color:#666666;
+  display:block;
+  font-size:11px;
   font-weight:normal;
-  text-decoration: none;
-  text-shadow: none;
-  margin:0px;
-  float:right;
-  background:#ed1c24;
-  width: 60px;
-  text-align: center;
-  
-  position: relative;
-  bottom: 15px;
+  text-align:right;
+  width:140px;
   
 }
 
-.starredFood .section  .btn:first-child{
-	float:left;
-}
-
-.starredFood .section  .btn.long {
-  width: 100px;
-}
-
-.starredFood .section  .btn a{
-  color:white;
-  text-decoration: none;
-  display: block
-}
-
-*/
 
 
 /*Diner Info*/
@@ -687,7 +707,7 @@ line-height: 33px;
  */
 
 #connectScreen div[data-role="content"]{
-  padding: 0 25px;
+  padding: 0 15px;
 }
 #connectScreen div[data-role="content"] [data-role="fieldcontain"] label.my-ui-input{
   -webkit-border-radius: 1em /*{global-radii-buttons}*/;
@@ -731,16 +751,8 @@ line-height: 33px;
   padding:10px 25px; 
 }
 
-/* form validation on Connect*/ 
-label.error {
-  color: red;
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 1.4;
-  margin-top: 0.5em;
-  width: 100%;
-  float: none;
-}
+
+
 
 .mask{
   width: 100%;
