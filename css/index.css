@@ -249,14 +249,22 @@ h1.ui-title{
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
-  width: 60%;
   margin: 0;
+  text-align: left;
 }
 
 .header img{
-	display:inline;
+	display:inline-block;
 	height: 36px;
 	width:auto;
+}
+.header .title-container{
+  width: 60%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .header .backbtn{
@@ -271,13 +279,12 @@ h1.ui-title{
 
 /****SEARCH BUTTON AND BAR ON HOME PAGE****/
 #search-btn{
-  float:right;
-  display:inline-block;
-  left:0px;
-  width:46px;
-  height:36px;
-  background:url('images/icons-36-white.png') -1224px 0;
+  width: 46px;
+  height: 36px;
+  background: url('images/icons-36-white.png') -1224px 0;
   margin-top: 2px;
+  position: absolute;
+  right: 0;
 }
 
 #search-bar{
