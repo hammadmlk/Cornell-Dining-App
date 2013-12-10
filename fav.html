@@ -16,21 +16,18 @@
 		
 
     <div data-role="content">
-		<h2 class="prompt">Finding your favorite foods...</h2>
-		<div class="list-container">
-		  <div data-role="none" class="dinerInfo">
-			<div style="display:none;" ux:data="data{fav}">
-			  <h1 class="ux-food-name" ux:data="data{fav._food_name@html}"></h1>          
-			  <!-- placeholder for remove fav food function. TODO: styling for this -->
-			  <div class="ux-remove-fav-food"> Click me to remove this from fav food list</div>
-			  <div class="section" ux:data="data{fav._served_at}">
-				<div class="diner ux-diner" ux:data="data{fav._served_at.diner_id@data-diner-id}">
-				  <h2 class="diner-name ux-diner-name" ux:data="data{fav._served_at.diner_name}">where</h2>
-
-				  <p class="diner-time" ux:data="data{fav._served_at.serve_date}">serve date</p>
-				  <p class="diner-desc" ux:data="data{fav._served_at.meal}">diner?lunch</p>
-				</div>
-			  </div>
+		<h2 class="prompt">Finding your favourite foods...</h2>
+		<div class="starredFood" style="display:none;" ux:data="data{fav}">
+		  <div class="heading">
+		    <h1 class="ux-food-name" ux:data="data{fav._food_name@html}"></h1>          
+		    <div class="removeBtn ux-remove-fav-food"> X </div>
+		  </div>
+		  <div class="section" ux:data="data{fav._served_at}">
+		    <div class="ux-diner" ux:data="data{fav._served_at.diner_id@data-diner-id}">
+			  <h2 class="diner-name ux-diner-name" ux:data="data{fav._served_at.diner_name}">where</h2>
+			  <p class="diner-time" ux:data="data{fav._served_at.meal}">diner?lunch</p>
+			  <p class="diner-time">&nbsp | &nbsp</p>
+			  <p class="diner-time" ux:data="data{fav._served_at.serve_date}">serve date</p>
 			</div>
 		  </div>
 		</div>

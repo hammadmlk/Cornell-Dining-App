@@ -745,7 +745,7 @@ $('body').on(cd.touchEvent, '.ux-food-name', function() {
 $('body').on(cd.touchEvent, '.ux-remove-fav-food', function() {
   var foodName = $(this).siblings(".ux-food-name").text();
   if(cd.verbose) console.log("removing", foodName);
-  $(this).parent().fadeOut();
+  $(this).parent().parent().fadeOut();
   removeFavFood(foodName);
 });
 
