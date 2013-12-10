@@ -239,13 +239,18 @@ h1.ui-title{
 	background: #ed1c24;	
 }
 .header h1{
-	display:inline;
-	text-decoration: none;
-	text-shadow:none;
-	font-weight: normal;
-	font-size: 30px;
-	color: white;
-	vertical-align: bottom;	
+  display: inline-block;
+  text-decoration: none;
+  text-shadow: none;
+  font-weight: normal;
+  font-size: 30px;
+  color: white;
+  vertical-align: bottom;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 60%;
+  margin: 0;
 }
 
 .header img{
@@ -255,7 +260,7 @@ h1.ui-title{
 }
 
 .header .backbtn{
-  background:url('images/icons-36-white.png') -282px 2px;
+  background:url('images/icons-36-white.png') -282px 2px no-repeat;
   border-right: 2px white solid;
   height: 100%;
   width: 40px;
@@ -739,4 +744,9 @@ form[role="search"] .ui-focus{
 
 .ui-listview-filter .ui-input-search {
   margin:0;
+}
+
+#home .prompt{
+  font-size: 28px;
+  padding: 20px 25px;
 }

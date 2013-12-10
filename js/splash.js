@@ -1,47 +1,67 @@
 $.mobile.page.prototype.options.domCache = true;
 
 var cd = {};
-cd.SplashScreenTimeSpan = 3000;
-cd.TIME_OUT_INTERVAL = 50;
-cd.verbose = false;
+cd.SplashScreenTimeSpan = 3000;         //Time splash screen lasts
+cd.TIME_OUT_INTERVAL = 50;              //Interval for checking whether data is returned 
+cd.GEO_TIME_OUT_INTERVAL = 5000;        //Interval for updating geolocation, note that this update does not directly affect any other data yet, but updated location will be looked at when updating data
+cd.prevLocation = cd.defaultLocation = {
+  latitude : 42.27219,
+  longitude:-76.28418
+};
+cd.verbose = false;                      //Set to true to enable debugging information
 cd.home = {
   init: false
 };
 cd.diner = {
-  currentDinerId: null, // id of the diner that is about to be shown or showing
-  cacheMap : []
+  currentDinerId: null,                  // id of the diner that is about to be shown or showing
+  cacheMap : []                          // keeps a local copy of data for every diner that is requested for
 };
 cd.connect = {
   init: false
 };
 cd.fav;
-//It seems click event is supported different on Android, and on iOS.
+
+//Click event is supported different on Android, and on iOS.
 //Only tap is recognized by iOS devices.
+//Google map uses only 'click' on every platform
 cd.touchEvent = (navigator.userAgent.indexOf("iPhone")!== -1)?'tap':'click';
 
 //Strings should be listed in dictionary, and be used as variable 
 cd.dictionary ={
-  fullScreenBtnTxt:"Full-Screen", //text for sizing button when the map is normal size
-  smallScreenBtnTxt:"Smaller",    //text for sizing button when the map is full-screened
-  goToCurrentBtnTxt:"Home"        //text for centering the map to current location
+  fullScreenBtnTxt   : "Full-Screen",                         //text for sizing button when the map is normal size
+  smallScreenBtnTxt  : "Smaller",                             //text for sizing button when the map is full-screened
+  goToCurrentBtnTxt  : "Home",                                //text for centering the map to current location
+  favFooDNotFoundTxt : "Not served anywhere in this month :(" //prompt when no favorite food is found
 }
 
 $(function() {
   document.addEventListener("deviceready", onDeviceReady, false);
 
   function onDeviceReady() {
-    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: cd.GEO_TIME_OUT_INTERVAL});
   }
 
   function onSuccess(position) {
-    if (cd.verbose) console.log("location is ", position);
-    cd.position = position;
-    cd.latitude = cd.position.coords.latitude;
-    cd.longitude = cd.position.coords.longitude;
+    if (cd.verbose) console.log("Get Geolocation successful, the location is ", position);
+    cd.prevLocation = position.coords;
+    cd.position = position.coords;
+    cd.latitude = cd.position.latitude;
+    cd.longitude = cd.position.longitude;
+
+    // setTimeout(function(){
+    //   navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: cd.GEO_TIME_OUT_INTERVAL});
+    // }, cd.GEO_TIME_OUT_INTERVAL);
   }
 
   function onError(error) {
-    console.log(error);
+    if (cd.verbose) console.log("Get Geolocation failed", error);
+    cd.position = cd.prevLocation;
+    cd.latitude = cd.position.latitude;
+    cd.longitude = cd.position.longitude;    
+
+    // setTimeout(function(){
+    //   navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: cd.GEO_TIME_OUT_INTERVAL});
+    // }, cd.GEO_TIME_OUT_INTERVAL);
   }
 
 });
@@ -50,7 +70,7 @@ function getCurrentGMapLatLng(){
   return new google.maps.LatLng(cd.latitude, cd.longitude);
 }
 
-//return distance between two points in miles
+//return distance between two points in MILES
 function calcDistance(la1,lo1,la2,lo2){
   return google.maps.geometry.spherical.computeDistanceBetween(
     new google.maps.LatLng(la1,lo1), new google.maps.LatLng(la2, lo2)
@@ -61,6 +81,8 @@ function calcDistanceToMe(dest_la, dest_lo){
   return calcDistance(cd.latitude, cd.longitude, dest_la, dest_lo).toFixed(2);
 }
 
+// Add a loading mask on passed in jquery object $obj
+// Should be used to indicate the progress when loading async data
 function addLoadingMask($obj){
   if(cd.verbose) console.log('addLoadingMask' , $obj);
   $mask = $obj.children('.mask');
@@ -72,8 +94,9 @@ function addLoadingMask($obj){
   styleMask($obj, $mask);
 }
 
+// Auxillary function of addLoadingMask
+// Used to compute styling for the mask
 function styleMask($obj, $mask){
-  if(cd.verbose) console.log('styleMask' , $obj);
   if($obj.width() === 0){
     //$obj not rendered yet
     setTimeout( function(){
@@ -83,33 +106,34 @@ function styleMask($obj, $mask){
   }
   setTimeout(function(){
     var maskHeight = 0;
-    if(($obj.height() +$obj.offset().top > window.innerHeight) || !$obj.height()){
+    if(($obj.height() +$obj.offset().top > window.innerHeight)
+    //if only a part of the $obj is visible in the current window
+      || !$obj.height()
+    //or if the obj has no content or is hidden
+      ){
+      //compute the height based on the difference between window height and top position of the obj
       maskHeight = window.innerHeight - $obj.offset().top;
-      // console.log('1st', "innerheight : " + window.innerHeight, "top : "+$obj.offset().top, $obj);
     }else{
+      //$obj is totally visible in the current window, set the mask of height of $obj will be enough to cover the entire obj
       maskHeight =$obj.height();
     } 
-    // console.log("mask height", maskHeight);
     $mask.css('height', maskHeight);
     $mask.fadeIn();
   }, 300);
 }
 
+// Remove the loading mask off the jquery object $obj
 function removeLoadingMask($obj){
   $obj.children('.mask').removeClass('loading');
   $obj.children().removeClass('opac');
   $obj.children('.mask').hide();
 }
 
-function getNearByLocation(usingCache) {
+function getNearByLocation() {
   addLoadingMask($('#nearme .list-container'));
 
   if (!cd.position) {
     setTimeout(getNearByLocation, cd.TIME_OUT_INTERVAL);
-    return;
-  }
-  if (usingCache) {
-    setNearByData();
     return;
   }
   sendRequest({
@@ -130,6 +154,7 @@ function getNearByLocation(usingCache) {
     });
     cd.nearbyDiners = ret;
     setNearByData();
+    if(cd.nearbyDiners.length === 0) $('#home').find(".ux-no-open-prompt").fadeIn();
     removeLoadingMask($('#nearme .list-container'));
   });
 }
@@ -141,7 +166,7 @@ function setNearByData() {
 }
 
 function getAllDiners(usingCache) {
-  $('#all').addClass('loading');
+  addLoadingMask($('#all'));
   if (!cd.position) {
     setTimeout(getAllDiners, cd.TIME_OUT_INTERVAL);
     return;
@@ -176,18 +201,8 @@ function getAllDiners(usingCache) {
     });
     cd.allDiners = ret;
     setAllDinersData();
-    $('#all').removeClass('loading');
+    removeLoadingMask($('#all'));
   });
-}
-
-//return "close in"+ hours:mins:secs or "open in" +hours:mins:secs, depending on the open status
-function calcTime(diner){
-  var currentTime = new Date();
-  if(diner.isOpen){
-    return "open at "+diner.close_at.substring(11);
-  }else{
-    return "close at "+diner.close_at.substring(11);
-  }
 }
 
 function _getAllDinersArr(){
@@ -212,8 +227,14 @@ function setAllDinersData() {
 
 function searchFood(keyWord){
   cd.keyWord = keyWord;
-  var keyWordArr = keyWord.split(' '),
-  keyWordStr = keyWordArr.join('*');
+  var rawKeyWordArr = keyWord.split(' '),
+  keyWordArr = [];
+
+  $.each(rawKeyWordArr, function(i, key){
+    if(key!=="") keyWordArr.push(key);
+  });
+
+  var keyWordStr = keyWordArr.join('*');
   sendRequest({
     "uri": "search.json",
     "method": "GET",
@@ -223,14 +244,21 @@ function searchFood(keyWord){
       latitude: cd.latitude
     }
   }, function(ret, res) {
+    var keyWordTagStart = "<span class='keyword'>",
+     keyWordTagEnd = "</span>",
+     keyWordTagStartPH = "%!", // placeholders used in 1st pass for highlighting key words 
+     keyWordTagEndPH = "%@"
+
     if(cd.keyWord === keyWord){
       $.each(ret, function(i, diner){
         diner._diner_distance = calcDistanceToMe(diner.diner_location.latitude, diner.diner_location.longitude);
-
+        diner._item = $("<p>"+diner.item+"</p>").text();
         $.each(keyWordArr, function(index, keyWord){
           var item = diner._item||diner.item;
-          diner._item = item.replace(new RegExp("("+keyWord+")","gi"),"<span class='keyword'>$1</span>");
+           // diner._item = item.replace(new RegExp("([^<]*)?("+keyWord+")([^>]*)?","gi"),"$1<span class='keyword'>$2</span>$3");
+          diner._item = item.replace(new RegExp("("+keyWord+")", "gi"), keyWordTagStartPH + "$1" + keyWordTagEndPH);
         });
+        diner._item = diner._item.replace(new RegExp(keyWordTagStartPH,"g"), keyWordTagStart).replace(new RegExp(keyWordTagEndPH,"g"), keyWordTagEnd);
 
       });
       cd.result = ret;
@@ -244,12 +272,15 @@ function searchFood(keyWord){
 
 //fav food ftn
 var KEY_FAV_FOOD_ARRAY = "favfood";
+
 Storage.prototype.setSet = function(key, set) {
   if(! set instanceof Set) throw set+ " is not a Set." ;
-  console.log("setSet : " + JSON.stringify(set.data));
   this.setItem(key, JSON.stringify(set.data));
   return set;
 };
+
+//Always return a set
+//Even when no set currently matches the key, a new set will be created and returned.
 Storage.prototype.getSet = function(key) {
   return (this.getItem(key) == null)? this.setSet(key, new Set()): new Set(JSON.parse(this.getItem(key)));
 };
@@ -258,6 +289,23 @@ function replaceWhiteSpace (str) {
   return str.replace(/(\s)+/g,"%20");
 }
 
+//Due to chaotic data format stored in server, this function has to be used to 
+//traslate '%A0', the escaped char for '&nbsp;', into %26nbsp.
+// '&' needs to be escaped as the entire string will be passed in GET request as a single param, where params are joint with '&'
+// %26 will be translated back on server-side, and the whole string, such as 'Beans & Greens&nbsp;&nbsp;' is used to perform a query in database
+function replaceEscapedHTMLSpace (str) {
+  return str.replace(/%A0/g,"%26nbsp;");
+}
+
+// Translates local stored food name to the format used by server
+// "Beans & Greens  " -> Beans & Greens&nbsp;&nbsp;
+// TODO : remote server should clean and format the data properly,
+//        either all specail chars are translated, or none of them is.
+//        e.g. "Beans & Greens&nbsp;&nbsp;" should be either
+//        "Beans & Greens  ", or "Beans&nbsp;&amp;&nbsp;Greens&nbsp;&nbsp;"
+function restoreFavFoodFormat(localName){
+  return unescape(escape(localName).replace(/%A0/g,"&nbsp;"));
+}
 
 // fav food interface
 function getFavFood(){
@@ -272,22 +320,20 @@ function getFavFoodArr(){
 function formatedFavFoodArr(){
   var KEY = "favorite_food";
   var queryArray = getFavFoodArr();
-  // $.each(queryArray, function(i, item){
-  //   queryArray[i] = (KEY + "=" + item);
-  // });
-  var queryStr = replaceWhiteSpace(queryArray.join("*"));
+  $.each(queryArray, function(i, item){
+    queryArray[i] = replaceEscapedHTMLSpace(escape(queryArray[i]));
+  });
+  var queryStr = (queryArray.join("*"));
   return queryStr;
 }
 
-
 function addFavFood(food){
-  //TODO : optimization
   cd.fav = (cd.fav)?cd.fav:getFavFood();
   if(!cd.fav.has(food)){
     cd.fav.add(food, true);
     localStorage.setSet(KEY_FAV_FOOD_ARRAY, cd.fav);
   }
-  console.log('addFavFood : cd.fav = ', cd.fav.data);
+  if(cd.verbose)console.log('addFavFood '+ food+'. After additon, cd.fav = ', cd.fav.data);
 }
 function removeFavFood(food){ 
   cd.fav = (cd.fav)?cd.fav:getFavFood();
@@ -297,7 +343,7 @@ function removeFavFood(food){
   }else{
     throw "Fav Food : " + food +" is not in the array.";
   }
-  console.log('removeFavFood : cd.fav = ', cd.fav.data);
+  if(cd.verbose)console.log('removeFavFood '+food +'. After removal, cd.fav = ', cd.fav.data);
 }
 
 //bind event for page SplashScreen
@@ -317,19 +363,10 @@ $(document).on('pageinit', '#listall', function() {
 	getAllDiners(useCache);
 });
 
- var favArr = [], favMap={};
+var favArr = [], favMap={};
 
 //init page home
 $(document).on('pageinit', '#home', function() {
-  var useCache = false;
-  if (cd.home.init) {
-    //use cache
-    useCache = true;
-    getNearByLocation(useCache);
-    //getAllDiners(useCache);
-    return;
-  }
-  cd.home.init = true;
   if (cd.verbose) console.log("home page inited");
 
   //prepare pages to transit to
@@ -339,10 +376,12 @@ $(document).on('pageinit', '#home', function() {
   $.mobile.loadPage( "fav.html", { showLoadMsg: false } );
   $.mobile.loadPage( "listall.html", { showLoadMsg: false } );	
   
+  $('#home').find(".ux-no-open-prompt").hide();
   //load data
-  getNearByLocation(useCache);
-  getAllDiners(useCache);
+  getNearByLocation();
 
+  // Calculate and set the height of Google Map
+  // Used when initing the map and toggling full-screen
   function _setMapHeight(map){
     var top = $("#home #map-container").position().top;
     if(top > window.innerHeight){
@@ -354,13 +393,13 @@ $(document).on('pageinit', '#home', function() {
 
   function initMap() {
     setTimeout(function() {
-      console.log("map initialized");
+      if(cd.verbose) console.log("map initialized");
       //TODO: Cached or hard-wired data in case network fail
       $('#map-container').show();
       _setMapHeight();
       var mapOptions = {
         center: new google.maps.LatLng(cd.latitude, cd.longitude),
-        zoom: 17,
+        zoom: 17,                                                     //initial zoom value, may be changed when later extending map's bound
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: true
       };
@@ -381,6 +420,7 @@ $(document).on('pageinit', '#home', function() {
       fsControlDiv.index = 1;
       map.controls[google.maps.ControlPosition.TOP_RIGHT].push(fsControlDiv);
 
+      //add a marker for current location
       var marker = new google.maps.Marker({
         position: new google.maps.LatLng(cd.latitude, cd.longitude),
         title: 'Current Location',
@@ -389,11 +429,14 @@ $(document).on('pageinit', '#home', function() {
       });
       map.bounds.extend(new google.maps.LatLng(cd.latitude, cd.longitude));
 
+      //Format data, and add a marker for each open nearby diner
+      //TODO : Add validation of whether the data is ready
+      //       Now if the data's not ready when initing the map, 
+      //       the data for nearby won't be set after data is returned
       var diners = [];
       var i = 0;
       for (; i < cd.nearbyDiners.length; i++) {
         var diner = cd.nearbyDiners[i];
-        // console.log(diner, diner.diner_location);
         diners.push({
           name: diner.diner_name,
           id : diner.diner_id,
@@ -403,6 +446,7 @@ $(document).on('pageinit', '#home', function() {
           desc: diner.diner_desc
         });
       }
+
       setMarkers(map, diners);
       cd.map = map;
       mapInited = true;
@@ -433,19 +477,20 @@ $(document).on('pageinit', '#home', function() {
       map.bounds.extend(myLatLng);
       marker.infoWindow = getInfoWindow(diner);
       infoWindows.push(marker.infoWindow);
+
+      //bind event for every diner's marker
+      //Only one info window is kept open
       google.maps.event.addListener(marker, 'click', function() {
         for (var i = 0; i < infoWindows.length; i++) {
           infoWindows[i].close();
         }
         this.infoWindow.open(map, this);
       });
-      console.log(diner.latitude, diner.longitude);
     }
     map.fitBounds(map.bounds);
   }
 
   function getInfoWindow(diner) {
-    console.log(diner);
     var contentString = '<div class="map-diner ux-diner" data-diner-id="'+ diner.id +'">'+
     '<h1 class="ux-diner-name">' + diner.name + '</h1>' +
     '<div id="bodyContent">' +
@@ -589,7 +634,6 @@ $('body').on('mousedown',function(e){
   }else{
     needToHideForm = true;
   }
-  // console.log("target ", e.target, "Needtohide?" , needToHideForm); 
 })
 
 
@@ -618,9 +662,11 @@ $('body').on(cd.touchEvent, '#fav-icon', function() {
     $("#fav-page .prompt").hide();
     // var favArr = [], favMap={};
     favArr = [], favMap={};
+    //init favMap
     $.each(getFavFoodArr(), function (index, favFood) {
-      favMap[favFood] = [];
+      favMap[restoreFavFoodFormat(favFood)] = [];
     });
+    //fill in favMap
     $.each(ret, function(index, food){
       if(!favMap[food.fav_food]){
         favMap[food.fav_food] = [food]
@@ -628,11 +674,13 @@ $('body').on(cd.touchEvent, '#fav-icon', function() {
         favMap[food.fav_food].push(food);
       }
     });
+    //format favMap in to what to be set into HTML
     $.each(favMap, function(index, food){
-        favArr.push({
-          _food_name : index,
-          _served_at : food
-        })
+      if(food.length === 0) food = cd.dictionary.favFooDNotFoundTxt;
+      favArr.push({
+        _food_name : index,
+        _served_at : food
+      })
     });
 
 
@@ -679,22 +727,24 @@ $('body').on(cd.touchEvent, '#switch-btn', function() {
     }
   });
 
-$('body').on(cd.touchEvent, '.food-item-name', function() {
+//Add and Remove favorite food function on Menu page
+$('body').on(cd.touchEvent, '.ux-food-name', function() {
   event.preventDefault();
   var icon = $(this).siblings(".icon-fav");
-  var foodName = this.innerHTML;
+  var foodName = $(this).text();
   if(icon.toggleClass("unfav").hasClass("unfav")){
-    console.log("Dislike", foodName);
+    if(cd.verbose) console.log("Dislike", foodName);
     removeFavFood(foodName);
   }else{
-    console.log("Likes", foodName);
+    if(cd.verbose) console.log("Likes", foodName);
     addFavFood(foodName);
   }
 });
 
+//Remove favorite food function on Fav page
 $('body').on(cd.touchEvent, '.ux-remove-fav-food', function() {
-  var foodName;
-  console.log("removing", foodName = $(this).siblings(".ux-food-name").text());
+  var foodName = $(this).siblings(".ux-food-name").text();
+  if(cd.verbose) console.log("removing", foodName);
   $(this).parent().fadeOut();
   removeFavFood(foodName);
 });
@@ -736,7 +786,7 @@ $('body').on(cd.touchEvent, '#diner .show-menu', function() {
 
   var favFoodSet = getFavFoodArr();
   $.each(favFoodSet, function(i, favFood){
-    $.each($('.food-item-name'), function(j, item){
+    $.each($('.ux-food-name'), function(j, item){
       if(item.innerHTML=== favFood){
         $(item).siblings('div.icon-fav').removeClass('unfav');
       }
@@ -871,11 +921,12 @@ $(document).on('pageinit', '#connectScreen', function() {
       }, function(ret, res) {
         $("#popupDialog").popup();
         $("#popupDialog").popup("open");
-        console.log(form);
+        // console.log(form);
         $(form).find("input, select, textarea").val("");
         $(form).find(".ui-select .ui-btn-text").text("Select a Diner");
       }, function(ret, res){
         console.log("Failed to comment");
+        alert("Failed to upload the feedback. Please try again later");
       });
       return false;
     }
@@ -902,8 +953,6 @@ function setSearchResult(){
     $('#result h2').hide();
     $('#result .prompt').show();
   }
-  // delete cd.result;
-  console.log("removing");
   removeLoadingMask($('#result .list-container'));
 }
 
@@ -912,13 +961,6 @@ $(document).on('pageshow', '#result', function() {
   $('#result .keyword').text(cd.keyWord);
   addLoadingMask($('#result .list-container'));
   setSearchResult();
-});
-
-
-//bind events for page menu
-$(document).on('pageshow', '#menu', function() {
-  console.log("showing menu");
-
 });
 
 //set fav data
@@ -935,8 +977,6 @@ function setFavData(){
     $('#result h2').hide();
     $('#result .prompt').show();
   }
-  // delete cd.result;
-  console.log("removing");
   removeLoadingMask($('#result .list-container'));
 }
 
@@ -946,6 +986,3 @@ $(document).on('pageshow', '#fav-page', function() {
   addLoadingMask($('#result .list-container'));
   setFavData();
 });
-
-
-

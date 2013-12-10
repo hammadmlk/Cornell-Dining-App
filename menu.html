@@ -18,10 +18,10 @@
 	<div data-role="content"> 
 
 	<div data-role="none" class="menu" ux:data="data{menu}">
-		<h1 class="station" ux:data="data{menu.station}">station</h1>
+		<h1 class="station" ux:data="data{menu.station@html}">station</h1>
 		<div class="menu-item" ux:data="data{menu._foods}">
 			<div class="icon-fav unfav"></div>
-			<a class="ux-food-name food-item-name" ux:data="data{menu._foods._name}">Item Name</a>			
+			<a class="ux-food-name food-item-name" ux:data="data{menu._foods._name@html}">Item Name</a>			
 		</div>
 	</div>
       	
