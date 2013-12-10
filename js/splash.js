@@ -809,7 +809,7 @@ $('body').on(cd.touchEvent, '#diner .show-menu', function() {
   var favFoodSet = getFavFoodArr();
   $.each(favFoodSet, function(i, favFood){
     $.each($('.ux-food-name'), function(j, item){
-      if(item.innerHTML=== favFood){
+      if(item.innerText=== favFood){
         $(item).siblings('div.icon-fav').removeClass('unfav');
       }
     });
