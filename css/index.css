@@ -905,7 +905,7 @@ form[role="search"] .ui-focus{
   margin:0;
 }
 
-#home .prompt{
+#home .prompt, #fav-page .prompt{
   font-size: 28px;
   padding: 20px 25px;
 }

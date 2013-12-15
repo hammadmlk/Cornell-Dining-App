@@ -17,7 +17,9 @@
 
     <div data-role="content">
 		<h2 class="prompt">Finding your favourite foods...</h2>
-		<div class="starredFood" style="display:none;" ux:data="data{fav}">
+    <h2 class="prompt ux-no-fav-prompt">You haven't starred any food items yet. To receive information about where and when your favorite foods are served, click on your favorite foods on the menus. </p>
+    <div class="ux-starredFood-container">
+		<div class="starredFood" style="display:none" ux:data="data{fav}">
 		  <div class="heading">
 		    <h1 class="ux-food-name" ux:data="data{fav._food_name@html}"></h1>          
 		    <div class="removeBtn ux-remove-fav-food"> X </div>
@@ -31,6 +33,7 @@
 			</div>
 		  </div>
 		</div>
+    </div>
     </div><!-- /content -->
   </div><!-- /page -->
 </body>

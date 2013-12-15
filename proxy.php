@@ -163,7 +163,7 @@ echo '[
   
   $url = 'http://'.$url; // Avoid accessing the file system
   // echo $url;
-  // sleep(5);
+  // sleep(rand(1,3));
   echo file_get_contents($url);
   // echo preg_replace("/\/.*\ / ", "", file_get_contents($url));
 }

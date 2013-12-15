@@ -42,6 +42,9 @@ $(function() {
 
   function onDeviceReady() {
     navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: cd.GEO_TIME_OUT_INTERVAL});
+
+    document.addEventListener("pause", onPause, false);
+    document.addEventListener("resume", onResume, false);
   }
 
   function onSuccess(position) {
@@ -65,6 +68,19 @@ $(function() {
     // setTimeout(function(){
     //   navigator.geolocation.getCurrentPosition(onSuccess, onError, {timeout: cd.GEO_TIME_OUT_INTERVAL});
     // }, cd.GEO_TIME_OUT_INTERVAL);
+  }
+
+
+
+  function onPause(){
+    console.log("on Pasue");
+    if(cd.MapitTimer){
+      clearTimeout(cd.MapitTimer);
+    }
+  }
+
+  function onResume(){
+    console.log("on Resume");
   }
 
 });
@@ -597,15 +613,17 @@ $(document).on('pageinit', '#home', function() {
           diner_id : dinerId
         }
       }, function(ret) {
+
         var pNumber = ret.Contact.phone_number;
         ret.Contact._href="tel:"+pNumber;
         ret.Contact._phone_number= "("+pNumber.substring(0,3)+") "+pNumber.substring(3,6) + "-" + pNumber.substring(6); 
         ret._images = [];
         
-        //TODO: change cd.latitude and longitude to diner's geolocation
-        ret._mapitHref = (cd.isIOS)?("maps:saddr=Current+Location&daddr="+ ret.latitude + "," + ret.longitude):
-        ("http://maps.google.com/?saddr=Current+Location&daddr="+ ret.latitude + "," + ret.longitude);
-        // ("geo:"+ret.latitude+","+ret.longitude);
+        var saddr = cd.latitude+","+cd.longitude,
+        daddr = ret.latitude+","+ret.longitude;
+        ret._mapitHref = (cd.isIOS)?("maps:saddr="+saddr+"&daddr="+daddr):("geo:"+saddr+"?q="+daddr);
+        ret._backupMapitHref = "http://maps.apple.com/?saddr="+saddr+"&daddr="+ daddr;
+
         $.each(ret.images, function(i, url){
           ret._images.push({"_url":url});
         });
@@ -673,7 +691,8 @@ $('body').on(cd.touchEvent, '.ux-connect-icon', function() {
 
 //favorite food entrance
 $('body').on(cd.touchEvent, '#fav-icon', function() {
-  addLoadingMask($('#fav-page .list-container'));  
+  $(".ux-no-fav-prompt").hide();
+  addLoadingMask($('#fav-page .ux-starredFood-container'));  
   sendRequest({
     "uri": "get_favorite.json",
     "method": "GET",
@@ -709,8 +728,10 @@ $('body').on(cd.touchEvent, '#fav-icon', function() {
     $('#fav-page [ux\\:data^="data{fav"]').setData({
       fav: favArr
     });
-
-    removeLoadingMask($('#fav-page .list-container'));
+    if(favArr.length === 0 ){
+      $(".ux-no-fav-prompt").show();
+    }
+    removeLoadingMask($('#fav-page .ux-starredFood-container'));
   });
 
   $.mobile.changePage("fav.html", {
@@ -770,6 +791,19 @@ $('body').on(cd.touchEvent, '.ux-remove-fav-food', function() {
   $(this).parent().parent().fadeOut();
   removeFavFood(foodName);
 });
+
+$('body').on(cd.touchEvent, '.ux-mapit', function() {
+  var backupMapitHref = $(this).attr('ux-backup-mapit-href');
+  if(cd.verbose) console.log("mapit", backupMapitHref);
+  if(cd.isIOS) return;
+  
+  //fall back for non-iOS platforms
+  cd.MapitTimer = setTimeout(function(){
+    window.open(backupMapitHref, "_blank");
+  }, 800);
+  return true;
+});
+
 
 $('body').on(cd.touchEvent, '.campus-section-header-container', function() {
   if (cd.verbose) console.log('campus section header taped');
