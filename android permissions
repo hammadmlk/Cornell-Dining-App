@@ -1,0 +1,6 @@
+The following permissions are necessary for the geolocation when building for Android for the first time. 
+To grant the permissions:
+After first build, manually append the following permissions to platforms/android/AndroidManifest.xml
+
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
