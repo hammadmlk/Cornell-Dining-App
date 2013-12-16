@@ -446,7 +446,7 @@ $(document).on('pageinit', '#home', function() {
         position: new google.maps.LatLng(cd.latitude, cd.longitude),
         title: 'Current Location',
         map: map,
-        icon: 'img/iter1/google-maps-pin-blue-th.png'
+        icon: 'img/google-maps-pin-blue-th.png'
       });
       map.bounds.extend(new google.maps.LatLng(cd.latitude, cd.longitude));
 

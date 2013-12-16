@@ -215,7 +215,7 @@ h1.ui-title{
 #listall-icon{
   display: inline-block;
   width: 100px;
-  background: url('../img/iter1/homepage_nav_icons_active.png') 0px center no-repeat;
+  background: url('../img/homepage_nav_icons_active.png') 0px center no-repeat;
   background-size: 300%;
   xborder-right: 4px solid black;
 }
@@ -223,14 +223,14 @@ h1.ui-title{
 #icons #fav-icon{
   display: inline-block;
   width: 100px;
-  background: url('../img/iter1/homepage_nav_icons_active.png') -100px center no-repeat;
+  background: url('../img/homepage_nav_icons_active.png') -100px center no-repeat;
   background-size: 300%;
   xborder-right: 4px solid black;
 }
 #connect-icon{
   display: inline-block;
   width: 100px;
-  background: url('../img/iter1/homepage_nav_icons_active.png') -204px center no-repeat;
+  background: url('../img/homepage_nav_icons_active.png') -204px center no-repeat;
   background-size: 300%;
 }
 
@@ -301,7 +301,7 @@ line-height: 33px;
   x-webkit-box-shadow: 0 0 8px #444;
   xbox-shadow: 0 0 8px #444;
   xpadding-left: 15px;
-  /*background: url('../img/iter1/fdj.png') center right no-repeat;*/
+  /*background: url('../img/fdj.png') center right no-repeat;*/
 }
 #search-bar input{
   height:45px;
@@ -312,7 +312,7 @@ line-height: 33px;
   font-family: Agency_FB;
 }
 #search-bar #fdj-container{
-  background: url('../img/iter1/fdj.png') right center no-repeat;
+  background: url('../img/fdj.png') right center no-repeat;
   height: 100%;
   width: 20%;
   position: absolute;
@@ -681,7 +681,7 @@ line-height: 33px;
 }
 
 #all .contractor{
-  background: url("../img/iter1/arrow-up.png") no-repeat center center;
+  background: url("../img/arrow-up.png") no-repeat center center;
   content: '';
   display: block;
   height: 16px;
@@ -844,11 +844,11 @@ line-height: 33px;
   float: right;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  background-image: url("../img/iter1/star.png"); 
+  background-image: url("../img/star.png"); 
 }
 
 .menu-item .icon-fav.unfav{  
-  background-image: url("../img/iter1/star_grey.png");
+  background-image: url("../img/star_grey.png");
 }
 
 .keyword{
